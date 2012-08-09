@@ -1,0 +1,32 @@
+/**
+ * CSS File for ezMark jQuery Plugin
+ *
+ **/
+ .ez-checkbox,.ez-radio{
+	 cursor:pointer;
+	 width:15px;
+ }
+.ez-hide { opacity: 0; filter:alpha(opacity=0);}
+.ez-checkbox {
+	background: transparent url('../images/checkbox-red.png') 0 1px no-repeat;
+	display:inline-block;
+}
+.ez-radio {
+	background: transparent url('../images/radio-black.png') 0 1px no-repeat;
+	display:inline-block;
+}
+.ez-checked { background-position: 0 -18px; }
+.ez-selected { background-position: 0 -19px; }
+.ez-checkbox-green {
+	background: transparent url('../images/checkbox-green.png') 0 1px no-repeat;
+	display:inline-block;
+	*display: inline;
+}
+.ez-checked-green { background-position: 0 -18px; }
+.ez-checkbox, .ez-radio { zoom: 1; *display:inline; _height:30px; }
+
+/* A Custom iPhone style icon added **/
+.ez-checkbox-iphone { background: transparent url('../images/checkbox-iphone.png') -42px 0 no-repeat; display: inline-block; cursor:pointer; width:81px;height:27px;}
+.ez-checked-iphone { background-position: 0 0; width:81px}
+.ez-checkbox-iphone .ez-hide { width: 74px; height: 27px; cursor:pointer; }
+.ez-checkbox-iphone { zoom: 1; *display:inline; _height:27px;} /* ie6 fix */ 

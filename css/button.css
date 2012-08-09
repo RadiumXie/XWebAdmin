@@ -1,0 +1,315 @@
+input[type=submit],input[type=reset],input[type=button]{
+border:none;
+}
+.button, .button:visited{
+background:#222 url(overlay.png) repeat-x;
+display:inline-block;
+padding:5px 10px 6px;
+color:#fff;
+text-decoration:none;
+/*border-radius*/
+-webkit-border-radius:6px;
+   -moz-border-radius:6px;
+        border-radius:6px;
+/*box-shadow*/
+-webkit-box-shadow:0 1px 3px rgba(0,0,0,0.6);
+   -moz-box-shadow:0 1px 3px rgba(0,0,0,0.6);
+        box-shadow:0 1px 3px rgba(0,0,0,0.6);
+text-shadow:0 -1px 1px rgba(0,0,0,0.25);
+border-bottom:1px solid rgba(0,0,0,0.25);
+position:relative;
+cursor:pointer;
+}
+.button:hover{
+background-color:#111;
+color:#fff;
+/*animation-duration*/
+-webkit-animation-duration:2s;
+   -moz-animation-duration:2s;
+    -ms-animation-duration:2s;
+     -o-animation-duration:2s;
+        animation-duration:2s;
+/*animation-timing-function*/
+-webkit-animation-timing-function:ease-out;
+   -moz-animation-timing-function:ease-out;
+    -ms-animation-timing-function:ease-out;
+     -o-animation-timing-function:ease-out;
+        animation-timing-function:ease-out;
+/*animation-iteration-count*/
+-webkit-animation-iteration-count:infinite;
+   -moz-animation-iteration-count:infinite;
+    -ms-animation-iteration-count:infinite;
+     -o-animation-iteration-count:infinite;
+        animation-iteration-count:infinite;
+}
+.button:active{
+top:1px;
+}
+input.button,a.button{
+margin:2px;
+}
+.small.button, .small.button:visited{
+font-size:11px;
+}
+.button, .button:visited,  .medium.button, .medium.button:visited{
+font-size:13px;
+font-weight:bold;
+line-height:1;
+text-shadow:0 -1px 1px rgba(0,0,0,0.25);
+}
+.large.button, .large.button:visited{
+font-size:14px;
+padding:8px 14px 9px;
+}
+.super.button, .super.button:visited{
+font-size:34px;
+padding:8px 14px 9px;
+}
+/*定义动画*/
+@-webkit-keyframes greenPulse{
+from { background-color:#91bd09;
+/*box-shadow*/
+-webkit-box-shadow:0 0 9px #333;
+   -moz-box-shadow:0 0 9px #333;
+        box-shadow:0 0 9px #333;
+}
+50%{
+background-color:#B4E02C;
+/*box-shadow*/
+-webkit-box-shadow:0 0 18px #91bd09;
+   -moz-box-shadow:0 0 18px #91bd09;
+        box-shadow:0 0 18px #91bd09;
+}
+to{
+background-color:#91bd09;
+/*box-shadow*/
+-webkit-box-shadow:0 0 9px #333;
+   -moz-box-shadow:0 0 9px #333;
+        box-shadow:0 0 9px #333;
+}
+}
+
+@-webkit-keyframes bluePulse{
+from { background-color:#007d9a;
+/*box-shadow*/
+-webkit-box-shadow:0 0 9px #333;
+   -moz-box-shadow:0 0 9px #333;
+        box-shadow:0 0 9px #333;
+}
+50%{
+background-color:#2daebf;
+/*box-shadow*/
+-webkit-box-shadow:0 0 18px #007d9a;
+   -moz-box-shadow:0 0 18px #007d9a;
+        box-shadow:0 0 18px #007d9a;
+}
+to{
+background-color:#007d9a;
+/*box-shadow*/
+-webkit-box-shadow:0 0 9px #333;
+   -moz-box-shadow:0 0 9px #333;
+        box-shadow:0 0 9px #333;
+}
+from{
+background-color:#007d9a;
+/*box-shadow*/
+-webkit-box-shadow:0 0 9px #333;
+   -moz-box-shadow:0 0 9px #333;
+        box-shadow:0 0 9px #333;
+}
+50%{
+background-color:#2daebf;
+/*box-shadow*/
+-webkit-box-shadow:0 0 18px #007d9a;
+   -moz-box-shadow:0 0 18px #007d9a;
+        box-shadow:0 0 18px #007d9a;
+}
+to{
+background-color:#007d9a;
+/*box-shadow*/
+-webkit-box-shadow:0 0 9px #333;
+   -moz-box-shadow:0 0 9px #333;
+        box-shadow:0 0 9px #333;
+}
+from{
+background-color:#007d9a;
+/*box-shadow*/
+-webkit-box-shadow:0 0 9px #333;
+   -moz-box-shadow:0 0 9px #333;
+        box-shadow:0 0 9px #333;
+}
+50%{
+background-color:#2daebf;
+/*box-shadow*/
+-webkit-box-shadow:0 0 18px #007d9a;
+   -moz-box-shadow:0 0 18px #007d9a;
+        box-shadow:0 0 18px #007d9a;
+}
+to{
+background-color:#007d9a;
+/*box-shadow*/
+-webkit-box-shadow:0 0 9px #333;
+   -moz-box-shadow:0 0 9px #333;
+        box-shadow:0 0 9px #333;
+}
+}
+
+@-webkit-keyframes redPulse{
+from { background-color:#CF2525;
+/*box-shadow*/
+-webkit-box-shadow:0 0 9px #333;
+   -moz-box-shadow:0 0 9px #333;
+        box-shadow:0 0 9px #333;
+}
+50%{
+background-color:#e62727;
+/*box-shadow*/
+-webkit-box-shadow:0 0 18px #e33100;
+   -moz-box-shadow:0 0 18px #e33100;
+        box-shadow:0 0 18px #e33100;
+}
+to{
+background-color:#CF2525;
+/*box-shadow*/
+-webkit-box-shadow:0 0 9px #333;
+   -moz-box-shadow:0 0 9px #333;
+        box-shadow:0 0 9px #333;
+}
+}
+
+@-webkit-keyframes magentaPulse{
+from { background-color:#a9014b;
+/*box-shadow*/
+-webkit-box-shadow:0 0 9px #333;
+   -moz-box-shadow:0 0 9px #333;
+        box-shadow:0 0 9px #333;
+}
+50%{
+background-color:#D63479;
+/*box-shadow*/
+-webkit-box-shadow:0 0 18px #a9014b;
+   -moz-box-shadow:0 0 18px #a9014b;
+        box-shadow:0 0 18px #a9014b;
+}
+to{
+background-color:#a9014b;
+/*box-shadow*/
+-webkit-box-shadow:0 0 9px #333;
+   -moz-box-shadow:0 0 9px #333;
+        box-shadow:0 0 9px #333;
+}
+}
+
+@-webkit-keyframes orangePulse{
+from { background-color:#d45500;
+/*box-shadow*/
+-webkit-box-shadow:0 0 9px #333;
+   -moz-box-shadow:0 0 9px #333;
+        box-shadow:0 0 9px #333;
+}
+50%{
+background-color:#ff5c00;
+/*box-shadow*/
+-webkit-box-shadow:0 0 18px #d45500;
+   -moz-box-shadow:0 0 18px #d45500;
+        box-shadow:0 0 18px #d45500;
+}
+to{
+background-color:#d45500;
+/*box-shadow*/
+-webkit-box-shadow:0 0 9px #333;
+   -moz-box-shadow:0 0 9px #333;
+        box-shadow:0 0 9px #333;
+}
+}
+
+@-webkit-keyframes yellowPulse{
+from { background-color:#FC9200;
+/*box-shadow*/
+-webkit-box-shadow:0 0 9px #333;
+   -moz-box-shadow:0 0 9px #333;
+        box-shadow:0 0 9px #333;
+}
+50%{
+background-color:#ffb515;
+/*box-shadow*/
+-webkit-box-shadow:0 0 18px #FC9200;
+   -moz-box-shadow:0 0 18px #FC9200;
+        box-shadow:0 0 18px #FC9200;
+}
+to{
+background-color:#FC9200;
+/*box-shadow*/
+-webkit-box-shadow:0 0 9px #333;
+   -moz-box-shadow:0 0 9px #333;
+        box-shadow:0 0 9px #333;
+}
+}
+
+
+.magenta.button, .magenta.button:visited{
+background-color:#a9014b;
+}
+.magenta.button:hover{
+/*animation-name*/
+-webkit-animation-name:magentaPulse;
+   -moz-animation-name:magentaPulse;
+    -ms-animation-name:magentaPulse;
+     -o-animation-name:magentaPulse;
+        animation-name:magentaPulse;
+}
+.green.button, .green.button:visited{
+background-color:#91bd09;
+}
+.green.button:hover{
+/*animation-name*/
+-webkit-animation-name:greenPulse;
+   -moz-animation-name:greenPulse;
+    -ms-animation-name:greenPulse;
+     -o-animation-name:greenPulse;
+        animation-name:greenPulse;
+}
+.red.button, .red.button:visited{
+background-color:#CF2525;
+}
+.red.button:hover{
+/*animation-name*/
+-webkit-animation-name:redPulse;
+   -moz-animation-name:redPulse;
+    -ms-animation-name:redPulse;
+     -o-animation-name:redPulse;
+        animation-name:redPulse;
+}
+.orange.button, .orange.button:visited{
+background-color:#d45500;
+}
+.orange.button:hover{
+/*animation-name*/
+-webkit-animation-name:orangePulse;
+   -moz-animation-name:orangePulse;
+    -ms-animation-name:orangePulse;
+     -o-animation-name:orangePulse;
+        animation-name:orangePulse;
+}
+.blue.button, .blue.button:visited{
+background-color:#007d9a;
+}
+.blue.button:hover{
+/*animation-name*/
+-webkit-animation-name:bluePulse;
+   -moz-animation-name:bluePulse;
+    -ms-animation-name:bluePulse;
+     -o-animation-name:bluePulse;
+        animation-name:bluePulse;
+}
+.yellow.button, .yellow.button:visited{
+background-color:#FC9200;
+}
+.yellow.button:hover{
+/*animation-name*/
+-webkit-animation-name:yellowPulse;
+   -moz-animation-name:yellowPulse;
+    -ms-animation-name:yellowPulse;
+     -o-animation-name:yellowPulse;
+        animation-name:yellowPulse;
+}
