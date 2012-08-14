@@ -20,7 +20,7 @@
 		//载入数据时，禁止表格所有操作。
 		loadui:'block',
 		//获取数据的方式 GET/POST,为了使查询正常提交中文,提交方式为post
-		mtype:'GET',
+		mtype:'POST',
 		//请求数据的地址
 		url:'#', 
 		//数据格式
