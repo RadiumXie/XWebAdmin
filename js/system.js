@@ -47,4 +47,11 @@ jQuery(function(){
 	}catch(error){console.error(error)}
 	
 	
+	//显示隐藏按钮
+	$('article.module > header > a.headerCloseButton').hover(function(){
+		$(this).addClass('ui-state-hover');
+	},function(){
+		$(this).removeClass('ui-state-hover');
+	});
+	
 });

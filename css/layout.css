@@ -412,7 +412,7 @@ margin-top: 20%;
 section#main {
 background: url(../images/sidebar_shadow.png) repeat-y left top;
 margin-top: -2px;
-padding: 10px 3%;
+padding: 10px 20px;
 }
 
 #main h3 {
@@ -451,6 +451,7 @@ background: #F1F1F4 url(../images/secondary_bar.png) repeat-x;
 -webkit-border-top-left-radius: 5px; -webkit-border-top-right-radius: 5px;
 -moz-border-radius-topleft: 5px; -moz-border-radius-topright: 5px;
 border-top-left-radius: 5px; border-top-right-radius: 5px;
+position: relative;
 }
 
 .module footer {
@@ -1075,4 +1076,19 @@ form label.error{
 	text-shadow: 0 1px 0 white;
 	font-size: 13px;
 	margin: 6px 20px;
+}
+
+/*左侧module下的头部的隐藏/显示按钮*/
+article.module > header > a.headerCloseButton{
+	position: absolute;
+	top: 50%;
+	right: 0px;
+	width: 19px;
+	margin: -10px 0 0 0;
+	padding: 1px;
+	height: 18px;
+}
+article.module > header > a.headerCloseButton > span{
+	display: block;
+	margin: 1px;
 }
