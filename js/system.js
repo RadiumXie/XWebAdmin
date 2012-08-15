@@ -54,4 +54,18 @@ jQuery(function(){
 		$(this).removeClass('ui-state-hover');
 	});
 	
+	$('article.module > header > a.headerCloseButton').toggle(function(){
+			$(this).parent('header').next().transition({
+				height: '0',
+				margin:'0',
+				overflow:'hidden',
+				opacity: 0
+			});
+		},function(){
+			$(this).parent('header').next().transition({
+				height: 'auto',
+				margin:'10px 20px',
+				opacity: 1
+			});
+	});
 });
