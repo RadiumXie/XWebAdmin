@@ -189,3 +189,11 @@ td.datepickerSpecial a {
 td.datepickerSpecial.datepickerSelected a {
 	background: #a00;
 }
+
+/*由于中文字体的原因，星期未能对齐，手动调整*/
+div.datepicker div.datepickerContainer table.datepickerViewDays thead tr.datepickerDoW th span.weekName{
+	padding-left:0;
+}
+div.datepicker div.datepickerContainer table.datepickerViewDays thead tr.datepickerDoW th span{
+	padding-left:10px;
+}

@@ -47,13 +47,12 @@ jQuery(function(){
 	}catch(error){console.error(error)}
 	
 	
-	//显示隐藏按钮
+	//搜索框的显示和隐藏
 	$('article.module > header > a.headerCloseButton').hover(function(){
 		$(this).addClass('ui-state-hover');
 	},function(){
 		$(this).removeClass('ui-state-hover');
 	});
-	
 	$('article.module > header > a.headerCloseButton').toggle(function(){
 			$(this).parent('header').next().transition({
 				height: '0',
@@ -68,4 +67,21 @@ jQuery(function(){
 				opacity: 1
 			});
 	});
+	
+	//日期控件
+	try{
+		$('input.DatePicker').DatePicker({
+			date: $(this).val(),
+			current: $(this).val(),
+			starts: 1,
+			position: 'r',
+			onBeforeShow: function(){
+				//$(this).DatePickerSetDate($(this).val(), true);
+			},
+			onChange: function(formated, dates,element){
+				$(element).val(formated);
+				//$(element).DatePickerHide();
+			}	
+		});
+	}catch(error){console.error(error)}
 });

@@ -26,7 +26,7 @@
 								'<th class="datepickerGoNext"><a href="#"><span><%=next%></span></a></th>',
 							'</tr>',
 							'<tr class="datepickerDoW">',
-								'<th><span><%=week%></span></th>',
+								'<th><span class="weekName"><%=week%></span></th>',
 								'<th><span><%=day1%></span></th>',
 								'<th><span><%=day2%></span></th>',
 								'<th><span><%=day3%></span></th>',
@@ -144,12 +144,12 @@
 				onBeforeShow: function(){return true;},
 				onHide: function(){return true;},
 				locale: {
-					days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-					daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-					daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
-					months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-					monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-					weekMin: 'wk'
+					days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
+					daysShort: ["日", "一", "二", "三", "四", "五", "六", "日"],
+					daysMin: ["日", "一", "二", "三", "四", "五", "六", "七"],
+					months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+					monthsShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+					weekMin: '星期'
 				}
 			},
 			fill = function(el) {
