@@ -2,10 +2,10 @@ input[type=submit],input[type=reset],input[type=button]{
 border:none;
 }
 .button, .button:visited{
-background:#222 url(overlay.png) repeat-x;
+background:#FAFAFA url(overlay.png) repeat-x;
 display:inline-block;
 padding:5px 10px 6px;
-color:#fff;
+color:#272727;
 text-decoration:none;
 /*border-radius*/
 -webkit-border-radius:6px;
@@ -15,14 +15,13 @@ text-decoration:none;
 -webkit-box-shadow:0 1px 3px rgba(0,0,0,0.6);
    -moz-box-shadow:0 1px 3px rgba(0,0,0,0.6);
         box-shadow:0 1px 3px rgba(0,0,0,0.6);
-text-shadow:0 -1px 1px rgba(0,0,0,0.25);
+text-shadow:0 1px white;
 border-bottom:1px solid rgba(0,0,0,0.25);
 position:relative;
 cursor:pointer;
 }
 .button:hover{
-background-color:#111;
-color:#fff;
+background-color:#DFDFDF;
 /*animation-duration*/
 -webkit-animation-duration:2s;
    -moz-animation-duration:2s;
@@ -48,22 +47,47 @@ top:1px;
 input.button,a.button{
 margin:2px;
 }
-.small.button, .small.button:visited{
-font-size:11px;
-}
-.button, .button:visited,  .medium.button, .medium.button:visited{
-font-size:13px;
+.button, .button:visited{
 font-weight:bold;
 line-height:1;
 text-shadow:0 -1px 1px rgba(0,0,0,0.25);
 }
+.small.button, .small.button:visited{
+font-size:10px;
+padding:4px 6px;
+-webkit-background-size: 100% 20px; 
+-moz-background-size: 100% 20px;
+-ms-background-size: 100% 20px;
+-o-background-size: 100% 20px;
+background-size: 100% 20px;
+}
+.medium.button, .medium.button:visited{
+font-size:13px;
+-webkit-background-size: 100% 24px; 
+-moz-background-size: 100% 24px;
+-ms-background-size: 100% 24px;
+-o-background-size: 100% 24px;
+background-size: 100% 24px;
+}
 .large.button, .large.button:visited{
 font-size:14px;
 padding:8px 14px 9px;
+
+-webkit-background-size: 100% 31px; 
+-moz-background-size: 100% 31px;
+-ms-background-size: 100% 31px;
+-o-background-size: 100% 31px;
+background-size: 100% 31px;
 }
 .super.button, .super.button:visited{
-font-size:34px;
+font-size:32px;
 padding:8px 14px 9px;
+
+-webkit-background-size: 100% 49px; 
+-moz-background-size: 100% 49px;
+-ms-background-size: 100% 49px;
+-o-background-size: 100% 49px;
+background-size: 100% 49px;
 }
 /*定义动画*/
 @-webkit-keyframes greenPulse{
@@ -249,6 +273,7 @@ background-color:#FC9200;
 
 .magenta.button, .magenta.button:visited{
 background-color:#a9014b;
+color:#fff;
 }
 .magenta.button:hover{
 /*animation-name*/
@@ -260,6 +285,7 @@ background-color:#a9014b;
 }
 .green.button, .green.button:visited{
 background-color:#91bd09;
+color:#fff;
 }
 .green.button:hover{
 /*animation-name*/
@@ -271,6 +297,7 @@ background-color:#91bd09;
 }
 .red.button, .red.button:visited{
 background-color:#CF2525;
+color:#fff;
 }
 .red.button:hover{
 /*animation-name*/
@@ -282,6 +309,7 @@ background-color:#CF2525;
 }
 .orange.button, .orange.button:visited{
 background-color:#d45500;
+color:#fff;
 }
 .orange.button:hover{
 /*animation-name*/
@@ -292,7 +320,8 @@ background-color:#d45500;
         animation-name:orangePulse;
 }
 .blue.button, .blue.button:visited{
-background-color:#007d9a;
+background-color:#53A9E8;
+color:#fff;
 }
 .blue.button:hover{
 /*animation-name*/
@@ -304,6 +333,7 @@ background-color:#007d9a;
 }
 .yellow.button, .yellow.button:visited{
 background-color:#FC9200;
+color:#fff;
 }
 .yellow.button:hover{
 /*animation-name*/
