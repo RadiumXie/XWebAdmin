@@ -1,4 +1,6 @@
 jQuery(function(){
+	//控制列高
+	$('.column').equalHeight();
 	//显示隐藏菜单
 	var showText='显示';
 	var hideText='隐藏';
@@ -44,7 +46,7 @@ jQuery(function(){
 	
 	try{
 		$('.wisdomForm').wisdomForm();
-	}catch(error){console.error(error)}
+	}catch(error){}
 	
 	
 	//搜索框的显示和隐藏
@@ -83,5 +85,5 @@ jQuery(function(){
 				//$(element).DatePickerHide();
 			}	
 		});
-	}catch(error){console.error(error)}
+	}catch(error){}
 });

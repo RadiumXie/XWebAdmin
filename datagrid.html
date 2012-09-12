@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="js/zebra-dialog/css/zebra_dialog.css" type="text/css" />
     <link href="css/button.css" rel="stylesheet" type="text/css">
     
-    <!-- 语法高亮 -->
-    <link rel='stylesheet' type='text/css' href='http://www.osctools.net/js/syntaxhighlighter_3.0.83/styles/shCoreDefault.css'/>
+    <!--[if IE]>
+   <script src="js/html5.js"></script>
+<![endif]-->
     
   	<script src="js/jquery-1.7.2.min.js" ></script>
     <script src="js/lib/jquery.transit.min.js"></script>
@@ -104,8 +105,10 @@
         </aside><!-- end of sidebar -->
         
         <section id="main" class="column">
-        	<div class="datatable"></div>
-            <div id="page"></div>
+        	<article class="module width_full" style="border:0;">
+                <div class="datatable"></div>
+                <div id="page"></div>
+            </article>
         </section>
     </div>
 </body>

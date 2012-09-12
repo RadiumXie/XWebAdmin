@@ -28,15 +28,6 @@
 
 	/* 构造函数方法-private */
 	var create = function() {
-		//美化表单
-		try{
-			// to apply only to checkbox use:
-			$('input[type="checkbox"]:not(".switch")').ezMark();
-			// for only radio buttons:
-			$('input[type="radio"]:not(".switch")').ezMark();
-			$('input.switch').ezMark({checkboxCls:'ez-checkbox-iphone', checkedCls: 'ez-checked-iphone'});
-		}catch(error){alert(error)}
-		
 		//表单验证
 		try{
 			$(this.element).validate({
