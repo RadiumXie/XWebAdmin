@@ -30,11 +30,14 @@
 				'title':    '确认',
 				'overlay_opacity':	0.8,
 				'onClose':	function(data){
-					console.debug(data);
 					if(data == 'Yes'){
-						affirmativeCallback();
+						if($.isFunction(affirmativeCallback)){
+							affirmativeCallback();
+						}
 					}else if(data == 'No'){
-						negativeCallback();
+						if($.isFunction(negativeCallback)){
+							negativeCallback();
+						}
 					}
 				}
 			});
