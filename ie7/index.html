@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="cn">
+  <head>
+    <meta charset="utf-8">
+    <title>Wisdom后台管理页面</title>
+    <meta name="description" content="">
+    <meta name="author" content="Radium">
+	<link rel="stylesheet/less" href="less/bootstrap.less">
+    <link href="css/wisdom.css" rel="stylesheet/less" type="text/css">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="js/html5.js"></script>
+    <![endif]-->
+    <!--[if IE 6]>
+        <link href="ie6.min.css" rel="stylesheet">
+    <![endif]-->
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/less-1.3.0.min.js"></script>
+    <link rel="shortcut icon" href="img/favicon.ico">
+    
+    <script>
+		$(function(){
+			$(document).scroll(function(){
+				if($(document).scrollTop()>10){
+					$('#lists').css({'position':'fixed','marginTop':'50px'});
+					//$('#breadcrumbs_container').css({'position':'fixed','marginTop':'-8px'});
+				}else{
+					$('#lists').css({'position':'relative','marginTop':'0'});
+					//$('#breadcrumbs_container').css({'position':'static','marginTop':'0'});
+				}
+			});
+		});
+	</script>
+  </head>
+
+  <body>
+  	<header id="header" class="navbar navbar-fixed-top">
+    	<hgroup class="navbar-inner">
+        	<div class="container">
+              <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </a>
+              <a class="brand" href="#"><img src="img/logo.png" width="32" height="32" alt="logo" />WisdomWebAdmin</a>
+              <div class="nav-collapse">
+                <p class="navbar-text pull-right"><strong>管理员</strong>已登录|<a href="#">退出</a></p>
+              </div><!--/.nav-collapse -->
+            </div>
+        </hgroup>
+    </header>
+
+    <div class="container">
+    	<div class="clearfix">
+        	<div class="app">
+            	<div class="row">
+                    <div class="span3" id="sidebar">
+                          <ul id="lists" class="unstyled" style="position: relative;">
+                            <li><a href="/feed"><i class="icon-glass"></i>首页</a></li>
+                            <li><a href="/feed"><i class="icon-glass"></i>首页</a></li>
+                            <li><a href="/feed"><i class="icon-glass"></i>首页</a></li>
+                            <li class="list-header"><a href="/feed"><i class="icon-glass"></i>首页</a></li>
+                            <li><a href="/feed"><i class="icon-glass"></i>首页</a></li>
+                            <li><a href="/feed"><i class="icon-glass"></i>首页</a></li>
+                            <li><a href="/feed"><i class="icon-glass"></i>首页</a></li>
+                            <li><a href="/feed"><i class="icon-glass"></i>首页</a></li>
+                            <li class="list-header"><a href="/feed"><i class="icon-glass"></i>首页</a></li>
+                            <li><a href="/feed"><i class="icon-glass"></i>首页</a></li>
+                            <li><a href="/feed"><i class="icon-glass"></i>首页</a></li>
+                            <li><a class="btn">Button</a></li>
+                        </ul>
+                    </div>
+                    <div class="span9 main">
+                    	<section id="main">
+                        	<header class="breadcrumbs_container" id="breadcrumbs_container">
+                            	<article class="breadcrumbs">
+                                	<a href="#">首页</a>
+                                    <div class="breadcrumb_divider"></div>
+                                    <a href="#">一级</a>
+                                    <div class="breadcrumb_divider"></div>
+                                    <a class="current">二级</a></article>
+                                </article>
+                            </header>
+                            <article>
+                            	<form class="form-horizontal">
+                                  <fieldset>
+                                    <legend>完善资料</legend>
+                                    <div class="control-group">
+                                      <label class="control-label" for="input01">您的尊姓大名</label>
+                                      <div class="controls">
+                                        <input type="text" class="input-xlarge" id="input01">
+                                        <p class="help-block">字母，数字，汉字皆可</p>
+                                      </div>
+                                    </div>
+                                    <div class="control-group">
+                                      <label class="control-label" for="input01">您的twitter网址</label>
+                                      <div class="controls">
+                                        <input type="text" class="input-xlarge" id="input01">
+                                        <p class="help-block">请输入您的twitter网址，以便我们收录</p>
+                                      </div>
+                                    </div>
+                                  </fieldset>
+                                </form>
+                                <hr/>
+                                <form class="form-horizontal" _lpchecked="1">
+        <fieldset>
+          <legend>表单控件状态</legend>
+          <div class="control-group">
+            <label class="control-label" for="focusedInput">已获得焦点的输入框</label>
+            <div class="controls">
+              <input class="input-xlarge focused" id="focusedInput" type="text" value="已获得焦点">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">不可编辑的输入框</label>
+            <div class="controls">
+              <span class="input-xlarge uneditable-input">不可编辑，只读</span>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="disabledInput">被禁用的输入框</label>
+            <div class="controls">
+              <input class="input-xlarge disabled" id="disabledInput" type="text" placeholder="输入框被禁用" disabled="">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="optionsCheckbox2">被禁用的复选框</label>
+            <div class="controls">
+              <label class="checkbox">
+                <input type="checkbox" id="optionsCheckbox2" value="option1" disabled="">
+                被禁用
+              </label>
+            </div>
+          </div>
+          <div class="control-group warning">
+            <label class="control-label" for="inputWarning">Warning状态的输入框</label>
+            <div class="controls">
+              <input type="text" id="inputWarning">
+              <span class="help-inline">警告信息</span>
+            </div>
+          </div>
+          <div class="control-group error">
+            <label class="control-label" for="inputError">Error状态的输入框</label>
+            <div class="controls">
+              <input type="text" id="inputError">
+              <span class="help-inline">错误信息</span>
+            </div>
+          </div>
+          <div class="control-group success">
+            <label class="control-label" for="inputSuccess">Success状态的输入框</label>
+            <div class="controls">
+              <input type="text" id="inputSuccess">
+              <span class="help-inline">耶！</span>
+            </div>
+          </div>
+          <div class="control-group success">
+            <label class="control-label" for="selectError">Success状态的下拉框</label>
+            <div class="controls">
+              <select id="selectError">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+              <span class="help-inline">耶！</span>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">保存更改</button>
+            <button class="btn">取消</button>
+          </div>
+        </fieldset>
+      </form>
+      <hr/>
+      <form class="form-horizontal">
+        <fieldset>
+          <legend>扩展表单控件</legend>
+          <div class="control-group">
+            <label class="control-label">栅格指定尺寸</label>
+            <div class="controls docs-input-sizes">
+              <input class="span1" type="text" placeholder=".span1">
+              <input class="span2" type="text" placeholder=".span2">
+              <input class="span3" type="text" placeholder=".span3">
+              <select class="span1">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+              <select class="span2">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+              <select class="span3">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+              <p class="help-block">
+		同样是使用 <code>.span*</code> 类来指定输入框大小
+	      </p>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">别名指定尺寸</label>
+            <div class="controls docs-input-sizes">
+              <input class="input-mini" type="text" placeholder=".input-mini">
+              <input class="input-small" type="text" placeholder=".input-small">
+              <input class="input-medium" type="text" placeholder=".input-medium">
+	      <input class="input-big" type="text" placeholder=".input-big">
+              <p class="help-block">
+		静态类指定的尺寸与栅格系统的尺寸并不匹配，且自适应响应式样式，只对几种控件有效(比如 <code>input</code> 和 <code>select</code>).
+	      </p>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="prependedInput">前置文本</label>
+            <div class="controls">
+              <div class="input-prepend">
+                <span class="add-on">@</span><input class="span2" id="prependedInput" size="16" type="text">
+              </div>
+              <p class="help-block">这里显示帮助信息</p>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="appendedInput">后置文本</label>
+            <div class="controls">
+              <div class="input-append">
+                <input class="span2" id="appendedInput" size="16" type="text"><span class="add-on">.00</span>
+              </div>
+              <span class="help-inline">这里显示帮助信息</span>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="appendedPrependedInput">前置+后置文本</label>
+            <div class="controls">
+              <div class="input-prepend input-append">
+                <span class="add-on">$</span><input class="span2" id="appendedPrependedInput" size="16" type="text"><span class="add-on">.00</span>
+              </div>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="appendedPrependedInput">后置按钮</label>
+            <div class="controls">
+              <div class="input-append">
+                <input class="span2" id="appendedPrependedInput" size="16" type="text"><button class="btn" type="button">执行</button>
+              </div>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="inlineCheckboxes">行级复选框</label>
+            <div class="controls">
+              <label class="checkbox inline">
+                <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+              </label>
+              <label class="checkbox inline">
+                <input type="checkbox" id="inlineCheckbox2" value="option2"> 2
+              </label>
+              <label class="checkbox inline">
+                <input type="checkbox" id="inlineCheckbox3" value="option3"> 3
+              </label>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="optionsCheckboxList">多复选框</label>
+            <div class="controls">
+              <label class="checkbox">
+                <input type="checkbox" name="optionsCheckboxList1" value="option1">
+		第一个选项，最好给出将其做为首选的理由
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="optionsCheckboxList2" value="option2">
+		第二个选项，同样可选并包含在表单结果中
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="optionsCheckboxList3" value="option3">
+		第三个选项，同样可选并包含在表单结果中
+              </label>
+              <p class="help-block"><strong>注意</strong>
+		建议使用label标签将option选项包裹起来，这样可以提供更大的点击区域，提升表单可用性。
+	      </p>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">单选钮</label>
+            <div class="controls">
+              <label class="radio">
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+		第一个选项，最好给出将其做为首选的理由
+              </label>
+              <label class="radio">
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+		第二个选项，如果选译该选项就会取消第一个选项。
+              </label>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">提交更改</button>
+            <button class="btn">取消</button>
+          </div>
+        </fieldset>
+      </form>
+                            </article>
+                        </section>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <footer id="footer">
+            @ 沈阳东方般若信息技术有限公司
+        </footer>
+    </div>
+    <!-- /container -->
+  </body>
+</html>
