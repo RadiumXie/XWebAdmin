@@ -3,16 +3,11 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>基本表单演示</title>
-    <link rel="stylesheet/less" href="css/base.css" type="text/css" />
 	<link rel="stylesheet/less" href="css/layout.css" type="text/css" />
-    <link rel="stylesheet" href="css/grid.css" type="text/css" />
-    <link rel="stylesheet" href="js/zebra-dialog/css/zebra_dialog.css" type="text/css" />
-    <link href="css/button.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="js/bootstrap/bootstrap.css" type="text/css" />
     
 	<!--[if lt IE 9]><script src="js/html5.js"></script><![endif]-->
   	<script src="js/jquery-1.7.2.min.js" ></script>
-    <script src="js/lib/jquery.transit.min.js"></script>
-    <script src="js/zebra-dialog/zebra_dialog.min.js"></script>
     
     <script src="js/wisdom.plug-in.js"></script>
     <script src="js/system.js"></script>
@@ -25,11 +20,20 @@
     <link rel="stylesheet" href="/js/ueditor/themes/default/ueditor.css">
     
     <script type="text/javascript" src="js/validation/jquery.validate.min.js"></script>
-    
     <script type="text/javascript" src="js/wisdom.form.js" ></script>
-    
     <!-- bootstrap -->
     <script type="text/javascript" src="js/bootstrap/bootstrap.min.js" ></script>
+    
+    <script src="http://127.0.0.1:83/con/assets/js/f5.js"></script>
+    <script>
+	$(function(){
+		$('#modalkeyboardfalse').modal({
+			backdrop:true,
+			keyboard:true,
+			show:false
+		});
+	});
+	</script>
 </head>
 <body>
 	<header id="header">
@@ -37,9 +41,6 @@
 			<h1 class="site_title"><a href="index.html"><img alt="logo" src="images/logo.png" /></a></h1>
 			<h2 class="section_title">沈阳东方般若软件工程技术部</h2>
             <div class="btn_view_site">
-            <form class="quick_search" id="quick_search">
-                <input type="text" placeholder="快速搜索">
-            </form>
             </div>
 		</hgroup>
 	</header> <!-- end of header bar -->
@@ -47,7 +48,7 @@
 	<section id="secondary_bar">
 		<div class="user">
 			<p>Admin (<a href="#">3 条消息</a>)</p>
-			<a class="logout_user" href="#" title="Logout" onClick="$.confirm('确认要退出吗？',function(){window.location.href='/login.html'})">Logout</a>
+			<a class="logout_user" href="#modalkeyboardfalse" data-toggle="modal"  title="Logout">Logout</a>
 		</div>
 		<div class="breadcrumbs_container">
 			<article class="breadcrumbs"><a href="index.html">Wsidom WebAdmin</a> <div class="breadcrumb_divider"></div> <a class="current">基本表单</a></article>
@@ -89,98 +90,102 @@
         </aside><!-- end of sidebar -->
         
         <section id="main" class="column">
-        	<form class="wisdomForm">
         	<article class="module width_full">
-            	<header><h3>添加一个新对象</h3></header>
                 <div class="module_content">
-                    <fieldset>
-                        <legend>基本信息</legend>
-                        <ul class="formUl">
-                            <li>
-                                <label>姓名</label>
-                                <input type="text" autofocus placeholder="我会自动获得焦点" autocomplete="off" name="text1" >
-                                <small>autofocus自动获得焦点;autocomplete自动完成功能。</small>
-                            </li>
-                            <li>
-                                <label>可选列表</label>
-                                <input type="url" list="url_list" placeholder="可选列表" name="text2">
-                                <small>一个可选列表实现简单的自动提示功能。输入http试试看。</small>
-                                <datalist id="url_list">  
-                                    <option value="http://www.google.com" label="Google">  
-                                    <option value="http://www.baidu.com" label="Baidu">  
-                                </datalist>
-                            </li>
-                            <li>
-                                <label>长度限制</label>
-                                <input type="text" placeholder="长度不能大于10" maxlength="10" name="text3">
-                                <small>长度不能大于10</small>
-                            </li>
-                            <li>
-                            	<label>Select</label>
-                                <select name="select1">
-                                	<option>选项1</option>
-                                    <option>选项2</option>
-                                    <option>选项3</option>
-                                </select>
-                            </li>
-                            <li>
-                                <label>性别</label>
-                                <fieldset>
-                                    <label for="sex1" >男：</label><input type="radio" id="sex1" name="sex" class="required"/>
-                                    <label for="sex2" >女：</label><input type="radio" id="sex2" name="sex"/>
-                                </fieldset>
-                            </li>
-                            <li>
-                                <label>多选</label>
-                                <fieldset>
-                                    <label for="option1" >选项1：</label><input type="checkbox" id="option1" name="option"/>
-                                    <label for="option2" >选项2：</label><input type="checkbox" id="option2" name="option"/>
-                                    <label for="option3" >选项2：</label><input type="checkbox" id="option3" name="option"/>
-                                    <label for="option4" >选项2：</label><input type="checkbox" id="option4" name="option"/>
-                                    <label for="option5" >选项2：</label><input type="checkbox" id="option5" name="option"/>
-                                    <label for="option6" >选项2：</label><input type="checkbox" id="option6" name="option"/>
-                                </fieldset>
-                            </li>
-                            <li>
-                                <label>开关</label>
-                                <fieldset>
-                                    <label for="switch1" >开关1：</label><input type="checkbox" checked class="switch" id="switch1" name="iphone" />
-                                    <label for="switch2" >开关2：</label><input type="checkbox" class="switch" id="switch2" name="iphone"/>
-                                    <label for="switch3" >开关3：</label><input type="checkbox" class="switch" id="switch3" name="iphone"/>
-                                    <label for="switch4" >开关4：</label><input type="checkbox" class="switch" id="switch4" name="iphone"/>
-                                </fieldset>
-                            </li>
-                            <li>
-                            	<label>富文本编辑器</label>
-                            </li>
-                            <li>
-                                <textarea id="myEditor" name="textarea1"></textarea>
+                    <form class="form-horizontal" _lpchecked="1">
+                        <fieldset>
+                          <legend>Bootstrap支持的控件</legend>
+                          <div class="control-group">
+                            <label class="control-label" for="input01">文本输入框</label>
+                            <div class="controls">
+                              <input type="text" class="input-xlarge" id="input01">
+                              <p class="help-block">
+                        除了文本域之外，任何HTML5输入框都是该样式
+                          </p>
+                            </div>
+                          </div>
+                          <div class="control-group">
+                            <label class="control-label" for="optionsCheckbox">复选框</label>
+                            <div class="controls">
+                              <label class="checkbox">
+                                <input type="checkbox" id="optionsCheckbox" value="option1">
+                        选择异或不许—使用时最好给出选择的理由
+                              </label>
+                            </div>
+                          </div>
+                          <div class="control-group">
+                            <label class="control-label" for="select01">选择框</label>
+                            <div class="controls">
+                              <select id="select01">
+                                <option>请选择</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="control-group">
+                            <label class="control-label" for="multiSelect">复选框</label>
+                            <div class="controls">
+                              <select multiple="multiple" id="multiSelect">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="control-group">
+                            <label class="control-label" for="fileInput">上传框</label>
+                            <div class="controls">
+                              <input class="input-file" id="fileInput" type="file">
+                            </div>
+                          </div>
+                          <div class="control-group">
+                            <label class="control-label" for="textarea">文本域</label>
+                            <div class="controls">
+                              <textarea class="input-xlarge" id="textarea" rows="3"></textarea>
+                            </div>
+                          </div>
+                          <div class="control-group">
+                          	<label class="control-label" for="textarea">富文本编辑器</label>
+                            <div class="controls">
+                            <textarea id="myEditor" name="textarea1"></textarea>
 								<script type="text/javascript">
                                     var editor = new baidu.editor.ui.Editor();
                                     editor.render("myEditor");
                                 </script>
-                            </li>
-                        </ul>
-                    </fieldset>
-                    <fieldset>
-                    	<legend>表单验证</legend>
-                        <ul class="formUl">
-                        	<li>
-                            	<label>唯一验证</label>
-                                <input type="text" class="required number" name="text5" />
-                            </li>
-                        </ul>
-                    </fieldset>
+                            </div>
+                          </div>
+                        </fieldset>
+                      </form>
                 </div>
                 <footer>
                     <div class="submit_link">
-                        <input type="submit" value="保存" class="button red ">
-                        <input type="reset" value="重置" class="button ">
+                        <input type="submit" value="保存更改" class="btn btn-primary">
+                        <input type="button" value="重置" class="btn">
                     </div>
                 </footer>
             </article>
-            </form>
         </section>
     </div>
+    <div id="modalkeyboardfalse" class="modal hide fade" style="display: none; ">
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">×</a>
+          <h3>请确认</h3>
+        </div>
+        <div class="modal-body">
+          <h4>确认退出</h4>
+          <p>
+                您确认要退出登录吗？
+      </p>
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="btn btn-primary">确认退出</a>
+          <a href="#" class="btn" data-dismiss="modal">不退出</a>
+        </div>
+      </div>
 </body>
 </html>
