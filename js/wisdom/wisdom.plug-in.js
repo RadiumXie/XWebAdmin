@@ -19,7 +19,29 @@
             this.each(function(){
                 $(this).height(tallest);
             });
-        }
+        },
+		
+		toggleMenu:function(){
+			//显示隐藏菜单
+			var showText='显示';
+			var hideText='隐藏';
+			// append show/hide links to the element directly preceding the element with a class of "toggle"
+			var aLink = $(this).find('.toggle').prev().prepend(' <a href="#" class="toggleLink">'+hideText+'</a>');
+			
+			// hide all of the elements with a class of 'toggle'
+			//$('.toggle').show('slow');
+			// capture clicks on the toggle links
+			aLink.find('a.toggleLink').click(function() {
+				var $this = $(this);
+				$(this).parent().next('.toggle').toggle('slow',function(){
+					if($this.text() == showText){
+						$this.text(hideText);
+					}else{
+						$this.text(showText);
+					}
+				});
+			});
+		}
 	});
 	
 	jQuery.extend({

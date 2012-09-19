@@ -3988,3 +3988,9 @@ a.thumbnail:hover {
 .invisible {
   visibility: hidden;
 }
+
+
+.form-search input,.form-search textarea,.form-search select,.form-search .uneditable-input {
+	padding:2px;
+	width:auto;
+}
