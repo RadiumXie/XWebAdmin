@@ -54,22 +54,16 @@ jQuery(function(){
 	},function(){
 		$(this).removeClass('ui-state-hover');
 	});
-	/*
+	
 	$('article.module > header > a.headerCloseButton').toggle(function(){
-			$(this).parent('header').next().transition({
-				height: '0',
-				margin:'0',
-				overflow:'hidden',
-				opacity: 0
-			});
+			$(this).children('span').removeClass('ui-icon-circle-triangle-n');
+			$(this).children('span').addClass('ui-icon-circle-triangle-s');
+			$(this).parent('header').next().hide('fast');
 		},function(){
-			$(this).parent('header').next().transition({
-				height: 'auto',
-				margin:'10px 20px',
-				opacity: 1
-			});
+			$(this).children('span').removeClass('ui-icon-circle-triangle-s');
+			$(this).children('span').addClass('ui-icon-circle-triangle-n');
+			$(this).parent('header').next().show('fast');
 	});
-	*/
 	
 	//日期控件
 	try{
