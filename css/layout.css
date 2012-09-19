@@ -775,3 +775,7 @@ color: #32510F;
 padding: 10px 0;
 text-indent: 40px;
 font-size: 14px;}
+
+form.wisdomForm{
+	margin:0;
+}

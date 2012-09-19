@@ -86,4 +86,11 @@ jQuery(function(){
 			}	
 		});
 	}catch(error){}
+	
+	//退出按钮对话框
+	$('#modelLogoutDialog').modal({
+		backdrop:true,
+		keyboard:true,
+		show:false
+	});
 });

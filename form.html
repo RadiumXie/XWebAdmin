@@ -25,15 +25,6 @@
     <script type="text/javascript" src="js/bootstrap/bootstrap.min.js" ></script>
     
     <script src="http://127.0.0.1:83/con/assets/js/f5.js"></script>
-    <script>
-	$(function(){
-		$('#modalkeyboardfalse').modal({
-			backdrop:true,
-			keyboard:true,
-			show:false
-		});
-	});
-	</script>
 </head>
 <body>
 	<header id="header">
@@ -48,13 +39,13 @@
 	<section id="secondary_bar">
 		<div class="user">
 			<p>Admin (<a href="#">3 条消息</a>)</p>
-			<a class="logout_user" href="#modalkeyboardfalse" data-toggle="modal"  title="Logout">Logout</a>
+			<a class="logout_user" href="#modelLogoutDialog" data-toggle="modal"  title="Logout">Logout</a>
 		</div>
 		<div class="breadcrumbs_container">
 			<article class="breadcrumbs"><a href="index.html">Wsidom WebAdmin</a> <div class="breadcrumb_divider"></div> <a class="current">基本表单</a></article>
 		</div>
 	</section><!-- end of secondary bar -->
-	<div id="container">
+	<div id="container" class="clearfix">
         <aside id="sidebar" class="column">
             <h3>基本功能演示</h3>
             <ul class="toggle">
@@ -91,14 +82,14 @@
         
         <section id="main" class="column">
         	<article class="module width_full">
-                <div class="module_content">
-                    <form class="form-horizontal" _lpchecked="1">
+            	<form class="form-horizontal wisdomForm" _lpchecked="1">
+	                <div class="module_content">                
                         <fieldset>
                           <legend>Bootstrap支持的控件</legend>
                           <div class="control-group">
                             <label class="control-label" for="input01">文本输入框</label>
                             <div class="controls">
-                              <input type="text" class="input-xlarge" id="input01">
+                              <input type="text" class="input-xlarge" id="input01" name='input01'>
                               <p class="help-block">
                         除了文本域之外，任何HTML5输入框都是该样式
                           </p>
@@ -155,23 +146,28 @@
                             <textarea id="myEditor" name="textarea1"></textarea>
 								<script type="text/javascript">
                                     var editor = new baidu.editor.ui.Editor();
+									editor.addListener('autoheightchanged',function(){
+										$('.column').equalHeight();
+									});
                                     editor.render("myEditor");
                                 </script>
                             </div>
                           </div>
                         </fieldset>
-                      </form>
-                </div>
-                <footer>
-                    <div class="submit_link">
-                        <input type="submit" value="保存更改" class="btn btn-primary">
-                        <input type="button" value="重置" class="btn">
-                    </div>
-                </footer>
+                	</div>
+                    <footer>
+                        <div class="submit_link">
+                            <input type="submit" value="保存更改" class="btn btn-primary">
+                            <input type="button" value="重置" class="btn">
+                        </div>
+                    </footer>
+                </form>
             </article>
         </section>
     </div>
-    <div id="modalkeyboardfalse" class="modal hide fade" style="display: none; ">
+    
+    <!-- 退出按钮被点击时。 -->
+    <div id="modelLogoutDialog" class="modal hide fade" style="display: none; ">
         <div class="modal-header">
           <a class="close" data-dismiss="modal">×</a>
           <h3>请确认</h3>
