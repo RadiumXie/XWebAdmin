@@ -92,10 +92,9 @@
 		if(this.options.loadComplete != null){
 			cumLoadComplete = this.options.loadComplete;
 		}
-		$.proxy(this.options.loadComplete,this);
+
 		this.options.loadComplete = function(data){
-			//同步列高度
-			$('.column').equalHeight();
+			//预留给需要处理的函数
 			cumLoadComplete(data);
 		}
 		jQuery($table).jqGrid(this.options);
