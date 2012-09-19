@@ -151,7 +151,7 @@
         //,zIndex : 900     //编辑器层级的基数,默认是900
 
 
-        //,imagePopup:true      //图片操作的浮层开关，默认打开
+        ,imagePopup:false      //图片操作的浮层开关，默认打开
 
 
         //,initialStyle:'body{font-size:18px}'   //编辑器内部样式,可以用来改变字体等
@@ -315,7 +315,7 @@
 
         //autoFloatEnabled
         //是否保持toolbar的位置不动,默认true
-        //,autoFloatEnabled:true
+        ,autoFloatEnabled:false
 
 
         //indentValue
