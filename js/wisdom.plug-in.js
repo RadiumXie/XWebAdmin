@@ -9,6 +9,11 @@
                 if( thisHeight > tallest)
                     tallest = thisHeight;
             });
+			//对齐body高度。
+			var bodyHeight = document.body.scrollHeight;
+			if(bodyHeight > tallest){
+				tallest = bodyHeight;
+			}
 
             // set each items height to use the tallest value found
             this.each(function(){
