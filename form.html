@@ -49,7 +49,7 @@
             	<li class="icn_new_article"><a href="index.html">框架介绍</a></li>
             	<li class="icn_new_article"><a href="button.html">页面按钮</a></li>
                 <li class="icn_tags"><a href="form.html">基本表单</a></li>
-                <li class="icn_new_article"><a href="datagrid.html">基本数据表格</a></li>
+                <li class="icn_new_article"><a href="jqgrid.html">基本数据表格</a></li>
                 <li class="icn_categories"><a href="searchdate.html">数据查询</a></li>
                 <li class="icn_tags"><a href="icos.html">小图标</a></li>
             </ul>
@@ -143,6 +143,7 @@
                             <textarea id="myEditor" name="textarea1"></textarea>
 								<script type="text/javascript">
                                     var editor = new baidu.editor.ui.Editor();
+									//在高度计算完毕后，同步列高度
 									editor.addListener('autoheightchanged',function(){
 										$('.column').equalHeight();
 									});

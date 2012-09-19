@@ -1,6 +1,5 @@
 jQuery(function(){
-	//控制列高
-	$('.column').equalHeight();
+	
 	//显示隐藏菜单
 	var showText='显示';
 	var hideText='隐藏';
@@ -55,6 +54,7 @@ jQuery(function(){
 	},function(){
 		$(this).removeClass('ui-state-hover');
 	});
+	/*
 	$('article.module > header > a.headerCloseButton').toggle(function(){
 			$(this).parent('header').next().transition({
 				height: '0',
@@ -69,6 +69,7 @@ jQuery(function(){
 				opacity: 1
 			});
 	});
+	*/
 	
 	//日期控件
 	try{
@@ -87,10 +88,15 @@ jQuery(function(){
 		});
 	}catch(error){}
 	
+	try{
 	//退出按钮对话框
 	$('#modelLogoutDialog').modal({
 		backdrop:true,
 		keyboard:true,
 		show:false
 	});
+	}catch(error){}
+	
+	//控制列高
+	$('.column').equalHeight();
 });

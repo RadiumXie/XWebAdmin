@@ -3,23 +3,18 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>基本数据表格</title>
-    <link rel="stylesheet/less" href="css/base.css" type="text/css" />
-	<link rel="stylesheet/less" href="css/layout.css" type="text/css" />
-    <link rel="stylesheet" href="css/grid.css" type="text/css" />
-    <link rel="stylesheet" href="js/zebra-dialog/css/zebra_dialog.css" type="text/css" />
-    <link href="css/button.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/layout.css" type="text/css" />
+    <link rel="stylesheet" href="js/bootstrap/bootstrap.css" type="text/css" />
     
     <!--[if IE]>
    <script src="js/html5.js"></script>
 <![endif]-->
     
   	<script src="js/jquery-1.7.2.min.js" ></script>
-    <script src="js/lib/jquery.transit.min.js"></script>
-    <script src="js/zebra-dialog/zebra_dialog.min.js"></script>
+    <!-- bootstrap -->
+    <script type="text/javascript" src="js/bootstrap/bootstrap.min.js" ></script>
     
     <script src="js/wisdom/wisdom.plug-in.js"></script>
-    
-	<script src="js/lib/less-1.3.0.min.js"></script>
     
     <link rel="stylesheet" type="text/css" media="screen" href="js/jqueryui/css/custom-theme/jquery-ui-1.8.21.custom.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="js/jqgrid/css/ui.jqgrid.css" />
@@ -52,23 +47,19 @@
 		<hgroup>
 			<h1 class="site_title"><a href="index.html"><img alt="logo" src="images/logo.png" /></a></h1>
 			<h2 class="section_title">沈阳东方般若软件工程技术部</h2>
-            <div class="btn_view_site">
-            <form class="quick_search" id="quick_search">
-                <input type="text" placeholder="快速搜索">
-            </form>
-            </div>
 		</hgroup>
 	</header> <!-- end of header bar -->
 	
 	<section id="secondary_bar">
 		<div class="user">
 			<p>Admin (<a href="#">3 条消息</a>)</p>
-			<a class="logout_user" href="#" title="Logout" onClick="$.confirm('确认要退出吗？',function(){window.location.href='/login.html'})">Logout</a>
+			<a class="logout_user" href="#modelLogoutDialog" data-toggle="modal"  title="Logout">Logout</a>
 		</div>
 		<div class="breadcrumbs_container">
-			<article class="breadcrumbs"><a href="index.html">Wsidom WebAdmin</a> <div class="breadcrumb_divider"></div> <a class="current">基本数据表格</a></article>
+			<article class="breadcrumbs"><a href="index.html">Wsidom WebAdmin</a> <div class="breadcrumb_divider"></div> <a class="current">基本表单</a></article>
 		</div>
 	</section><!-- end of secondary bar -->
+    
 	<div id="container">
         <aside id="sidebar" class="column">
             <h3>基本功能演示</h3>
@@ -76,7 +67,7 @@
             	<li class="icn_new_article"><a href="index.html">框架介绍</a></li>
             	<li class="icn_new_article"><a href="button.html">页面按钮</a></li>
                 <li class="icn_tags"><a href="form.html">基本表单</a></li>
-                <li class="icn_new_article"><a href="datagrid.html">基本数据表格</a></li>
+                <li class="icn_new_article"><a href="jqgrid.html">基本数据表格</a></li>
                 <li class="icn_categories"><a href="searchdate.html">数据查询</a></li>
                 <li class="icn_tags"><a href="icos.html">小图标</a></li>
             </ul>
@@ -111,5 +102,23 @@
             </article>
         </section>
     </div>
+    
+    <!-- 退出按钮被点击时。 -->
+    <div id="modelLogoutDialog" class="modal hide fade" style="display: none; ">
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">×</a>
+          <h3>请确认</h3>
+        </div>
+        <div class="modal-body">
+          <h4>确认退出</h4>
+          <p>
+                您确认要退出登录吗？
+      </p>
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="btn btn-primary">确认退出</a>
+          <a href="#" class="btn" data-dismiss="modal">不退出</a>
+        </div>
+      </div>
 </body>
 </html>

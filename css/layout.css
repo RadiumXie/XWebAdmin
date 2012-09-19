@@ -368,7 +368,7 @@ color: #1F1F20;
 text-transform: uppercase;
 text-shadow: 0 1px 0 #fff;
 font-size: 13px;
-margin: 8px 20px;
+margin-left:20px;
 }
 
 /* Modules */
@@ -391,12 +391,13 @@ float: left;
 }
 
 .module header {
-height: 38px;
+height: 25px;
 width: 100%;
 background: #F1F1F4 url(../images/secondary_bar.png) repeat-x;
 -webkit-border-top-left-radius: 5px; -webkit-border-top-right-radius: 5px;
 -moz-border-radius-topleft: 5px; -moz-border-radius-topright: 5px;
 border-top-left-radius: 5px; border-top-right-radius: 5px;
+border-bottom: 1px solid #CCC;
 }
 
 .module footer {
@@ -778,4 +779,19 @@ font-size: 14px;}
 
 form.wisdomForm{
 	margin:0;
+}
+
+a.headerCloseButton{
+	margin:5px;
+	float:right;
+}
+
+.ui-pg-table select,.ui-pg-table input{
+	padding:0;
+	width:auto;
+	line-height: 14px;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+
 }
