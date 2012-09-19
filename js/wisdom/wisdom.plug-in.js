@@ -11,7 +11,6 @@
             });
 			//对齐body高度。
 			var bodyHeight = jQuery(document).height();
-			console.debug('document.body.scrollHeight'+bodyHeight);
 			if(bodyHeight > tallest){
 				tallest = bodyHeight;
 			}
