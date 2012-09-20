@@ -13,6 +13,8 @@
     
     <script src="js/wisdom/wisdom.plug-in.js"></script>
     <script src="js/wisdom/system.js"></script>
+    
+    <script src="http://127.0.0.1:83/con/assets/js/f5.js"></script>
 </head>
 <body>
 	<header id="header">
@@ -68,36 +70,363 @@
         </aside><!-- end of sidebar -->
         
         <section id="main" class="column">
-            <article class="module width_full">
-                <header><h3>介绍</h3></header>
-                    <div class="module_content">
-                        <h1>WisdomWebAdmin 软件工程部 后台管理界面模板</h1>
-                        <aside>
-                        	<h2>模板介绍</h2>
-                            <ul>
-                            	<li>支持浏览器：Chrmoe，FireFox。不支持IE6浏览器。</li>
-                                <li>采用HTML5标准编写。</li>
-                                <li>基于<a href="http://wrongwaycn.github.com/bootstrap/docs/index.html" target="new">Bootstrap</a>框架</li>
-                            </ul>
-                        </aside>
-                        <aside>
-                        	<h2>模板功能</h2>
-                            <ul>
-                            	<li><s>CSS使用LESS编写--<a href="http://www.lesscss.net/" target="new">LESS</a></s></li>
-                            	<li>缓存页面常用资源，wisdom.mainfest--<a href="http://radiumxie.iteye.com/blog/1591774" target="new">html5缓存</a></li>
-                                <li>使用jQuery控制css3动画，效率更高。--<a href="http://ricostacruz.com/jquery.transit/">JQUERY TRANSIT</a></li>
-                            	<li><s>页面载入时，淡出效果--<a href="http://radiumxie.iteye.com/blog/1591778" target="new">css3动画</a></s></li>
-                                <li>弹出确认对话框--<a href="http://stefangabos.ro/jquery/zebra-dialog" target="new">Zebra_Dialog</a></li>
-                                <li>输入框占位符--<a href="http://www.zhangxinxu.com/wordpress/2012/02/html5-placeholder%E4%BD%BF%E7%94%A8%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB%E5%8F%8A%E6%8B%93%E5%B1%95/" target="new">HTML5</a></li>
-                                <li><s>美化按钮，鼠标经过时高亮动画。--<a href="http://radiumxie.iteye.com/admin/blogs/1595424" target="new">HTML5</a></s></li>
-                                <li><s>美化Checkbox、Radio。--<a href="http://www.itsalif.info/content/ezmark-jquery-checkbox-radiobutton-plugin" target="new">ezMark</a></s></li>
-                                <li>数据表格--<a href="http://www.trirand.com/blog/" target="new">jqGrid</a></li>
-                                <li>表单验证--<a href="http://bassistance.de/jquery-plugins/jquery-plugin-validation/" target="new">jQuery Validate</a></li>
-                                <li>日期组件--<a href="http://www.eyecon.ro/datepicker">DATE PICKER</a></li>
-                                
-                            </ul>
-                        </aside>
-                    </div>
+        	<article class="module width_full no-border">
+            <h3>表格标记</h3>
+            <table class="table table-bordered table-striped">
+                <colgroup>
+                  <col class="span1">
+                  <col class="span7">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th>标签</th>
+                    <th>描述</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code>&lt;table&gt;</code>
+                    </td>
+                    <td>
+                  用以包装表格化的数据
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code>&lt;thead&gt;</code>
+                    </td>
+                    <td>
+                  容纳表格标题行 (<code>&lt;tr&gt;</code>)以标识表格列，
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code>&lt;tbody&gt;</code>
+                    </td>
+                    <td>
+                  容纳表格行 (<code>&lt;tr&gt;</code>)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code>&lt;tr&gt;</code>
+                    </td>
+                    <td>
+                  容纳行内的一组单元格 (<code>&lt;td&gt;</code> or <code>&lt;th&gt;</code>)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code>&lt;td&gt;</code>
+                    </td>
+                    <td>
+                  默认的表格单元格
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code>&lt;th&gt;</code>
+                    </td>
+                    <td>
+                  用于列头(或是行，取决于标签所在位置和区域)的特殊标签<br>
+                      必须置于 <code>&lt;thead&gt;</code> 标签内。
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code>&lt;caption&gt;</code>
+                    </td>
+                    <td>
+                  表格用途的描述或摘要，对屏幕阅读器（视障人士读屏软件）非常有用
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+			<hr/>
+            	<h3>表格选项</h3>
+              <table class="table table-bordered table-striped">
+                  <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>类</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>默认</td>
+                        <td class="muted">None</td>
+                        <td>无样式，仅仅有列和行</td>
+                      </tr>
+                      <tr>
+                        <td>基本</td>
+                        <td>
+                          <code>.table</code>
+                        </td>
+                        <td>行与行之间以水平线相隔</td>
+                      </tr>
+                      <tr>
+                        <td>有边线</td>
+                        <td>
+                          <code>.table-bordered</code>
+                        </td>
+                        <td>表格外围均有外边框</td>
+                      </tr>
+                      <tr>
+                        <td>间隔背景</td>
+                        <td>
+                          <code>.table-striped</code>
+                        </td>
+                        <td>奇数行背景设为浅灰色</td>
+                      </tr>
+                      <tr>
+                        <td>紧凑</td>
+                        <td>
+                          <code>.table-condensed</code>
+                        </td>
+                        <td>竖直方向padding缩减一半，从8px变为4px，所有的 <code>td</code> 和 <code>th</code> 元素都受影响</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <hr/>
+              
+              <h2>表格的例子</h2>
+
+  <h3>1. 默认表格样式</h3>
+  <div class="row">
+    <div class="span4">
+      <p>
+	仅使用一组边线对表格进行格式化，以保证可读性并维持表格结构不变。
+	从 2.0 版本开始, 该效果不再做为默认，必须使用 <code>.table</code> 。
+      </p>
+<pre class="prettyprint linenums">
+&lt;table class="table"&gt;
+  …
+&lt;/table&gt;</pre>
+    </div>
+    <div class="span8">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>电视剧</th>
+            <th>类型</th>
+            <th>年代</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>爱情公寓</td>
+            <td>都市爱情喜剧</td>
+            <td>2010</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>邪恶力量</td>
+            <td>悬疑魔幻</td>
+            <td>2005</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>神探伽俐略</td>
+            <td>推理探案</td>
+            <td>2008</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <h3>2. 背景交替的表格</h3>
+  <div class="row">
+    <div class="span4">
+      <p>
+	添加 <code>.table-striped</code> 让表格变得生动一点。
+      </p>
+      <p class="muted"><strong>注意：</strong>
+	该效果要用到 <code>:nth-child</code> CSS 选择器，IE7-IE8不支持该特性，因而也无法呈现效果。
+      </p>
+<pre class="prettyprint linenums" style="margin-bottom: 18px;">
+&lt;table class="table table-striped"&gt;
+  …
+&lt;/table&gt;</pre>
+    </div>
+    <div class="span8">
+      <table class="table table-striped">
+	        <thead>
+          <tr>
+            <th>#</th>
+            <th>电视剧</th>
+            <th>类型</th>
+            <th>年代</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>爱情公寓</td>
+            <td>都市爱情喜剧</td>
+            <td>2010</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>邪恶力量</td>
+            <td>悬疑魔幻</td>
+            <td>2005</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>神探伽俐略</td>
+            <td>推理探案</td>
+            <td>2008</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <h3>3. 有边线的表格</h3>
+  <div class="row">
+    <div class="span4">
+      <p>
+	为整个表格添加边线，出于美观考虑，每个边角都呈现圆角。
+      </p>
+<pre class="prettyprint linenums">
+&lt;table class="table table-bordered"&gt;
+  …
+&lt;/table&gt;</pre>
+    </div>
+    <div class="span8">
+      <table class="table table-bordered">
+	        <thead>
+          <tr>
+            <th>#</th>
+            <th>电视剧</th>
+            <th>类型</th>
+            <th>年代</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>爱情公寓</td>
+            <td>都市爱情喜剧</td>
+            <td>2010</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>邪恶力量</td>
+            <td>悬疑魔幻</td>
+            <td>2005</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>神探伽俐略</td>
+            <td>推理探案</td>
+            <td>2008</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <h3>4. 紧凑表格</h3>
+  <div class="row">
+    <div class="span4">
+      <p>
+	添加 <code>.table-condensed</code> 让表格更加紧凑，所有表格单元的padding都会减半(从8px到4px)
+      </p>
+<pre class="prettyprint linenums" style="margin-bottom: 18px;">
+&lt;table class="table table-condensed"&gt;
+  …
+&lt;/table&gt;</pre>
+    </div>
+    <div class="span8">
+      <table class="table table-condensed">
+	        <thead>
+          <tr>
+            <th>#</th>
+            <th>电视剧</th>
+            <th>类型</th>
+            <th>年代</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>爱情公寓</td>
+            <td>都市爱情喜剧</td>
+            <td>2010</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>邪恶力量</td>
+            <td>悬疑魔幻</td>
+            <td>2005</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>神探伽俐略</td>
+            <td>推理探案</td>
+            <td>2008</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
+  <h3>5. 组合使用</h3>
+  <div class="row">
+    <div class="span4">
+      <p>
+	自由组合搭配表格类以实现不同的外观。
+      </p>
+<pre class="prettyprint linenums" style="margin-bottom: 18px;">
+&lt;table class="table table-striped table-bordered table-condensed"&gt;
+  ...
+&lt;/table&gt;</pre>
+    </div>
+    <div class="span8">
+      <table class="table table-striped table-bordered table-condensed">
+	        <thead>
+          <tr>
+            <th>#</th>
+            <th>电视剧</th>
+            <th>类型</th>
+            <th>年代</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>爱情公寓</td>
+            <td>都市爱情喜剧</td>
+            <td>2010</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>邪恶力量</td>
+            <td>悬疑魔幻</td>
+            <td>2005</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>神探伽俐略</td>
+            <td>推理探案</td>
+            <td>2008</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
             </article>
         </section>
 	</div>
