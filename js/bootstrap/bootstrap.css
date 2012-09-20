@@ -3994,7 +3994,10 @@ a.thumbnail:hover {
 	padding:2px;
 	width:auto;
 }
-
 .the-icons li{
 	list-style:none;
+}
+
+.module .row{
+	margin-left:0;
 }

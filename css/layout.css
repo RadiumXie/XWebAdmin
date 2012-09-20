@@ -798,3 +798,7 @@ a.headerCloseButton{
 .no-border{
 	border:none;
 }
+
+.module table{
+	border-top:none;
+}
