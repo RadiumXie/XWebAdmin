@@ -2,56 +2,45 @@
 <html lang="cn">
 <head>
 	<meta charset="utf-8"/>
-	<title>按钮样式</title>
-    <link rel="stylesheet/less" href="css/base.css" type="text/css" />
-	<link rel="stylesheet/less" href="css/layout.css" type="text/css" />
-    <link rel="stylesheet" href="css/grid.css" type="text/css" />
-    <link rel="stylesheet" href="js/zebra-dialog/css/zebra_dialog.css" type="text/css" />
-    <link href="css/button.css" rel="stylesheet" type="text/css">
+	<title>沈阳东方般若软件工程部</title>
+    <link rel="stylesheet" href="css/layout.css" type="text/css" />
+    <link rel="stylesheet" href="js/bootstrap/bootstrap.css" type="text/css" />
     
-    <!-- 语法高亮 -->
-    <link rel='stylesheet' type='text/css' href='http://www.osctools.net/js/syntaxhighlighter_3.0.83/styles/shCoreDefault.css'/>
-    <!--[if lt IE 9]><script src="js/html5.js"></script><![endif]-->
-        
+	<!--[if lt IE 9]><script src="js/html5.js"></script><![endif]-->
   	<script src="js/jquery-1.7.2.min.js" ></script>
-    <script src="js/lib/jquery.transit.min.js"></script>
-    <script src="js/zebra-dialog/zebra_dialog.min.js"></script>
+    <!-- bootstrap -->
+    <script type="text/javascript" src="js/bootstrap/bootstrap.min.js" ></script>
     
     <script src="js/wisdom/wisdom.plug-in.js"></script>
     <script src="js/wisdom/system.js"></script>
-    
-	<script src="js/lib/less-1.3.0.min.js"></script>
 </head>
 <body>
 	<header id="header">
 		<hgroup>
 			<h1 class="site_title"><a href="index.html"><img alt="logo" src="images/logo.png" /></a></h1>
 			<h2 class="section_title">沈阳东方般若软件工程技术部</h2>
-            <div class="btn_view_site">
-            <form class="quick_search" id="quick_search">
-                <input type="text" placeholder="快速搜索">
-            </form>
-            </div>
 		</hgroup>
 	</header> <!-- end of header bar -->
 	
 	<section id="secondary_bar">
 		<div class="user">
 			<p>Admin (<a href="#">3 条消息</a>)</p>
-			<a class="logout_user" href="#" title="Logout" onClick="$.confirm('确认要退出吗？',function(){window.location.href='/login.html'})">Logout</a>
+			<a class="logout_user" href="#modelLogoutDialog" data-toggle="modal"  title="Logout">Logout</a>
 		</div>
 		<div class="breadcrumbs_container">
 			<article class="breadcrumbs"><a href="index.html">Wsidom WebAdmin</a> <div class="breadcrumb_divider"></div> <a class="current">基本表单</a></article>
 		</div>
 	</section><!-- end of secondary bar -->
-	<div id="container">
+    
+    <div id="container" class="clearfix">
         <aside id="sidebar" class="column">
             <h3>基本功能演示</h3>
             <ul class="toggle">
             	<li class="icn_new_article"><a href="index.html">框架介绍</a></li>
             	<li class="icn_new_article"><a href="button.html">页面按钮</a></li>
                 <li class="icn_tags"><a href="form.html">基本表单</a></li>
-                <li class="icn_new_article"><a href="jqgrid.html">基本数据表格</a></li>
+                <li class="icn_new_article"><a href="datagrid.html">基本数据表格</a></li>
+                <li class="icn_new_article"><a href="jqgrid.html">JQgrid数据表格</a></li>
                 <li class="icn_categories"><a href="searchdate.html">数据查询</a></li>
                 <li class="icn_tags"><a href="icon.html">小图标</a></li>
             </ul>
@@ -74,130 +63,165 @@
             <footer>
                 <hr />
                 <p><strong>Copyright &copy; 2012 OrientalWisdom</strong></p>
-                <p>Theme by <a href="#">XieLei</a></p>
                 <iframe width="0" height="0" src="_cache.html" ></iframe>
             </footer>
         </aside><!-- end of sidebar -->
         
         <section id="main" class="column">
             <article class="module width_full">
-                <header><h3>按钮样式展示</h3></header>
+                <header><h3>按钮</h3></header>
                     <div class="module_content">
-                    	<section>
-                        	<h3>超大按钮</h3>
-                            <p>
-                            	<ul>
-                                	<li>
-										<a class="button super" href="#">按钮</a>
-                                    	<a class="button magenta super" href="#">按钮</a>
-                                        <a class="button green super" href="#">按钮</a>
-                                        <a class="button red super" href="#">按钮</a>
-                                        <a class="button orange super" href="#">按钮</a>
-                                        <a class="button blue super" href="#">按钮</a>
-                                        <a class="button yellow super" href="#">按钮</a>
-                                    </li>
-                                    <li>
-										<input type="button" class="button super" value="按钮" />
-                                    	<input type="button" class="button magenta super" value="按钮" />
-                                        <input type="button" class="button green super" value="按钮" />
-                                        <input type="button" class="button red super" value="按钮" />
-                                        <input type="button" class="button orange super" value="按钮" />
-                                        <input type="button" class="button blue super" value="按钮" />
-                                        <input type="button" class="button yellow super" value="按钮" />	
-                                    </li>
-                                </ul>
-                                <code>
-                                    <div id="highlighter_875620" class="syntaxhighlighter  js"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js plain">&lt;a class=</code><code class="js string">"button magenta super"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div><div class="line number2 index1 alt1"><code class="js plain">&lt;a class=</code><code class="js string">"button green super"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div><div class="line number3 index2 alt2"><code class="js plain">&lt;a class=</code><code class="js string">"button red super"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div><div class="line number4 index3 alt1"><code class="js plain">&lt;a class=</code><code class="js string">"button orange super"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div><div class="line number5 index4 alt2"><code class="js plain">&lt;a class=</code><code class="js string">"button blue super"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div><div class="line number6 index5 alt1"><code class="js plain">&lt;a class=</code><code class="js string">"button yellow super"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div></div></td></tr></tbody></table></div>
-                                    <div id="highlighter_161000" class="syntaxhighlighter  js"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button magenta super"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div><div class="line number2 index1 alt1"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button green super"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div><div class="line number3 index2 alt2"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button red super"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div><div class="line number4 index3 alt1"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button orange super"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div><div class="line number5 index4 alt2"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button blue super"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div><div class="line number6 index5 alt1"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button yellow super"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;&nbsp;&nbsp;&nbsp; </code></div></div></td></tr></tbody></table></div>
-                                </code>
-                            </p>
-                            <h3>大按钮</h3>
-                            <p>
-                            	<ul>
-                                	<li>
-										<a class="button large" href="#">按钮</a>
-                                    	<a class="button magenta large" href="#">按钮</a>
-                                        <a class="button green large" href="#">按钮</a>
-                                        <a class="button red large" href="#">按钮</a>
-                                        <a class="button orange large" href="#">按钮</a>
-                                        <a class="button blue large" href="#">按钮</a>
-                                        <a class="button yellow large" href="#">按钮</a>
-                                    </li>
-                                    <li>
-										<input type="button" class="button large" value="按钮" />
-                                    	<input type="button" class="button magenta large" value="按钮" />
-                                        <input type="button" class="button green large" value="按钮" />
-                                        <input type="button" class="button red large" value="按钮" />
-                                        <input type="button" class="button orange large" value="按钮" />
-                                        <input type="button" class="button blue large" value="按钮" />
-                                        <input type="button" class="button yellow large" value="按钮" />
-                                    </li>
-                                </ul>
-                                <code>
-                                    <div id="highlighter_945823" class="syntaxhighlighter  js"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js plain">&lt;a class=</code><code class="js string">"button magenta large"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div><div class="line number2 index1 alt1"><code class="js plain">&lt;a class=</code><code class="js string">"button green large"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div><div class="line number3 index2 alt2"><code class="js plain">&lt;a class=</code><code class="js string">"button red large"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div><div class="line number4 index3 alt1"><code class="js plain">&lt;a class=</code><code class="js string">"button orange large"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div><div class="line number5 index4 alt2"><code class="js plain">&lt;a class=</code><code class="js string">"button blue large"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div><div class="line number6 index5 alt1"><code class="js plain">&lt;a class=</code><code class="js string">"button yellow large"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div></div></td></tr></tbody></table></div>
-                                    <div id="highlighter_113970" class="syntaxhighlighter  js"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button magenta large"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div><div class="line number2 index1 alt1"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button green large"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div><div class="line number3 index2 alt2"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button red large"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div><div class="line number4 index3 alt1"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button orange large"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div><div class="line number5 index4 alt2"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button blue large"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div><div class="line number6 index5 alt1"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button yellow large"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div></div></td></tr></tbody></table></div>
-                                </code>
-                            </p>
-                            <h3>正常按钮</h3>
-                            <p>
-                            	可省略medium。默认就是这个大小。
-                                <ul>
-                                	<li>
-										<a class="button medium" href="#">按钮</a>
-                                    	<a class="button magenta medium" href="#">按钮</a>
-                                        <a class="button green medium" href="#">按钮</a>
-                                        <a class="button red medium" href="#">按钮</a>
-                                        <a class="button orange medium" href="#">按钮</a>
-                                        <a class="button blue medium" href="#">按钮</a>
-                                        <a class="button yellow medium" href="#">按钮</a>
-                                    </li>
-                                    <li>
-										<input type="button" class="button medium"value="按钮" />
-                                    	<input type="button" class="button magenta medium"value="按钮" />
-                                        <input type="button" class="button green medium"value="按钮" />
-                                        <input type="button" class="button red medium"value="按钮" />
-                                        <input type="button" class="button orange medium"value="按钮" />
-                                        <input type="button" class="button blue medium"value="按钮" />
-                                        <input type="button" class="button yellow medium"value="按钮" />
-                                    </li>
-                                </ul>
-                                <code>
-                                	<div id="highlighter_701066" class="syntaxhighlighter  js"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js plain">&lt;a class=</code><code class="js string">"button magenta medium"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div><div class="line number2 index1 alt1"><code class="js plain">&lt;a class=</code><code class="js string">"button green medium"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div><div class="line number3 index2 alt2"><code class="js plain">&lt;a class=</code><code class="js string">"button red medium"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div><div class="line number4 index3 alt1"><code class="js plain">&lt;a class=</code><code class="js string">"button orange medium"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div><div class="line number5 index4 alt2"><code class="js plain">&lt;a class=</code><code class="js string">"button blue medium"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div><div class="line number6 index5 alt1"><code class="js plain">&lt;a class=</code><code class="js string">"button yellow medium"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div></div></td></tr></tbody></table></div>
-                                    <div id="highlighter_371144" class="syntaxhighlighter  js"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button magenta medium"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div><div class="line number2 index1 alt1"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button green medium"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div><div class="line number3 index2 alt2"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button red medium"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div><div class="line number4 index3 alt1"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button orange medium"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div><div class="line number5 index4 alt2"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button blue medium"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div><div class="line number6 index5 alt1"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button yellow medium"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div></div></td></tr></tbody></table></div>
-                                </code>
-                            </p>
-                            <h3>小按钮</h3>
-                            <p>
-                            	<ul>
-                                	<li>
-										<a class="button small" href="#">按钮</a>
-                                    	<a class="button magenta small" href="#">按钮</a>
-                                        <a class="button green small" href="#">按钮</a>
-                                        <a class="button red small" href="#">按钮</a>
-                                        <a class="button orange small" href="#">按钮</a>
-                                        <a class="button blue small" href="#">按钮</a>
-                                        <a class="button yellow small" href="#">按钮</a>
-                                    </li>
-                                    <li>
-										<input type="button" class="button small"value="按钮" />
-                                    	<input type="button" class="button magenta small"value="按钮" />
-                                        <input type="button" class="button green small"value="按钮" />
-                                        <input type="button" class="button red small"value="按钮" />
-                                        <input type="button" class="button orange small"value="按钮" />
-                                        <input type="button" class="button blue small"value="按钮" />
-                                        <input type="button" class="button yellow small"value="按钮" />
-                                    </li>
-                                </ul>
-                                <code>
-                                	<div id="highlighter_786790" class="syntaxhighlighter  js"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js plain">&lt;a class=</code><code class="js string">"button magenta small"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div><div class="line number2 index1 alt1"><code class="js plain">&lt;a class=</code><code class="js string">"button green small"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div><div class="line number3 index2 alt2"><code class="js plain">&lt;a class=</code><code class="js string">"button red small"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div><div class="line number4 index3 alt1"><code class="js plain">&lt;a class=</code><code class="js string">"button orange small"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div><div class="line number5 index4 alt2"><code class="js plain">&lt;a class=</code><code class="js string">"button blue small"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div><div class="line number6 index5 alt1"><code class="js plain">&lt;a class=</code><code class="js string">"button yellow small"</code> <code class="js plain">href=</code><code class="js string">"#"</code><code class="js plain">&gt;按钮&lt;/a&gt;</code></div></div></td></tr></tbody></table></div>
-                                    <div id="highlighter_126416" class="syntaxhighlighter  js"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button magenta small"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div><div class="line number2 index1 alt1"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button green small"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div><div class="line number3 index2 alt2"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button red small"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div><div class="line number4 index3 alt1"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button orange small"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div><div class="line number5 index4 alt2"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button blue small"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div><div class="line number6 index5 alt1"><code class="js plain">&lt;input type=</code><code class="js string">"button"</code> <code class="js plain">class=</code><code class="js string">"button yellow small"</code> <code class="js plain">value=</code><code class="js string">"按钮"</code><code class="js plain">&gt;</code></div></div></td></tr></tbody></table></div>
-                                </code>
-                            </p>
+                        <section id="buttons">
+                          <table class="table table-bordered table-striped">
+                            <thead>
+                              <tr>
+                                <th>按钮</th>
+                                <th>类class=""</th>
+                                <th>描述</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td><button class="btn" href="#">默认</button></td>
+                                <td><code>btn</code></td>
+                                <td>带渐变的标准灰色按钮</td>
+                              </tr>
+                              <tr>
+                                <td><button class="btn btn-primary" href="#">首要</button></td>
+                                <td><code>btn btn-primary</code></td>
+                                <td>
+                              视觉吸引力强，用于标识一组按钮中最主要的那个动作
+                            </td>
+                              </tr>
+                              <tr>
+                                <td><button class="btn btn-info" href="#">信息</button></td>
+                                <td><code>btn btn-info</code></td>
+                                <td>
+                              可用于替换默认样式
+                            </td>
+                              </tr>
+                              <tr>
+                                <td><button class="btn btn-success" href="#">成功</button></td>
+                                <td><code>btn btn-success</code></td>
+                                <td>
+                              表示操作成功或动作正确
+                            </td>
+                              </tr>
+                              <tr>
+                                <td><button class="btn btn-warning" href="#">警告</button></td>
+                                <td><code>btn btn-warning</code></td>
+                                <td>
+                              表示该动作应谨慎
+                            </td>
+                              </tr>
+                              <tr>
+                                <td><button class="btn btn-danger" href="#">危险</button></td>
+                                <td><code>btn btn-danger</code></td>
+                                <td>
+                              表示危险或有潜在威胁的动作。
+                            </td>
+                              </tr>
+                              <tr>
+                                <td><button class="btn btn-inverse" href="#">相反</button></td>
+                                <td><code>btn btn-inverse</code></td>
+                                <td>
+                              做为补充的深灰色按钮，与具体行为或动作无关。
+                            </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        
+                          <div class="row">
+                            <div class="span4">
+                              <h3>用于动作的按钮</h3>
+                              <p>
+                            一般习惯下，按钮只用于动作，而超链接则用于对象。
+                            比如，“下载”应该是一个按钮，而“最近的活动” 则应该是一个链接
+                              </p>
+                              <p>
+                            使用 <code>.btn</code> 可以将按钮样式应到任何元素。不过一般来说，我们只对 <code>&lt;a&gt;</code> 和 <code>&lt;button&gt;</code> 元素使用按钮样式
+                              </p>
+                              <h3>跨浏览器兼容</h3>
+                              <p>
+                            IE9不支持渐变背景色的圆角裁剪，我们只好去掉了这个特性。此外，IE9 还搞砸了 <code>button</code> 元素的禁用样式，
+                            居然在渲染时使用一个丑陋的文本阴影修饰按钮的灰色文字，对此我们实在无能为力。
+                              </p>
+                            </div>
+                            <div class="span4">
+                              <h3>多种尺寸</h3>
+                              <p>
+                            使用 <code>.btn-large</code>, <code>.btn-small</code>, 或 <code>.btn-mini</code> 可以得到三种不同尺寸的按钮。
+                              </p>
+                              <p>
+                                <button class="btn btn-large btn-primary">首要动作</button>
+                                <button class="btn btn-large">动作</button>
+                              </p>
+                              <p>
+                                <button class="btn btn-small btn-primary">首要动作</button>
+                                <button class="btn btn-small">动作</button>
+                              </p>
+                              <p>
+                                <button class="btn btn-mini btn-primary">首要动作</button>
+                                <button class="btn btn-mini">动作</button>
+                              </p>
+                              <br>
+                              <h3>禁用状态</h3>
+                              <p>
+                            对超链接按钮添加 <code>.disabled</code> 类，或是在  <code>&lt;button&gt;</code> 元素中设置 <code>disabled</code> 属性，却可将其变成禁用状态。
+                              </p>
+                              <p>
+                                <a href="#" class="btn btn-large btn-primary disabled">首要链接</a>
+                                <a href="#" class="btn btn-large disabled">链接</a>
+                              </p>
+                              <p style="margin-bottom: 18px;">
+                                <button class="btn btn-large btn-primary disabled" disabled="disabled">首要按钮</button>
+                                <button class="btn btn-large" disabled="">按钮</button>
+                              </p>
+                              <p>
+                                <span class="label label-info">注意!</span>
+                            我们把 <code>.disabled</code> 做为工具类来用，就象使用 <code>.active</code> 一样，因而无须添加.btn前缀。
+                              </p>
+                            </div>
+                            <div class="span4">
+                              <h3>按钮类可用于多种标签</h3>
+                              <p>
+                            可以在<code>&lt;a&gt;</code>, <code>&lt;button&gt;</code>, <code>&lt;input&gt;</code> 等元素上使用 <code>.btn</code> 类。
+                              </p>
+                        <form>
+                        <a class="btn" href="">超链接按钮</a>
+                        <button class="btn" type="submit">button按钮</button>
+                        <input class="btn" type="button" value="input-button按钮">
+                        <input class="btn" type="submit" value="input-submit按钮">
+                        </form>
+                        <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">""</span><span class="tag">&gt;</span><span class="pln">超链接按钮</span><span class="tag">&lt;/a&gt;</span></li><li class="L1"><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn"</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"submit"</span><span class="tag">&gt;</span></li><li class="L2"><span class="pln">  button按钮</span></li><li class="L3"><span class="tag">&lt;/button&gt;</span></li><li class="L4"><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn"</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"button"</span></li><li class="L5"><span class="pln">         </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"input-button按钮"</span><span class="tag">&gt;</span></li><li class="L6"><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"btn"</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"submit"</span></li><li class="L7"><span class="pln">         </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"input-submit按钮"</span><span class="tag">&gt;</span></li></ol></pre>
+                              <p>
+                            做为最佳实践，出于跨浏览器兼容的考虑，建议您根据内容为按钮选择最合适的元素。比如你正在使用 <code>input</code> ,就可以将按钮设计为
+                             <code>&lt;input type="submit"&gt;</code> 。
+                              </p>
+                            </div>
+                          </div>
                         </section>
                     </div>
             </article>
         </section>
-
-    </div>
+	</div>
+    
+    <!-- 退出按钮被点击时。 -->
+    <div id="modelLogoutDialog" class="modal hide fade" style="display: none; ">
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">×</a>
+          <h3>请确认</h3>
+        </div>
+        <div class="modal-body">
+          <h4>确认退出</h4>
+          <p>
+                您确认要退出登录吗？
+      </p>
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="btn btn-primary">确认退出</a>
+          <a href="#" class="btn" data-dismiss="modal">不退出</a>
+        </div>
+      </div>
 </body>
 </html>
