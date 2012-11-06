@@ -5,9 +5,6 @@ CACHE MANIFEST
 # 直接缓存的文件
 CACHE:
 js/jquery-1.7.2.min.js
-js/lib/jquery.transit.min.js
-js/hideshow.js
-js/pnotify/jquery.pnotify.min.js
 
 # 需要在时间在线的文件
 NETWORK:

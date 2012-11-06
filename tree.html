@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="cn">
+<head>
+	<meta charset="utf-8"/>
+	<title>沈阳东方般若软件工程部</title>
+    <link rel="stylesheet" href="css/layout.css" type="text/css" />
+    <link rel="stylesheet" href="js/bootstrap/bootstrap.css" type="text/css" />
+    
+	<!--[if lt IE 9]><script src="js/html5.js"></script><![endif]-->
+  	<script src="js/jquery-1.7.2.min.js" ></script>
+    <!-- bootstrap -->
+    <script type="text/javascript" src="js/bootstrap/bootstrap.min.js" ></script>
+    
+    <script src="js/wisdom/wisdom.plug-in.js"></script>
+    <script src="js/wisdom/system.js"></script>
+    
+	<link rel="stylesheet" type="text/css" href="js/ztree/css/zTreeStyle/zTreeStyle.css">
+	<script src="js/ztree/js/jquery.ztree.core-3.4.min.js"></script>
+    
+    <SCRIPT type="text/javascript">
+		<!--
+		var setting = {	};
+
+		var zNodes =[
+			{ name:"父节点1 - 展开", open:true,
+				children: [
+					{ name:"父节点11 - 折叠",
+						children: [
+							{ name:"叶子节点111"},
+							{ name:"叶子节点112"},
+							{ name:"叶子节点113"},
+							{ name:"叶子节点114"}
+						]},
+					{ name:"父节点12 - 折叠",
+						children: [
+							{ name:"叶子节点121"},
+							{ name:"叶子节点122"},
+							{ name:"叶子节点123"},
+							{ name:"叶子节点124"}
+						]},
+					{ name:"父节点13 - 没有子节点", isParent:true}
+				]},
+			{ name:"父节点2 - 折叠",
+				children: [
+					{ name:"父节点21 - 展开", open:true,
+						children: [
+							{ name:"叶子节点211"},
+							{ name:"叶子节点212"},
+							{ name:"叶子节点213"},
+							{ name:"叶子节点214"}
+						]},
+					{ name:"父节点22 - 折叠",
+						children: [
+							{ name:"叶子节点221"},
+							{ name:"叶子节点222"},
+							{ name:"叶子节点223"},
+							{ name:"叶子节点224"}
+						]},
+					{ name:"父节点23 - 折叠",
+						children: [
+							{ name:"叶子节点231"},
+							{ name:"叶子节点232"},
+							{ name:"叶子节点233"},
+							{ name:"叶子节点234"}
+						]}
+				]},
+			{ name:"父节点3 - 没有子节点", isParent:true}
+
+		];
+
+		$(document).ready(function(){
+			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+		});
+		//-->
+	</SCRIPT>
+</head>
+<body>
+	<header id="header">
+		<hgroup>
+			<h1 class="site_title"><a href="index.html"><img alt="logo" src="images/logo.png" /></a></h1>
+			<h2 class="section_title">沈阳东方般若软件工程技术部</h2>
+		</hgroup>
+	</header> <!-- end of header bar -->
+	
+	<section id="secondary_bar">
+		<div class="user">
+			<p>Admin (<a href="#">3 条消息</a>)</p>
+			<a class="logout_user" href="#modelLogoutDialog" data-toggle="modal"  title="Logout">Logout</a>
+		</div>
+		<div class="breadcrumbs_container">
+			<article class="breadcrumbs"><a href="index.html">Wsidom WebAdmin</a> <div class="breadcrumb_divider"></div> <a class="current">基本表单</a></article>
+		</div>
+	</section><!-- end of secondary bar -->
+    
+    <div id="container" class="clearfix">
+        <aside id="sidebar" class="column">
+            <h3>基本功能演示</h3>
+            <ul class="toggle">
+            	<li class="icn_new_article"><a href="index.html">框架介绍</a></li>
+            	<li class="icn_new_article"><a href="button.html">页面按钮</a></li>
+                <li class="icn_tags"><a href="form.html">基本表单</a></li>
+                <li class="icn_new_article"><a href="datagrid.html">基本数据表格</a></li>
+                <li class="icn_new_article"><a href="jqgrid.html">JQgrid数据表格</a></li>
+                <li class="icn_categories"><a href="searchdate.html">数据查询</a></li>
+                <li class="icn_tags"><a href="icon.html">小图标</a></li>
+            </ul>
+            <h3>特殊功能</h3>
+            <ul class="toggle">
+                <li class="icn_edit_article"><a href="tree.html">树形数据表格</a></li>
+                <li class="icn_edit_article"><a href="#">子表格数据表格</a></li>
+                <li class="icn_add_user"><a href="#">树形结构</a></li>
+                <li class="icn_view_users"><a href="#">视频</a></li>
+                <li class="icn_profile"><a href="#">上传文件</a></li>
+                <li class="icn_profile"><a href="#">Tab页</a></li>
+            </ul>
+            <h3>服务器功能</h3>
+            <ul class="toggle">
+                <li class="icn_folder"><a href="#">性能监控</a></li>
+                <li class="icn_photo"><a href="#">定时任务</a></li>
+                <li class="icn_audio"><a href="#">MySql备份</a></li>
+            </ul>
+            
+            <footer>
+                <hr />
+                <p><strong>Copyright &copy; 2012 OrientalWisdom</strong></p>
+                <iframe width="0" height="0" src="_cache.html" ></iframe>
+            </footer>
+        </aside><!-- end of sidebar -->
+        
+        <section id="main" class="column">
+            <article class="module width_full">
+                <header><h3>树形控件简单演示</h3>
+                	<a href="javascript:void(0)" class="headerCloseButton"><span class="ui-icon ui-icon-circle-triangle-n"></span></a>
+                </header>
+                    <div class="module_content">
+                    	<ul id="treeDemo" class="ztree"></ul>
+                    </div>
+            </article>
+        </section>
+	</div>
+    
+    <!-- 退出按钮被点击时。 -->
+    <div id="modelLogoutDialog" class="modal hide fade" style="display: none; ">
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">×</a>
+          <h3>请确认</h3>
+        </div>
+        <div class="modal-body">
+          <h4>确认退出</h4>
+          <p>
+                您确认要退出登录吗？
+      </p>
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="btn btn-primary">确认退出</a>
+          <a href="#" class="btn" data-dismiss="modal">不退出</a>
+        </div>
+      </div>
+</body>
+</html>
