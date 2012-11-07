@@ -52,4 +52,15 @@ jQuery(function(){
 	
 	//显示隐藏菜单
 	$('#sidebar').toggleMenu();
+	
+	
+	
+	setInterval(function(){
+		/*
+		$('header#header').animate({
+			backgroundPositionX:'+=300px',
+		} ,10000);
+		*/
+		$('header#header').css('backgroundPositionX','+=1px');
+	},50);
 });
