@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="cn">
+<head>
+	<meta charset="utf-8"/>
+	<title>沈阳东方般若软件工程部</title>
+    <link rel="stylesheet" href="css/layout.css" type="text/css" />
+    <link rel="stylesheet" href="js/bootstrap/bootstrap.css" type="text/css" />
+    
+	<!--[if lt IE 9]><script src="js/html5.js"></script><![endif]-->
+  	<script src="js/jquery-1.7.2.min.js" ></script>
+    <!-- bootstrap -->
+    <script type="text/javascript" src="js/bootstrap/bootstrap.min.js" ></script>
+    
+    <script src="js/wisdom/wisdom.plug-in.js"></script>
+    <script src="js/wisdom/system.js"></script>
+    
+    <script src="js/bootstrap/bootbox.min.js"></script>
+    <script>
+	
+        $(function() {
+            $("a.bs-alert").click(function(e) {
+                e.preventDefault();
+                bootbox.alert("Hello world!", function() {
+                    console.log("Alert Callback");
+                });
+            });
+
+            $("a.confirm").click(function(e) {
+                e.preventDefault();
+                bootbox.confirm("Are you sure?", function(confirmed) {
+                    console.log("Confirmed: "+confirmed);
+                });
+            });
+
+            $("a.bs-prompt").click(function(e) {
+                e.preventDefault();
+                bootbox.prompt("What is your name?", function(result) {
+                    console.log("Result: "+result);
+                });
+            });
+
+            $("a.prompt-default").click(function(e) {
+                e.preventDefault();
+                bootbox.prompt("What is your favourite JS library?", "Cancel", "OK", function(result) {
+                    console.log("Result: "+result);
+                }, "Bootbox.js");
+            });
+
+            $("a.dialog").click(function(e) {
+                e.preventDefault();
+                bootbox.dialog("I am a custom dialog", [{
+                    "label" : "Success!",
+                    "class" : "btn-success",
+                    "callback": function() {
+                        console.log("great success");
+                    }
+                }, {
+                    "label" : "Danger!",
+                    "class" : "btn-danger",
+                    "callback": function() {
+                        console.log("uh oh, look out!");
+                    }
+                }, {
+                    "label" : "Click ME!",
+                    "class" : "btn-primary",
+                    "callback": function() {
+                        console.log("Primary button");
+                    }
+                }, {
+                    "label" : "Just a button..."
+                }, {
+                    "Condensed format": function() {
+                        console.log("condensed");
+                    }
+                }]);
+            });
+
+            $("a.multiple").click(function(e) {
+                e.preventDefault();
+
+                bootbox.alert("Prepare for multiboxes...", "Argh!");
+
+                setTimeout(function() {
+                    bootbox.confirm("Are you having fun?", "No :(", "Yeah!", function(result) {
+                        if (result) {
+                            bootbox.alert("Glad to hear it!");
+                        } else {
+                            bootbox.alert("Aww boo. Click the button below to get rid of all these popups", function() {
+                                bootbox.hideAll();
+                            });
+                        }
+                    });
+                }, 1000);
+            });
+
+            $("a.dialog-close").click(function(e) {
+                e.preventDefault();
+                var box = bootbox.alert("This dialog will close in two seconds");
+                setTimeout(function() {
+                    box.modal('hide');
+                }, 2000);
+            });
+
+            $("a.generic-modal").click(function(e) {
+                e.preventDefault();
+                bootbox.modal('<img src="http://dummyimage.com/600x400/000/fff" alt=""/>', 'Modal popup!');
+            });
+
+            $("a.dynamic").click(function(e) {
+                e.preventDefault();
+                var str = $("<p>This content is actually a jQuery object, which will change in 3 seconds...</p>");
+                bootbox.alert(str);
+                setTimeout(function() {
+                    str.html("See?");
+                }, 3000);
+            });
+
+            $("a.onescape").click(function(e) {
+                e.preventDefault();
+                bootbox.dialog("Dismiss this dialog with the escape key...", {
+                    "label" : "Press Escape!",
+                    "class" : "btn-danger",
+                    "callback": function() {
+
+                        console.log("Oi! Press escape!");
+                    }
+                }, {
+                    "onEscape": function() {
+                        bootbox.alert("This alert was triggered by the onEscape callback of the previous dialog", "Dismiss");
+                    }
+                });
+            });
+
+            $("a.nofade").click(function(e) {
+                e.preventDefault();
+                bootbox.dialog("This dialog does not fade in or out, and thus does not depend on <strong>bootstrap-transitions.js</strong>.",
+                {
+                    "OK": function() {}
+                }, {
+                    "animate": false
+                });
+            });
+
+            $("a.nobackdrop").click(function(e) {
+                e.preventDefault();
+                bootbox.dialog("This dialog does not have a backdrop element",
+                {
+                    "OK": function() {}
+                }, {
+                    "backdrop": false
+                });
+            });
+
+            $("a.icons-explicit").click(function(e) {
+                e.preventDefault();
+                bootbox.dialog("Custom dialog with icons being passed explicitly into <b>bootbox.dialog</b>.", [{
+                    "label" : "Success!",
+                    "class" : "btn-success",
+                    "icon"  : "icon-ok-sign icon-white"
+                }, {
+                    "label" : "Danger!",
+                    "class" : "btn-danger",
+                    "icon"  : "icon-warning-sign icon-white"
+                }, {
+                    "label" : "Click ME!",
+                    "class" : "btn-primary",
+                    "icon"  : "icon-ok icon-white"
+                }, {
+                    "label" : "Just a button...",
+                    "icon"  : "icon-picture"
+                }]);
+            });
+
+            $("a.icons-override").click(function(e) {
+                e.preventDefault();
+                bootbox.setIcons({
+                    "OK"      : "icon-ok icon-white",
+                    "CANCEL"  : "icon-ban-circle",
+                    "CONFIRM" : "icon-ok-sign icon-white"
+                });
+
+                bootbox.confirm("This dialog invokes <b>bootbox.setIcons()</b> to set icons for the standard three labels of OK, CANCEL and CONFIRM, before calling a normal <b>bootbox.confirm</b>", function(result) {
+                    bootbox.alert("This dialog is just a standard <b>bootbox.alert()</b>. <b>bootbox.setIcons()</b> only needs to be set once to affect all subsequent calls", function() {
+                        bootbox.setIcons(null);
+                    });
+                });
+            });
+
+            $("a.no-close-button").click(function(e) {
+                e.preventDefault();
+                bootbox.dialog("If a button's handler now explicitly returns <b>false</b>, the dialog will not be closed. Note that if anything <b>!== false</b> - e.g. nothing, true, null etc - is returned, the dialog will close.", [{
+                    "I'll close on click": function() {
+                        console.log("close on click");
+                        return true;
+                    },
+                }, {
+                    "I won't!": function() {
+                        console.log("returning false...");
+                        return false;
+                    }
+                }]);
+            });
+        });
+    
+	</script>
+</head>
+<body>
+	<header id="header">
+		<hgroup>
+			<h1 class="site_title"><a href="index.html"><img alt="logo" src="images/logo.png" /></a></h1>
+			<h2 class="section_title">沈阳东方般若软件工程技术部</h2>
+		</hgroup>
+	</header> <!-- end of header bar -->
+	
+	<section id="secondary_bar">
+		<div class="user">
+			<p>Admin (<a href="#">3 条消息</a>)</p>
+			<a class="logout_user" href="#modelLogoutDialog" data-toggle="modal"  title="Logout">Logout</a>
+		</div>
+		<div class="breadcrumbs_container">
+			<article class="breadcrumbs"><a href="index.html">Wsidom WebAdmin</a> <div class="breadcrumb_divider"></div> <a class="current">基本表单</a></article>
+		</div>
+	</section><!-- end of secondary bar -->
+    
+    <div id="container" class="clearfix">
+        <aside id="sidebar" class="column">
+            <h3>基本功能演示</h3>
+            <ul class="toggle">
+            	<li class="icn_new_article"><a href="index.html">框架介绍</a></li>
+            	<li class="icn_new_article"><a href="button.html">页面按钮</a></li>
+                <li class="icn_tags"><a href="form.html">基本表单</a></li>
+                <li class="icn_new_article"><a href="datagrid.html">基本数据表格</a></li>
+                <li class="icn_new_article"><a href="jqgrid.html">JQgrid数据表格</a></li>
+                <li class="icn_categories"><a href="searchdate.html">数据查询</a></li>
+                <li class="icn_tags"><a href="icon.html">小图标</a></li>
+            </ul>
+            <h3>特殊功能</h3>
+            <ul class="toggle">
+                <li class="icn_edit_article"><a href="tree.html">树形数据表格</a></li>
+                <li class="icn_edit_article"><a href="dialog.html">Dialog</a></li>
+                <li class="icn_edit_article"><a href="#">子表格数据表格</a></li>
+                <li class="icn_add_user"><a href="#">树形结构</a></li>
+                <li class="icn_view_users"><a href="#">视频</a></li>
+                <li class="icn_profile"><a href="#">上传文件</a></li>
+                <li class="icn_profile"><a href="#">Tab页</a></li>
+            </ul>
+            <h3>服务器功能</h3>
+            <ul class="toggle">
+                <li class="icn_folder"><a href="#">性能监控</a></li>
+                <li class="icn_photo"><a href="#">定时任务</a></li>
+                <li class="icn_audio"><a href="#">MySql备份</a></li>
+            </ul>
+            
+            <footer>
+                <hr />
+                <p><strong>Copyright &copy; 2012 OrientalWisdom</strong></p>
+                <iframe width="0" height="0" src="_cache.html" ></iframe>
+            </footer>
+        </aside><!-- end of sidebar -->
+        
+        <section id="main" class="column">
+            <article class="module width_full">
+                <header><h3>bootbox演示</h3></header>
+                <div class="module_content">
+                	<ul class="nav nav-list">
+                        <li class="nav-header">Basic usage</li>
+                        <li><a href="#" class="bs-alert" title="Simple Alert">Alert</a></li>
+                        <li><a href="#" class="confirm">Confirm</a></li>
+                        <li><a href="#" class="bs-prompt">Prompt</a></li>
+                        <li class="nav-header">Advanced usage</li>
+                        <li><a href="#" class="dialog">Custom Dialog</a></li>
+                        <li><a href="#" class="multiple">Multiple Dialogs</a></li>
+                        <li><a href="#" class="dialog-close">Programmatic Close</a></li>
+                        <li><a href="#" class="generic-modal">Generic Modal</a></li>
+                        <li><a href="#" class="dynamic">Dynamic Content</a></li>
+                        <li><a href="#" class="icons-explicit">Iconified buttons (explicit)</a></li>
+                        <li><a href="#" class="icons-override">Override alert and confirm icons (programmatic)</a></li>
+                        <li><a href="#" class="no-close-button">Don’t close if callback returns false</a></li>
+                        <li><a href="#" class="prompt-default">Prompt with default value</a></li>
+                        <li class="nav-header">Custom options</li>
+                        <li><a href="#" class="onescape">options.onEscape → function</a></li>
+                        <li><a href="#" class="nofade">options.animate → false</a></li>
+                        <li><a href="#" class="nobackdrop">options.backdrop → false</a></li>
+                    </ul>
+                </div>
+            </article>
+        </section>
+	</div>
+    
+    <!-- 退出按钮被点击时。 -->
+    <div id="modelLogoutDialog" class="modal hide fade" style="display: none; ">
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">×</a>
+          <h3>请确认</h3>
+        </div>
+        <div class="modal-body">
+          <h4>确认退出</h4>
+          <p>
+                您确认要退出登录吗？
+      </p>
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="btn btn-primary">确认退出</a>
+          <a href="#" class="btn" data-dismiss="modal">不退出</a>
+        </div>
+      </div>
+</body>
+</html>

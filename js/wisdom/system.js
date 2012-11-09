@@ -56,11 +56,6 @@ jQuery(function(){
 	
 	
 	setInterval(function(){
-		/*
-		$('header#header').animate({
-			backgroundPositionX:'+=300px',
-		} ,10000);
-		*/
 		$('header#header').css('backgroundPositionX','+=1px');
 	},50);
 });
