@@ -91,7 +91,7 @@ background: #F1F1F4 url(../images/secondary_bar.png) repeat-x;
 
 section#secondary_bar .user {
 float: left;
-width: 23%;
+width: 18%;
 height: 38px;
 }
 
@@ -132,7 +132,7 @@ background: url(../images/icn_logout.png) center no-repeat;
 
 section#secondary_bar .breadcrumbs_container {
 float: left;
-width: 77%;
+width: 82%;
 background: url(../images/secondary_bar_shadow.png) no-repeat left top;
 height: 38px;
 }
@@ -187,7 +187,7 @@ margin: 0 5px;
 /* Sidebar */
 
 aside#sidebar {
-width: 23%;
+width: 18%;
 float: left;
 min-height: 500px;
 margin-top: -4px;
@@ -238,14 +238,13 @@ box-shadow: inset 0 2px 2px #ccc, 0 0 10px #ADDCE6;
 /* Sidebar Menu */
 
 #sidebar h3 {
-color: #1F1F20;
-text-transform: uppercase;
-text-shadow: 0 1px 0 #fff;
-font-size: 13px;
-margin: 10px 0 10px 6%;
-display: block;
-float: left;
-width: 90%;
+    color: #1F1F20;
+    text-shadow: 0 1px 0 #fff;
+    margin: 2px 0 0 6%;
+    display: block;
+    float: left;
+    width: 90%;
+    font-size:12px;
 }
 
 .toggleLink {
@@ -265,6 +264,7 @@ text-decoration: none;
 #sidebar ul {
 clear: both;
 margin: 0; padding: 0;
+    font-size:12px;
 }
 
 #sidebar li {
@@ -356,7 +356,7 @@ margin-top: 20%;
 
 
 section#main {
-width: 77%;
+width: 82%;
 min-height: 500px;
 background:#F5F5F5 url(../images/sidebar_shadow.png) repeat-y left top;
 float: left;
@@ -365,9 +365,7 @@ margin-top: -2px;
 
 #main h3 {
 color: #1F1F20;
-text-transform: uppercase;
 text-shadow: 0 1px 0 #fff;
-font-size: 13px;
 margin-left:20px;
 }
 
@@ -385,15 +383,17 @@ background: #ffffff;
 }
 
 #main .module header h3 {
-display: block;
-width: 90%;
-float: left;
+    display: block;
+    width: 90%;
+    float: left;
+    margin-top:0;
+    margin-bottom: 0;
 }
 
 .module header {
-height: 25px;
+height: 40px;
 width: 100%;
-background: #F1F1F4 url(../images/secondary_bar.png) repeat-x;
+/* background: #F1F1F4 url(../images/secondary_bar.png) repeat-x; */
 -webkit-border-top-left-radius: 5px; -webkit-border-top-right-radius: 5px;
 -moz-border-radius-topleft: 5px; -moz-border-radius-topright: 5px;
 border-top-left-radius: 5px; border-top-right-radius: 5px;
