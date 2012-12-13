@@ -798,3 +798,10 @@ a.headerCloseButton{
 .no-border{
 	border:none;
 }
+
+#toggleMenu{
+    float:left;
+    margin-left:5px;
+    margin-top:8px;
+    cursor: pointer;
+}

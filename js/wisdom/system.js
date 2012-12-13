@@ -3,7 +3,6 @@ jQuery(function(){
 		$('.wisdomForm').wisdomForm();
 	}catch(error){}
 	
-	
 	//搜索框的显示和隐藏
 	$('article.module > header > a.headerCloseButton').hover(function(){
 		$(this).addClass('ui-state-hover');
@@ -52,10 +51,22 @@ jQuery(function(){
 	
 	//显示隐藏菜单
 	$('#sidebar').toggleMenu();
-	
-	
-	
+
 	setInterval(function(){
 		$('header#header').css('backgroundPositionX','+=1px');
 	},50);
+    //双击User标题栏，隐藏左侧窗口。
+    $('#toggleMenu').toggle(function(){
+        $(this).attr('class','icon-chevron-right');
+        $('section#secondary_bar .user').hide();
+        $('aside#sidebar').hide();
+        $('section#main').width('100%');
+        $('section#secondary_bar .breadcrumbs_container').width('100%');
+    },function(){
+        $(this).attr('class','icon-chevron-left');
+        $('section#secondary_bar .user').show();
+        $('aside#sidebar').show();
+        $('section#main').width('82%');
+        $('section#secondary_bar .breadcrumbs_container').width('82%');
+    });
 });
