@@ -30,8 +30,9 @@ UE.plugins['removeformat'] = function(){
                 };
 
             function isRedundantSpan (node) {
-                if (node.nodeType == 3 || node.tagName.toLowerCase() != 'span')
+                if (node.nodeType == 3 || node.tagName.toLowerCase() != 'span'){
                     return 0;
+                }
                 if (browser.ie) {
                     //ie 下判断实效，所以只能简单用style来判断
                     //return node.style.cssText == '' ? 1 : 0;
@@ -45,7 +46,7 @@ UE.plugins['removeformat'] = function(){
                         return 1;
                     }
                 }
-                return !node.attributes.length
+                return !node.attributes.length;
             }
             function doRemove( range ) {
 
@@ -58,12 +59,12 @@ UE.plugins['removeformat'] = function(){
                 if(!notIncludeA){
                     var aNode = domUtils.findParentByTagName(range.startContainer,'a',true);
                     if(aNode){
-                        range.setStartBefore(aNode)
+                        range.setStartBefore(aNode);
                     }
 
                     aNode = domUtils.findParentByTagName(range.endContainer,'a',true);
                     if(aNode){
-                        range.setEndAfter(aNode)
+                        range.setEndAfter(aNode);
                     }
 
                 }
@@ -101,17 +102,19 @@ UE.plugins['removeformat'] = function(){
                             if ( tagReg.test( current.tagName ) ) {
                                 if ( style ) {
                                     domUtils.removeStyle( current, style );
-                                    if ( isRedundantSpan( current ) && style != 'text-decoration')
+                                    if ( isRedundantSpan( current ) && style != 'text-decoration'){
                                         domUtils.remove( current, true );
+                                    }
                                 } else {
-                                    domUtils.remove( current, true )
+                                    domUtils.remove( current, true );
                                 }
                             } else {
                                 //trace:939  不能把list上的样式去掉
                                 if(!dtd.$tableContent[current.tagName] && !dtd.$list[current.tagName]){
                                     domUtils.removeAttributes( current, removeFormatAttributes );
-                                    if ( isRedundantSpan( current ) )
+                                    if ( isRedundantSpan( current ) ){
                                         domUtils.remove( current, true );
+                                    }
                                 }
 
                             }

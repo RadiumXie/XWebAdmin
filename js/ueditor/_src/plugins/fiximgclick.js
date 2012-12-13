@@ -13,6 +13,6 @@ UE.plugins['fiximgclick'] = function() {
                 range.selectNode( e.target ).select();
 
             }
-        } )
+        } );
     }
 };

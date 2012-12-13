@@ -23,14 +23,14 @@
 //                    }
 //                }
 //            }
-            return utils.findNode(editor.selection.getStartElementPath(),null,function(n){return n.getAttribute('dir')});
+            return domUtils.filterNodeList(editor.selection.getStartElementPath(),function(n){return n.getAttribute('dir')});
 
         },
         doDirectionality = function(range,editor,forward){
             
             var bookmark,
                 filterFn = function( node ) {
-                    return   node.nodeType == 1 ? !domUtils.isBookmarkNode(node) : !domUtils.isWhitespace(node)
+                    return   node.nodeType == 1 ? !domUtils.isBookmarkNode(node) : !domUtils.isWhitespace(node);
                 },
 
                 obj = getObj( editor );
@@ -51,7 +51,7 @@
                     while ( current && current !== bookmark2.end && !block( current ) ) {
                         tmpNode = current;
                         current = domUtils.getNextDomNode( current, false, null, function( node ) {
-                            return !block( node )
+                            return !block( node );
                         } );
                     }
                     tmpRange.setEndAfter( tmpNode );
@@ -82,10 +82,11 @@
             var range = new dom.Range(this.document);
             if(this.currentSelectedArr && this.currentSelectedArr.length > 0){
                 for(var i=0,ti;ti=this.currentSelectedArr[i++];){
-                    if(ti.style.display != 'none')
+                    if(ti.style.display != 'none'){
                         doDirectionality(range.selectNode(ti),this,forward);
+                    }
                 }
-                range.selectNode(this.currentSelectedArr[0]).select()
+                range.selectNode(this.currentSelectedArr[0]).select();
             }else{
                 range = this.selection.getRange();
                 //闭合时单独处理
@@ -108,11 +109,11 @@
         queryCommandValue : function() {
 
             var node = getObj(this);
-            return node ? node.getAttribute('dir') : 'ltr'
+            return node ? node.getAttribute('dir') : 'ltr';
         },
        queryCommandState : function(){
             return this.highlight ? -1 :0;
         }
-    }
+    };
 })();
 

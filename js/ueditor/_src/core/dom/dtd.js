@@ -73,7 +73,7 @@ var dtd = dom.dtd = (function() {
         $empty : empty,
 
         //不是自闭合，但不能让range选中里边
-        $nonChild : _({iframe:1}),
+        $nonChild : _({iframe:1,textarea:1}),
         //列表元素列表
         $listItem : _({dd:1,dt:1,li:1}),
 

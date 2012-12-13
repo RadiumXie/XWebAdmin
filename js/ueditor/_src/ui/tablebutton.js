@@ -17,6 +17,7 @@
             var me = this;
             this.popup = new Popup({
                 content: new TablePicker({
+                    editor:me.editor,
                     onpicktable: function (t, numCols, numRows){
                         me._onPickTable(numCols, numRows);
                     },

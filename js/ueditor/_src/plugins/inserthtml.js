@@ -32,7 +32,7 @@
 
             if(tds && tds.length){
                 for(var i=0,ti;ti=tds[i++];){
-                    ti.className = ''
+                    ti.className = '';
                 }
                 tds[0].innerHTML = '';
                 range.setStart(tds[0],0).collapse(true);
@@ -90,7 +90,7 @@
                             domUtils.isBlockElm(next) &&
                             next.lastChild &&
                             !domUtils.isBr(next.lastChild)){
-                            next.appendChild(me.document.createElement('br'))
+                            next.appendChild(me.document.createElement('br'));
                         }
                         hadBreak = 1;
                     }
@@ -110,7 +110,7 @@
 
             //用chrome可能有空白展位符
             if(domUtils.isBlockElm(child) && domUtils.isEmptyNode(child)){
-                child.innerHTML = browser.ie ? '' : '<br/>'
+                child.innerHTML = browser.ie ? '' : '<br/>';
             }
             //加上true因为在删除表情等时会删两次，第一次是删的fillData
             range.select(true);
@@ -119,7 +119,7 @@
             setTimeout(function(){
                 range = me.selection.getRange();
                 range.scrollToView(me.autoHeightEnabled,me.autoHeightEnabled ? domUtils.getXY(me.iframe).y:0);
-            },200)
+            },200);
 
 
 

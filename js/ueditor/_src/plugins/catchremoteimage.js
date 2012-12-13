@@ -5,10 +5,12 @@
  *
  */
 UE.plugins['catchremoteimage'] = function () {
-    if (this.options.catchRemoteImageEnable===false)return;
+    if (this.options.catchRemoteImageEnable===false){
+        return;
+    }
     var me = this;
     this.setOpt({
-            localDomain:["127.0.0.1","localhost"],
+            localDomain:["127.0.0.1","localhost","img.baidu.com"],
             separater:'ue_separate_ue',
             catchFieldName:"upfile",
             catchRemoteImageEnable:true
@@ -44,7 +46,9 @@ UE.plugins['catchremoteimage'] = function () {
             return false;
         };
         for (var i = 0, ci; ci = imgs[i++];) {
-            if (ci.getAttribute("word_img"))continue;
+            if (ci.getAttribute("word_img")){
+                continue;
+            }
             var src = ci.getAttribute("data_ue_src") || ci.src || "";
             if (/^(https?|ftp):/i.test(src) && !test(src,localDomain)) {
                 remoteImages.push(src);
@@ -76,13 +80,14 @@ UE.plugins['catchremoteimage'] = function () {
                             }
                         }
                     }
+                    me.fireEvent('catchremotesuccess')
                 },
                 //回调失败，本次请求超时
                 error:function () {
                     me.fireEvent("catchremoteerror");
                 }
-            })
+            });
         }
 
-    })
+    });
 };

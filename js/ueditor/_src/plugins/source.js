@@ -115,7 +115,7 @@
 //                    return new Array(m.length + 1).join('&nbsp;');
 //                }).replace(/(?:^ )|(?: $)/g, '&nbsp;');
 //            }
-            text = text.replace(/&nbsp;/g, ' ')
+            text = text.replace(/&nbsp;/g, ' ');
             this.buff.push(text);
 
         },
@@ -170,18 +170,21 @@
             };
         },
         codemirror: function (editor, holder){
-            var options = {
+
+            var codeEditor = window.CodeMirror(holder, {
                 mode: "text/html",
                 tabMode: "indent",
                 lineNumbers: true,
                 lineWrapping:true
-            };
-            var codeEditor = window.CodeMirror(holder, options);
+            });
             var dom = codeEditor.getWrapperElement();
             dom.style.cssText = 'position:absolute;left:0;top:0;width:100%;height:100%;font-family:consolas,"Courier new",monospace;font-size:13px;';
             codeEditor.getScrollerElement().style.cssText = 'position:absolute;left:0;top:0;width:100%;height:100%;';
             codeEditor.refresh();
             return {
+                getCodeMirror:function(){
+                    return codeEditor;
+                },
                 setContent: function (content){
                     codeEditor.setValue(content);
                 },
@@ -206,13 +209,19 @@
         var formatter = new SourceFormater(opt.source);
         var sourceMode = false;
         var sourceEditor;
-        opt.sourceEditor = opt.sourceEditor || 'codemirror';
+        opt.sourceEditor = browser.ie && browser.version < 8 ? 'textarea' : (opt.sourceEditor || 'codemirror');
 
+        me.setOpt({
+            sourceEditorFirst:false
+        });
         function createSourceEditor(holder){
             return sourceEditors[opt.sourceEditor == 'codemirror' && window.CodeMirror ? 'codemirror' : 'textarea'](me, holder);
         }
 
         var bakCssText;
+        //解决在源码模式下getContent不能得到最新的内容问题
+        var oldGetContent = me.getContent;
+
         me.commands['source'] = {
             execCommand: function (){
 
@@ -220,9 +229,10 @@
                 if (sourceMode) {
                     me.undoManger && me.undoManger.save();
                     this.currentSelectedArr && domUtils.clearSelectedArr(this.currentSelectedArr);
-                    if(browser.gecko)
+                    if(browser.gecko){
                         me.body.contentEditable = false;
-                    
+                    }
+
                     bakCssText = me.iframe.style.cssText;
                     me.iframe.style.cssText += 'position:absolute;left:-32768px;top:-32768px;';
 
@@ -233,19 +243,29 @@
                     sourceEditor.setContent(content);
                     setTimeout(function (){
                         sourceEditor.select();
+                        me.addListener('fullscreenchanged', function(){
+                            try{
+                                sourceEditor.getCodeMirror().refresh()
+                            }catch(e){}
+                        });
                     });
+                    //重置getContent，源码模式下取值也能是最新的数据
+                    me.getContent = function (){
+                        var cont = sourceEditor.getContent() || '<p>' + (browser.ie ? '' : '<br/>')+'</p>';
+                        cont = cont.replace(/>[\n\r\t]+([ ]{4})+/g,'>').replace(/[\n\r\t]+([ ]{4})+</g,'<').replace(/>[\n\r\t]+</g,'><');
+                        me.setContent(cont,true);
+                        return oldGetContent.apply(this);
+                    };
                 } else {
-                    
                     me.iframe.style.cssText = bakCssText;
                     var cont = sourceEditor.getContent() || '<p>' + (browser.ie ? '' : '<br/>')+'</p>';
                     cont = cont.replace(/>[\n\r\t]+([ ]{4})+/g,'>').replace(/[\n\r\t]+([ ]{4})+</g,'<').replace(/>[\n\r\t]+</g,'><');
-
-
                     me.setContent(cont);
                     sourceEditor.dispose();
                     sourceEditor = null;
+                    //还原getContent方法
+                    me.getContent = oldGetContent;
                     setTimeout(function(){
-                        
                         var first = me.body.firstChild;
                         //trace:1106 都删除空了，下边会报错，所以补充一个p占位
                         if(!first){
@@ -253,7 +273,8 @@
                             first = me.body.firstChild;
                         }
                         //要在ifm为显示时ff才能取到selection,否则报错
-                        me.undoManger && me.undoManger.save();
+                        //这里不能比较位置了
+                        me.undoManger && me.undoManger.save(true);
 
                         while(first && first.firstChild){
 
@@ -261,7 +282,7 @@
                         }
                         var range = me.selection.getRange();
                         if(first.nodeType == 3 || dtd.$empty[first.tagName]){
-                            range.setStartBefore(first)
+                            range.setStartBefore(first);
                         }else{
                             range.setStart(first,0);
                         }
@@ -280,59 +301,56 @@
                                 setTimeout(function(){
                                     me.body.contentEditable = true;
                                     range.setCursor(false,true);
-                                    domUtils.remove(input)
-                                })
+                                    domUtils.remove(input);
+                                });
 
-                            })
+                            });
                         }else{
                             range.setCursor(false,true);
                         }
-
-                    })
+                    });
                 }
                 this.fireEvent('sourcemodechanged', sourceMode);
             },
             queryCommandState: function (){
                 return sourceMode|0;
-            }
+            },
+            notNeedUndo : 1
         };
         var oldQueryCommandState = me.queryCommandState;
+
         me.queryCommandState = function (cmdName){
             cmdName = cmdName.toLowerCase();
             if (sourceMode) {
-                return cmdName == 'source' ? 1 : -1;
+                //源码模式下可以开启的命令
+                return cmdName in {
+                    'source' : 1,
+                    'fullscreen' : 1
+                } ? 1 : -1
             }
             return oldQueryCommandState.apply(this, arguments);
         };
-        //解决在源码模式下getContent不能得到最新的内容问题
-        var oldGetContent = me.getContent;
-        me.getContent = function (){
 
-            if(sourceMode && sourceEditor ){
-                var html = sourceEditor.getContent();
-                if (this.serialize) {
-                    var node = this.serialize.parseHTML(html);
-                    node = this.serialize.filter(node);
-                    html = this.serialize.toHTML(node);
-                }
-                return html;
-            }else{
-                return oldGetContent.apply(this, arguments)
-            }
-        };
         if(opt.sourceEditor == "codemirror"){
+
             me.addListener("ready",function(){
                 utils.loadFile(document,{
-                    src : opt.codeMirrorJsUrl || opt.UEDITOR_HOME_URL + "third-party/codemirror2.15/codemirror.js",
+                    src : opt.codeMirrorJsUrl || opt.UEDITOR_HOME_URL + "third-party/codemirror/codemirror.js",
                     tag : "script",
                     type : "text/javascript",
                     defer : "defer"
+                },function(){
+                    if(opt.sourceEditorFirst){
+                        setTimeout(function(){
+                            me.execCommand("source");
+                        },0);
+                    }
                 });
                 utils.loadFile(document,{
                     tag : "link",
                     rel : "stylesheet",
                     type : "text/css",
-                    href : opt.codeMirrorCssUrl || opt.UEDITOR_HOME_URL + "third-party/codemirror2.15/codemirror.css"
+                    href : opt.codeMirrorCssUrl || opt.UEDITOR_HOME_URL + "third-party/codemirror/codemirror.css"
                 });
 
             });

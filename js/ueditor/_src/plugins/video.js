@@ -14,7 +14,7 @@ UE.plugins['video'] = function (){
      * @param width 视频宽度
      * @param height 视频高度
      * @param align 视频对齐
-     * @param toEmbed 是否以图片代替显示
+     * @param toEmbed 是否以flash代替显示
      * @param addParagraph  是否需要添加P 标签
      */
     function creatInsertStr(url,width,height,align,toEmbed,addParagraph){
@@ -34,7 +34,9 @@ UE.plugins['video'] = function (){
         var tmpdiv,
             nodes =domUtils.getElementsByTagName(me.document, !img2embed ? "embed" : "img");
         for(var i=0,node;node = nodes[i++];){
-            if(node.className!="edui-faked-video")continue;
+            if(node.className!="edui-faked-video"){
+                continue;
+            }
             tmpdiv = me.document.createElement("div");
             //先看float在看align,浮动有的是时候是在float上定义的
             var align = node.style.cssFloat;
@@ -49,8 +51,9 @@ UE.plugins['video'] = function (){
         switchImgAndEmbed(false);
     });
     me.addListener('aftergetcontent',function(cmdName){
-        if(cmdName == 'aftergetcontent' && me.queryCommandState('source'))
+        if(cmdName == 'aftergetcontent' && me.queryCommandState('source')){
             return;
+        }
         switchImgAndEmbed(false);
     });
 
@@ -69,5 +72,5 @@ UE.plugins['video'] = function (){
                 flag = img && (img.className == "edui-faked-video");
             return this.highlight ? -1 :(flag?1:0);
         }
-    }
+    };
 };

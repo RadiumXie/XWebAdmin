@@ -393,214 +393,12 @@ UE.plugins['serialize'] = function () {
         };
     }();
 
-    //过滤word
-    var transformWordHtml = function () {
-
-        function isWordDocument( strValue ) {
-            var re = new RegExp( /(class="?Mso|style="[^"]*\bmso\-|w:WordDocument|<v:)/ig );
-            return re.test( strValue );
-        }
-
-        function ensureUnits( v ) {
-            v = v.replace( /([\d.]+)([\w]+)?/g, function ( m, p1, p2 ) {
-                return (Math.round( parseFloat( p1 ) ) || 1) + (p2 || 'px');
-            } );
-            return v;
-        }
-
-        function filterPasteWord( str ) {
-            str = str.replace( /<!--\s*EndFragment\s*-->[\s\S]*$/, '' )
-                //remove link break
-                .replace( /^(\r\n|\n|\r)|(\r\n|\n|\r)$/ig, "" )
-                //remove &nbsp; entities at the start of contents
-                .replace( /^\s*(&nbsp;)+/ig, "" )
-                //remove &nbsp; entities at the end of contents
-                .replace( /(&nbsp;|<br[^>]*>)+\s*$/ig, "" )
-                // Word comments like conditional comments etc
-                .replace( /<!--[\s\S]*?-->/ig, "" )
-                //转换图片
-                .replace(/<v:shape [^>]*>[\s\S]*?.<\/v:shape>/gi,function(str){
-                    try{
-                        var width = str.match(/width:([ \d.]*p[tx])/i)[1],
-                            height = str.match(/height:([ \d.]*p[tx])/i)[1],
-                            src =  str.match(/src=\s*"([^"]*)"/i)[1];
-                        return '<img width="'+ptToPx(width)+'" height="'+ptToPx(height)+'" src="' + src + '" />'
-                    } catch(e){
-                        return '';
-                    }
-
-                })
-                //去掉多余的属性
-                .replace( /v:\w+=["']?[^'"]+["']?/g, '' )
-                // Remove comments, scripts (e.g., msoShowComment), XML tag, VML content, MS Office namespaced tags, and a few other tags
-                .replace( /<(!|script[^>]*>.*?<\/script(?=[>\s])|\/?(\?xml(:\w+)?|xml|meta|link|style|\w+:\w+)(?=[\s\/>]))[^>]*>/gi, "" )
-                //convert word headers to strong
-                .replace( /<p [^>]*class="?MsoHeading"?[^>]*>(.*?)<\/p>/gi, "<p><strong>$1</strong></p>" )
-                //remove lang attribute
-                .replace( /(lang)\s*=\s*([\'\"]?)[\w-]+\2/ig, "" )
-                //清除多余的font不能匹配&nbsp;有可能是空格
-                .replace( /<font[^>]*>\s*<\/font>/gi, '' )
-                //清除多余的class
-                .replace( /class\s*=\s*["']?(?:(?:MsoTableGrid)|(?:MsoListParagraph)|(?:MsoNormal(Table)?))\s*["']?/gi, '' );
-
-            // Examine all styles: delete junk, transform some, and keep the rest
-            //修复了原有的问题, 比如style='fontsize:"宋体"'原来的匹配失效了
-            str = str.replace( /(<[a-z][^>]*)\sstyle=(["'])([^\2]*?)\2/gi, function( str, tag, tmp, style ) {
-
-                var n = [],
-                        i = 0,
-                        s = style.replace( /^\s+|\s+$/, '' ).replace( /&quot;/gi, "'" ).split( /;\s*/g );
-
-                // Examine each style definition within the tag's style attribute
-                for ( var i = 0; i < s.length; i++ ) {
-                    var v = s[i];
-                    var name, value,
-                            parts = v.split( ":" );
-
-                    if ( parts.length == 2 ) {
-                        name = parts[0].toLowerCase();
-                        value = parts[1].toLowerCase();
-                        // Translate certain MS Office styles into their CSS equivalents
-                        switch ( name ) {
-                            case "mso-padding-alt":
-                            case "mso-padding-top-alt":
-                            case "mso-padding-right-alt":
-                            case "mso-padding-bottom-alt":
-                            case "mso-padding-left-alt":
-                            case "mso-margin-alt":
-                            case "mso-margin-top-alt":
-                            case "mso-margin-right-alt":
-                            case "mso-margin-bottom-alt":
-                            case "mso-margin-left-alt":
-                            //ie下会出现挤到一起的情况
-//                            case "mso-table-layout-alt":
-                            case "mso-height":
-                            case "mso-width":
-                            case "mso-vertical-align-alt":
-                                //trace:1819 ff下会解析出padding在table上
-                                if(!/<table/.test(tag))
-                                    n[i] = name.replace( /^mso-|-alt$/g, "" ) + ":" + ensureUnits( value );
-                                continue;
-                            case "horiz-align":
-                                n[i] = "text-align:" + value;
-                                continue;
-
-                            case "vert-align":
-                                n[i] = "vertical-align:" + value;
-                                continue;
-
-                            case "font-color":
-                            case "mso-foreground":
-                                n[i] = "color:" + value;
-                                continue;
-
-                            case "mso-background":
-                            case "mso-highlight":
-                                n[i] = "background:" + value;
-                                continue;
-
-                            case "mso-default-height":
-                                n[i] = "min-height:" + ensureUnits( value );
-                                continue;
-
-                            case "mso-default-width":
-                                n[i] = "min-width:" + ensureUnits( value );
-                                continue;
-
-                            case "mso-padding-between-alt":
-                                n[i] = "border-collapse:separate;border-spacing:" + ensureUnits( value );
-                                continue;
-
-                            case "text-line-through":
-                                if ( (value == "single") || (value == "double") ) {
-                                    n[i] = "text-decoration:line-through";
-                                }
-                                continue;
-
-
-                            //trace:1870
-//                            //word里边的字体统一干掉
-//                            case 'font-family':
-//                                continue;
-                            case "mso-zero-height":
-                                if ( value == "yes" ) {
-                                    n[i] = "display:none";
-                                }
-                                continue;
-                            case 'margin':
-                                if ( !/[1-9]/.test( parts[1] ) ) {
-                                    continue;
-                                }
-                        }
-
-                        if ( /^(mso|column|font-emph|lang|layout|line-break|list-image|nav|panose|punct|row|ruby|sep|size|src|tab-|table-border|text-(?:decor|trans)|top-bar|version|vnd|word-break)/.test( name ) ) {
-//                            if ( !/mso\-list/.test( name ) )
-                                continue;
-                        }
-                        if(/text\-indent|padding|margin/.test(name) && /\-[\d.]+/.test(value)){
-                            continue;
-                        }
-                        n[i] = name + ":" + parts[1];        // Lower-case name, but keep value case
-                    }
-                }
-                // If style attribute contained any valid styles the re-write it; otherwise delete style attribute.
-                if ( i > 0 ) {
-                    return tag + ' style="' + n.join( ';' ) + '"';
-                } else {
-                    return tag;
-                }
-            } );
-            str = str.replace( /([ ]+)<\/span>/ig, function ( m, p ) {
-                return new Array( p.length + 1 ).join( '&nbsp;' ) + '</span>';
-            } );
-            return str;
-        }
-
-        return function ( html ) {
-
-            //过了word,才能转p->li
-            first = null;
-            parentTag = '',liStyle = '',firstTag = '';
-            if ( isWordDocument( html ) ) {
-                html = filterPasteWord( html );
-            }
-            return html.replace( />[ \t\r\n]*</g, '><' );
-        };
-    }();
     var NODE_NAME_MAP = {
         'text': '#text',
         'comment': '#comment',
         'cdata': '#cdata-section',
         'fragment': '#document-fragment'
     };
-
-//    function _likeLi( node ) {
-//        var a;
-//        if ( node && node.tag == 'p' ) {
-//            //office 2011下有效
-//            if ( node.attributes['class'] == 'MsoListParagraph' || /mso-list/.test( node.attributes.style ) ) {
-//                a = 1;
-//            } else {
-//                var firstChild = node.children[0];
-//                if ( firstChild && firstChild.tag == 'span' && /Wingdings/i.test( firstChild.attributes.style ) ) {
-//                    a = 1;
-//                }
-//            }
-//        }
-//        return a;
-//    }
-
-    //为p==>li 做个标志
-    var first,
-//            orderStyle = {
-//                'decimal' : /\d+/,
-//                'lower-roman': /^m{0,4}(cm|cd|d?c{0,3})(xc|xl|l?x{0,3})(ix|iv|v?i{0,3})$/,
-//                'upper-roman': /^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/,
-//                'lower-alpha' : /^\(?[a-z]+\)?$/,
-//                'upper-alpha': /^\(?[A-Z]+\)?$/
-//            },
-//            unorderStyle = { 'disc' : /^[l\u00B7\u2002]/, 'circle' : /^[\u006F\u00D8]/,'square' : /^[\u006E\u25C6]/},
-            parentTag = '',liStyle = '',firstTag;
 
 
     //写入编辑器时，调用，进行转换操作
@@ -612,8 +410,18 @@ UE.plugins['serialize'] = function () {
         switch ( node.tag ) {
             case 'script':
                 node.tag = 'div';
+                node.attributes._ue_org_tagName = 'script';
                 node.attributes._ue_div_script = 1;
                 node.attributes._ue_script_data = node.children[0] ? encodeURIComponent(node.children[0].data)  : '';
+                node.attributes._ue_custom_node_ = 1;
+                node.children = [];
+                break;
+            case 'style':
+                node.tag = 'div';
+                node.attributes._ue_div_style = 1;
+                node.attributes._ue_org_tagName = 'style';
+                node.attributes._ue_style_data = node.children[0] ? encodeURIComponent(node.children[0].data)  : '';
+                node.attributes._ue_custom_node_ = 1;
                 node.children = [];
                 break;
             case 'img':
@@ -634,7 +442,7 @@ UE.plugins['serialize'] = function () {
                     node.attributes.word_img = node.attributes.src;
                     node.attributes.src = me.options.UEDITOR_HOME_URL + 'themes/default/images/spacer.gif';
                     var flag = parseInt(node.attributes.width)<128||parseInt(node.attributes.height)<43;
-                    node.attributes.style="background:url(" + me.options.UEDITOR_HOME_URL +"themes/default/images/"+(flag?"word.gif":"localimage.png")+") no-repeat center center;border:1px solid #ddd";
+                    node.attributes.style="background:url(" + (flag? me.options.themePath+me.options.theme +"/images/word.gif":me.options.langPath+me.options.lang + "/images/localimage.png")+") no-repeat center center;border:1px solid #ddd";
                     //node.attributes.style = 'width:395px;height:173px;';
                     word_img_flag && (word_img_flag.flag = 1);
                 }
@@ -711,77 +519,7 @@ UE.plugins['serialize'] = function () {
                 }
                 break;
             case 'span':
-//                if ( /mso-list/.test( node.attributes.style ) ) {
-//
-//
-//                    //判断了两次就不在判断了
-//                    if ( firstTag != 'end' ) {
-//
-//                        var ci = node.children[0],p;
-//                        while ( ci.type == 'element' ) {
-//                            ci = ci.children[0];
-//                        }
-//                        for ( p in unorderStyle ) {
-//                            if ( unorderStyle[p].test( ci.data ) ) {
-//
-//                                // ci.data = ci.data.replace(unorderStyle[p],'');
-//                                parentTag = 'ul';
-//                                liStyle = p;
-//                                break;
-//                            }
-//                        }
-//
-//
-//                        if ( !parentTag ) {
-//                            for ( p in orderStyle ) {
-//                                if ( orderStyle[p].test( ci.data.replace( /\.$/, '' ) ) ) {
-//                                    //   ci.data = ci.data.replace(orderStyle[p],'');
-//                                    parentTag = 'ol';
-//                                    liStyle = p;
-//                                    break;
-//                                }
-//                            }
-//                        }
-//                        if ( firstTag ) {
-//                            if ( ci.data == firstTag ) {
-//                                if ( parentTag != 'ul' ) {
-//                                    liStyle = '';
-//                                }
-//                                parentTag = 'ul'
-//                            } else {
-//                                if ( parentTag != 'ol' ) {
-//                                    liStyle = '';
-//                                }
-//                                parentTag = 'ol'
-//                            }
-//                            firstTag = 'end'
-//                        } else {
-//                            firstTag = ci.data
-//                        }
-//                        if ( parentTag ) {
-//                            var tmpNode = node;
-//                            while ( tmpNode && tmpNode.tag != 'ul' && tmpNode.tag != 'ol' ) {
-//                                tmpNode = tmpNode.parent;
-//                            }
-//                            if(tmpNode ){
-//                                  tmpNode.tag = parentTag;
-//                                tmpNode.attributes.style = 'list-style-type:' + liStyle;
-//                            }
-//
-//
-//
-//                        }
-//
-//                    }
-//
-//                    node = {
-//                        type : 'fragment',
-//                        children : []
-//                    };
-//                    break;
-//
-//
-//                }
+
                 var style = node.attributes.style;
                 if ( style ) {
                     if ( !node.attributes.style  || browser.webkit && style == "white-space:nowrap;") {
@@ -825,53 +563,6 @@ UE.plugins['serialize'] = function () {
                     delete node.attributes.align;
                 }
 
-//                if ( _likeLi( node ) ) {
-//
-//                    if ( !first ) {
-//
-//                        var ulNode = {
-//                            type: 'element',
-//                            tag: 'ul',
-//                            attributes: {},
-//                            children: []
-//                        },
-//                                index = indexOf( node.parent.children, node );
-//                        node.parent.children[index] = ulNode;
-//                        ulNode.parent = node.parent;
-//                        ulNode.children[0] = node;
-//                        node.parent = ulNode;
-//
-//                        while ( 1 ) {
-//                            node = ulNode.parent.children[index + 1];
-//                            if ( _likeLi( node ) ) {
-//                                ulNode.children[ulNode.children.length] = node;
-//                                node.parent = ulNode;
-//                                ulNode.parent.children.splice( index + 1, 1 );
-//
-//                            } else {
-//                                break;
-//                            }
-//                        }
-//
-//                        return ulNode;
-//                    }
-//                    node.tag = node.name = 'li';
-//                    //为chrome能找到标号做的处理
-//                    if ( browser.webkit ) {
-//                        var span = node.children[0];
-//
-//                        while ( span && span.type == 'element' ) {
-//                            span = span.children[0]
-//                        }
-//                        span && (span.parent.attributes.style = (span.parent.attributes.style || '') + ';mso-list:10');
-//                    }
-//
-//
-//                    delete node.attributes['class'];
-//                    delete node.attributes.style;
-//
-//
-//                }
         }
         return node;
     }
@@ -890,11 +581,23 @@ UE.plugins['serialize'] = function () {
             case 'div' :
                 if(node.attributes._ue_div_script){
                     node.tag = 'script';
-                    node.children = [{type:'cdata',data:decodeURIComponent(node.attributes._ue_script_data)||'',parent:node}];
+                    node.children = [{type:'cdata',data:node.attributes._ue_script_data?decodeURIComponent(node.attributes._ue_script_data):'',parent:node}];
                     delete node.attributes._ue_div_script;
                     delete node.attributes._ue_script_data;
-                    break;
+                    delete node.attributes._ue_custom_node_;
+                    delete node.attributes._ue_org_tagName;
+
                 }
+                if(node.attributes._ue_div_style){
+                    node.tag = 'style';
+                    node.children = [{type:'cdata',data:node.attributes._ue_style_data?decodeURIComponent(node.attributes._ue_style_data):'',parent:node}];
+                    delete node.attributes._ue_div_style;
+                    delete node.attributes._ue_style_data;
+                    delete node.attributes._ue_custom_node_;
+                    delete node.attributes._ue_org_tagName;
+
+                }
+                break;
             case 'table':
                 !node.attributes.style && delete node.attributes.style;
                 if ( ie && node.attributes.style ) {
@@ -986,6 +689,7 @@ UE.plugins['serialize'] = function () {
         this.rules = rules;
     }
 
+
     Serialize.prototype = {
         // NOTE: selector目前只支持tagName
         rules: null,
@@ -1002,7 +706,7 @@ UE.plugins['serialize'] = function () {
                     return childrenAccept( node, visitNode, node );
                 }
 
-                if ( blackList && blackList[node.name] ) {
+                if ( blackList && (blackList[node.name]|| (node.attributes && node.attributes._ue_org_tagName && blackList[node.attributes._ue_org_tagName]))) {
                     modify && (modify.flag = 1);
                     return {
                         type: 'fragment',
@@ -1048,14 +752,9 @@ UE.plugins['serialize'] = function () {
 
             function visitNode( node ) {
                 node = transNode( node, word_img_flag );
-//                if ( node.tag == 'ol' || node.tag == 'ul' ) {
-//                    first = 1;
-//                }
+
                 node = childrenAccept( node, visitNode, node );
-//                if ( node.tag == 'ol' || node.tag == 'ul' ) {
-//                    first = 0;
-//                    parentTag = '',liStyle = '',firstTag = '';
-//                }
+
                 if ( me.options.pageBreakTag && node.type == 'text' && node.data.replace( /\s/g, '' ) == me.options.pageBreakTag ) {
 
                     node.type = 'element';
@@ -1092,15 +791,8 @@ UE.plugins['serialize'] = function () {
                     delete node.children;
 
                 }
-
                 node = transOutNode( node );
-                if ( node.tag == 'ol' || node.tag == 'ul' ) {
-                    first = 1;
-                }
                 node = childrenAccept( node, visitNode, node );
-                if ( node.tag == 'ol' || node.tag == 'ul' ) {
-                    first = 0;
-                }
                 return node;
             }
 
@@ -1108,7 +800,7 @@ UE.plugins['serialize'] = function () {
         },
         toHTML: toHTML,
         parseHTML: parseHTML,
-        word: transformWordHtml
+        word: UE.filterWord
     };
     me.serialize = new Serialize( me.options.serialize || {});
     UE.serialize = new Serialize( {} );

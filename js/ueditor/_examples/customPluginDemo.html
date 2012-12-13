@@ -5,7 +5,6 @@
 
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <title></title>
-    
     <script type="text/javascript" charset="utf-8" src="../editor_config.js"></script>
 
     <!--使用版-->
@@ -13,24 +12,21 @@
 
     <!--开发版-->
     <script type="text/javascript" charset="utf-8" src="editor_api.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="../themes/default/ueditor.css"/>
 </head>
 <body>
 <h1>UEditor自定义插件</h1>
 
 <!--style给定宽度可以影响编辑器的最终宽度-->
-<script type="text/plain" id="myEditor" style="width:1000px">
-    <p><img src="http://ueditor.baidu.com/website/img/logo.png" alt=""></p>
+<script type="text/plain" id="myEditor">
+    <p><img src="http://ueditor.baidu.com/website/images/banner-dl.png" alt=""></p>
     <p>插件描述：选中图片，在其上单击，会改变图片的边框！</p>
 </script>
 <script type="text/javascript">
-    var editor_a = new baidu.editor.ui.Editor();
-    editor_a.render( 'myEditor' );
+
 
     //创建一个在选中的图片单击时添加边框的插件，其实质就是在baidu.editor.plugins塞进一个闭包
-    baidu.editor.plugins["addborder"] = function () {
-        var me = editor_a;  //在此处添加的插件由于没有经过render操作将editor实例传入，因此需要手动传入editor_a对象，如果按照官网教程来做，此处的editor_a使用this对象替换即可
+    UE.plugins["addborder"] = function () {
+        var me = this;
 
         //创建一个改变图片边框的命令
         me.commands["addborder"] = {
@@ -55,7 +51,9 @@
         me.addListener( 'click', function () {
             me.execCommand( "addborder" );
         } );
-    }();
+    };
+    var editor_a = new UE.ui.Editor();
+    editor_a.render( 'myEditor' );
 </script>
 
 </body>

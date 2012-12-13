@@ -4,7 +4,9 @@ UE.commands['autosubmit'] = {
             form = domUtils.findParentByTagName(me.iframe,"form", false);
 
         if (form)    {
-            if(me.fireEvent("beforesubmit")===false) return;
+            if(me.fireEvent("beforesubmit")===false){
+                return;
+            }
             me.sync();
             form.submit();
         }

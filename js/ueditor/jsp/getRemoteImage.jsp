@@ -1,40 +1,47 @@
-    <%@ page language="java" pageEncoding="UTF-8"%>
-    <%@ page import="java.io.BufferedReader"%>
-    <%@ page import="java.io.IOException"%>
-    <%@ page import="java.io.InputStream"%>
-    <%@ page import="java.io.InputStreamReader"%>
-    <%@ page import="java.io.OutputStream"%>
-    <%@ page import="java.io.File"%>
-    <%@ page import="java.io.FileOutputStream"%>
-    <%@ page import="java.net.MalformedURLException"%>
-    <%@ page import="java.net.URL"%>
-    <%@ page import="java.net.URLConnection"%>
-    <%@ page import="java.util.regex.Matcher" %>
-    <%@ page import="java.util.regex.Pattern" %>
+    <%@ page language="java" pageEncoding="utf-8"%>
+    <%@ page import="java.io.*"%>
+    <%@ page import="java.net.*"%>
+    <%@ page import="java.util.*"%>
+    <%@ page import="ueditor.Uploader" %>
     <%
-    	request.setCharacterEncoding("UTF-8");
-    	response.setCharacterEncoding("UTF-8");
+    	request.setCharacterEncoding("utf-8");
+    	response.setCharacterEncoding("utf-8");
     	String url = request.getParameter("upfile");
-    	String filePath = "jsp/upload";
+    	String state = "远程图片抓取成功！";
+    	
+    	String filePath = "upload";
     	String[] arr = url.split("ue_separate_ue");
     	String[] outSrc = new String[arr.length];
     	for(int i=0;i<arr.length;i++){
 
     		//保存文件路径
-    		String savePath = request.getRealPath("/") + filePath;//保存路径
+    		String str = application.getRealPath(request.getServletPath());
+			File f = new File(str);
+			String savePath = f.getParent() + "/"+filePath;
     		//格式验证
-    		Pattern reg=Pattern.compile("[.]jpg|png|jpeg|gif$");
-    		Matcher matcher=reg.matcher(arr[i]);
-    		if(!matcher.find()) {
-    			return;
-    		}
-    		String saveName = System.currentTimeMillis() + arr[i].substring(arr[i].lastIndexOf("."));
+    		String type = getFileType(arr[i]);
+			if(type.equals("")){
+				state = "图片类型不正确！";
+				continue;
+			}
+    		String saveName = Long.toString(new Date().getTime())+type;
     		//大小验证
-    		URL urla = new URL(arr[i]);
-    		URLConnection conn = urla.openConnection();
-
+    		HttpURLConnection.setFollowRedirects(false); 
+		    HttpURLConnection   conn   = (HttpURLConnection) new URL(arr[i]).openConnection(); 
+		    if(conn.getContentType().indexOf("image")==-1){
+		    	state = "请求地址头不正确";
+		    	continue;
+		    }
+		    if(conn.getResponseCode() != 200){
+		    	state = "请求地址不存在！";
+		    	continue;
+		    }
+            File dir = new File(savePath);
+			if (!dir.exists()) {
+				dir.mkdirs();
+			}
     		File savetoFile = new File(savePath +"/"+ saveName);
-    		outSrc[i]=filePath.substring(filePath.lastIndexOf("/")+1,filePath.length()) +"/"+ saveName;
+    		outSrc[i]=filePath +"/"+ saveName;
     		try {
     			InputStream is = conn.getInputStream();
     			OutputStream os = new FileOutputStream(savetoFile);
@@ -50,11 +57,24 @@
     			System.err.println("页面无法访问");
     		}
     	}
-    	String outstr = "";
-    	for(int i=0;i<outSrc.length;i++){
-    		outstr+=outSrc[i]+"ue_separate_ue";
-    	}
-    	outstr = outstr.substring(0,outstr.lastIndexOf("ue_separate_ue"));
-    	response.getWriter().print("{'url':'" + outstr + "','tip':'远程图片抓取成功！','srcUrl':'" + url + "'}" );
+   	String outstr = "";
+   	for(int i=0;i<outSrc.length;i++){
+   		outstr+=outSrc[i]+"ue_separate_ue";
+   	}
+   	outstr = outstr.substring(0,outstr.lastIndexOf("ue_separate_ue"));
+   	response.getWriter().print("{'url':'" + outstr + "','tip':'"+state+"','srcUrl':'" + url + "'}" );
 
+    %>
+    <%!
+    public String getFileType(String fileName){
+    	String[] fileType = {".gif" , ".png" , ".jpg" , ".jpeg" , ".bmp"};
+    	Iterator<String> type = Arrays.asList(fileType).iterator();
+    	while(type.hasNext()){
+    		String t = type.next();
+    		if(fileName.endsWith(t)){
+    			return t;
+    		}
+    	}
+    	return "";
+    }
     %>

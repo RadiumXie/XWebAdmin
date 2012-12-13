@@ -5,15 +5,13 @@
         UIBase = baidu.editor.ui.UIBase,
         ColorPicker = baidu.editor.ui.ColorPicker = function (options){
             this.initOptions(options);
-            this.noColorText = this.noColorText || '不设置颜色';
+            this.noColorText = this.noColorText || this.editor.getLang("clearColor");
             this.initUIBase();
         };
 
     ColorPicker.prototype = {
         getHtmlTpl: function (){
-            return genColorPicker(
-                this.noColorText
-                );
+            return genColorPicker(this.noColorText,this.editor);
         },
         _onTableClick: function (evt){
             var tgt = evt.target || evt.srcElement;
@@ -47,18 +45,18 @@
             '7f7f7f,0c0c0c,1d1b10,0f243e,244061,632423,4f6128,3f3151,205867,974806,' +
             'c00000,ff0000,ffc000,ffff00,92d050,00b050,00b0f0,0070c0,002060,7030a0,').split(',');
 
-    function genColorPicker(noColorText){
+    function genColorPicker(noColorText,editor){
         var html = '<div id="##" class="edui-colorpicker %%">' +
             '<div class="edui-colorpicker-topbar edui-clearfix">' +
              '<div unselectable="on" id="##_preview" class="edui-colorpicker-preview"></div>' +
              '<div unselectable="on" class="edui-colorpicker-nocolor" onclick="$$._onPickNoColor(event, this);">'+ noColorText +'</div>' +
             '</div>' +
             '<table  class="edui-box" style="border-collapse: collapse;" onmouseover="$$._onTableOver(event, this);" onmouseout="$$._onTableOut(event, this);" onclick="return $$._onTableClick(event, this);" cellspacing="0" cellpadding="0">' +
-            '<tr style="border-bottom: 1px solid #ddd;font-size: 13px;line-height: 25px;color:#366092;padding-top: 2px"><td colspan="10">主题颜色</td> </tr>'+
+            '<tr style="border-bottom: 1px solid #ddd;font-size: 13px;line-height: 25px;color:#39C;padding-top: 2px"><td colspan="10">'+editor.getLang("themeColor")+'</td> </tr>'+
             '<tr class="edui-colorpicker-tablefirstrow" >';
         for (var i=0; i<COLORS.length; i++) {
             if (i && i%10 === 0) {
-                html += '</tr>'+(i==60?'<tr style="border-bottom: 1px solid #ddd;font-size: 13px;line-height: 25px;color:#366092;"><td colspan="10">标准颜色</td></tr>':'')+'<tr'+(i==60?' class="edui-colorpicker-tablefirstrow"':'')+'>';
+                html += '</tr>'+(i==60?'<tr style="border-bottom: 1px solid #ddd;font-size: 13px;line-height: 25px;color:#39C;"><td colspan="10">'+editor.getLang("standardColor")+'</td></tr>':'')+'<tr'+(i==60?' class="edui-colorpicker-tablefirstrow"':'')+'>';
             }
             html += i<70 ? '<td style="padding: 0 2px;"><a hidefocus title="'+COLORS[i]+'" onclick="return false;" href="javascript:" unselectable="on" class="edui-box edui-colorpicker-colorcell"' +
                         ' data-color="#'+ COLORS[i] +'"'+

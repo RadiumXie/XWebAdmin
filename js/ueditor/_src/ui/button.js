@@ -32,6 +32,7 @@
         },
         postRender: function (){
             this.Stateful_postRender();
+            this.setDisabled(this.disabled)
         },
         _onClick: function (){
             if (!this.isDisabled()) {

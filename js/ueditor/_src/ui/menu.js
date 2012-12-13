@@ -35,6 +35,7 @@
                 if (item == '-') {
                     this.items[i] = this.getSeparator();
                 } else if (!(item instanceof MenuItem)) {
+                    item.theme=this.editor.options.theme;
                     this.items[i] = this.createItem(item);
                 }
             }

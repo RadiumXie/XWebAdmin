@@ -51,27 +51,27 @@ UE.plugins['enterkey'] = function() {
                     }
 
                     if (me.undoManger && doSave) {
-                        me.undoManger.save()
+                        me.undoManger.save();
                     }
                 }
-
+                //没有站位符，会出现多行的问题
+                browser.opera &&  range.select();
             }
 
 
 
             setTimeout(function() {
                 me.selection.getRange().scrollToView(me.autoHeightEnabled, me.autoHeightEnabled ? domUtils.getXY(me.iframe).y : 0);
-            }, 50)
+            }, 50);
 
         }
     });
 
     me.addListener('keydown', function(type, evt) {
-
         var keyCode = evt.keyCode || evt.which;
         if (keyCode == 13) {//回车
             if (me.undoManger) {
-                me.undoManger.save()
+                me.undoManger.save();
             }
             hTag = '';
 
@@ -98,8 +98,9 @@ UE.plugins['enterkey'] = function() {
 
                     start = domUtils.findParentByTagName(range.startContainer, ['ol','ul','p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6','blockquote'], true);
 
-
-                    if (!start) {
+                    //opera下执行formatblock会在table的场景下有问题，回车在opera原生支持很好，所以暂时在opera去掉调用这个原生的command
+                    //trace:2431
+                    if (!start && !browser.opera) {
 
                         me.document.execCommand('formatBlock', false, '<p>');
                         if (browser.gecko) {
@@ -127,7 +128,7 @@ UE.plugins['enterkey'] = function() {
                             if (dtd.$empty[start.tagName]) {
                                 range.setStartBefore(start).setCursor();
                                 if (me.undoManger) {
-                                    me.undoManger.save()
+                                    me.undoManger.save();
                                 }
                                 return false;
                             }
@@ -136,11 +137,11 @@ UE.plugins['enterkey'] = function() {
                                 start.appendChild(br);
                                 range.setStart(start, 0).setCursor();
                                 if (me.undoManger) {
-                                    me.undoManger.save()
+                                    me.undoManger.save();
                                 }
                                 return false;
                             }
-                            start = start.firstChild
+                            start = start.firstChild;
                         }
                         if (start === range.startContainer.childNodes[range.startOffset]) {
                             br = range.document.createElement('br');
@@ -163,9 +164,9 @@ UE.plugins['enterkey'] = function() {
                     var parent = br.parentNode;
                     if (parent.lastChild === br) {
                         br.parentNode.insertBefore(br.cloneNode(true), br);
-                        range.setStartBefore(br)
+                        range.setStartBefore(br);
                     } else {
-                        range.setStartAfter(br)
+                        range.setStartAfter(br);
                     }
                     range.setCursor();
 

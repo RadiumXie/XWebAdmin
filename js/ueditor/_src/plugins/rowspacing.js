@@ -24,7 +24,7 @@ UE.plugins['rowspacing'] = function(){
             return true;
         },
         queryCommandValue : function(cmdName,dir) {
-            var pN = utils.findNode(this.selection.getStartElementPath(),null,function(node){return domUtils.isBlockElm(node) }),
+            var pN = domUtils.filterNodeList(this.selection.getStartElementPath(),function(node){return domUtils.isBlockElm(node) }),
                 value;
             //trace:1026
             if(pN){

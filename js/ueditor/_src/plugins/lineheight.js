@@ -19,10 +19,10 @@ UE.plugins['lineheight'] = function(){
             return true;
         },
         queryCommandValue : function() {
-            var pN = utils.findNode(this.selection.getStartElementPath(),null,function(node){return domUtils.isBlockElm(node)});
+            var pN = domUtils.filterNodeList(this.selection.getStartElementPath(),function(node){return domUtils.isBlockElm(node)});
             if(pN){
                 var value = domUtils.getComputedStyle(pN,'line-height');
-                return value == 'normal' ? 1 : value.replace(/[^\d.]*/ig,"")
+                return value == 'normal' ? 1 : value.replace(/[^\d.]*/ig,"");
             }
         },
         queryCommandState : function(){

@@ -27,17 +27,21 @@
         draggable: false,
         uiName: 'dialog',
         initDialog: function (){
-            var me = this;
+            var me = this,
+                theme=this.editor.options.theme;
             this.initUIBase();
             this.modalMask = (modalMask || (modalMask = new Mask({
-                className: 'edui-dialog-modalmask'
+                className: 'edui-dialog-modalmask',
+                theme:theme
             })));
             this.dragMask = (dragMask || (dragMask = new Mask({
-                className: 'edui-dialog-dragmask'
+                className: 'edui-dialog-dragmask',
+                theme:theme
             })));
             this.closeButton = new Button({
                 className: 'edui-dialog-closebutton',
-                title: '关闭对话框',
+                title: me.closeDialog,
+                theme:theme,
                 onclick: function (){
                     me.close(false);
                 }
@@ -106,6 +110,7 @@
         },
         getHtmlTpl: function (){
             var footHtml = '';
+
             if (this.buttons) {
                 var buff = [];
                 for (var i=0; i<this.buttons.length; i++) {
@@ -198,6 +203,7 @@
         _show: function (){
             if (this._hidden) {
                 this.getDom().style.display = '';
+
                 //要高过编辑器的zindxe
                 this.editor.container.style.zIndex && (this.getDom().style.zIndex = this.editor.container.style.zIndex * 1 + 10);
                 this._hidden = false;

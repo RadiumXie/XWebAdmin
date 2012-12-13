@@ -20,7 +20,9 @@ UE.plugins['webapp'] = function () {
         var tmpdiv,
                 nodes = domUtils.getElementsByTagName( me.document, !img2frame ? "iframe" : "img" );
         for ( var i = 0, node; node = nodes[i++]; ) {
-            if ( node.className != "edui-faked-webapp" )continue;
+            if ( node.className != "edui-faked-webapp" ){
+                continue;
+            }
             tmpdiv = me.document.createElement( "div" );
             tmpdiv.innerHTML = createInsertStr( img2frame ? {url:node.getAttribute( "_url" ), width:node.width, height:node.height,title:node.title,logo:node.style.backgroundImage.replace("url(","").replace(")","")} : {url:node.getAttribute( "src", 2 ),title:node.title, width:node.width, height:node.height,logo:node.getAttribute("logo_url")}, img2frame ? true : false,false );
             node.parentNode.replaceChild( tmpdiv.firstChild, node );
@@ -34,12 +36,13 @@ UE.plugins['webapp'] = function () {
         switchImgAndIframe( false );
     } );
     me.addListener( 'aftergetcontent', function ( cmdName ) {
-        if ( cmdName == 'aftergetcontent' && me.queryCommandState( 'source' ) )
+        if ( cmdName == 'aftergetcontent' && me.queryCommandState( 'source' ) ){
             return;
+        }
         switchImgAndIframe( false );
     } );
 
-    UE.commands['webapp'] = {
+    me.commands['webapp'] = {
         execCommand:function ( cmd, obj ) {
             me.execCommand( "inserthtml", createInsertStr( obj, false,true ) );
         },

@@ -18,7 +18,8 @@
             var me = this;
             this.popup = new Popup({
                 content: new ColorPicker({
-                    noColorText: '清除颜色',
+                    noColorText: me.editor.getLang("clearColor"),
+                    editor:me.editor,
                     onpickcolor: function (t, color){
                         me._onPickColor(color);
                     },

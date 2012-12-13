@@ -20,7 +20,7 @@
         doJustify = function(range,style){
             var bookmark = range.createBookmark(),
                 filterFn = function( node ) {
-                    return node.nodeType == 1 ? node.tagName.toLowerCase() != 'br' &&  !domUtils.isBookmarkNode(node) : !domUtils.isWhitespace( node )
+                    return node.nodeType == 1 ? node.tagName.toLowerCase() != 'br' &&  !domUtils.isBookmarkNode(node) : !domUtils.isWhitespace( node );
                 };
 
             range.enlarge(true);
@@ -34,7 +34,7 @@
                     while(current && current!==bookmark2.end &&  !block(current)){
                         tmpNode = current;
                         current = domUtils.getNextDomNode(current,false,null,function(node){
-                            return !block(node)
+                            return !block(node);
                         });
                     }
                     tmpRange.setEndAfter(tmpNode);
@@ -55,7 +55,7 @@
                     current = domUtils.getNextDomNode(current,true,filterFn);
                 }
             }
-            return range.moveToBookmark(bookmark2).moveToBookmark(bookmark)
+            return range.moveToBookmark(bookmark2).moveToBookmark(bookmark);
         };
     UE.commands['justify'] =  {
         execCommand : function( cmdName,align ) {
@@ -70,13 +70,13 @@
                         range.setStart(ti,0).collapse(true).insertNode(txt).selectNode(txt);
                         
                     }else{
-                        range.selectNodeContents(ti)
+                        range.selectNodeContents(ti);
                     }
 
-                    doJustify(range,align);
+                    doJustify(range,align.toLowerCase());
                     txt && domUtils.remove(txt);
                 }
-                range.selectNode(this.currentSelectedArr[0]).select()
+                range.selectNode(this.currentSelectedArr[0]).select();
             }else{
 
                 //闭合时单独处理
@@ -105,7 +105,7 @@
                 
         }
 
-    }
+    };
 
 
 })();

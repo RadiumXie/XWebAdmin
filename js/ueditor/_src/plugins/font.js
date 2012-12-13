@@ -21,17 +21,18 @@ UE.plugins['font'] = function() {
         };
     me.setOpt({
         'fontfamily':[
-            ['宋体',['宋体', 'SimSun']],
-            ['楷体',['楷体', '楷体_GB2312', 'SimKai']],
-            ['黑体',['黑体', 'SimHei']],
-            ['隶书',['隶书', 'SimLi']],
-            ['andale mono',['andale mono']],
-            ['arial',['arial', 'helvetica', 'sans-serif']],
-            ['arial black',['arial black', 'avant garde']],
-            ['comic sans ms',['comic sans ms']],
-            ['impact',['impact', 'chicago']],
-            ['times new roman',['times new roman']]
-        ],
+            { name:'songti',val:'宋体,SimSun'},
+            { name:'yahei',val:'微软雅黑,Microsoft YaHei'},
+            { name:'kaiti',val:'楷体,楷体_GB2312, SimKai'},
+            { name:'heiti',val:'黑体, SimHei'},
+            { name:'lishu',val:'隶书, SimLi'},
+            { name:'andaleMono',val:'andale mono'},
+            { name:'arial',val:'arial, helvetica,sans-serif'},
+            { name:'arialBlack',val:'arial black,avant garde'},
+            { name:'comicSansMs',val:'comic sans ms'},
+            { name:'impact',val:'impact,chicago'},
+            { name:'timesNewRoman',val:'times new roman'}
+          ],
         'fontsize':[10, 11, 12, 14, 16, 18, 20, 24, 36]
     });
 
@@ -48,13 +49,13 @@ UE.plugins['font'] = function() {
 
                         if(range.collapsed){
                             text = me.document.createTextNode('font');
-                            range.insertNode(text).select()
+                            range.insertNode(text).select();
 
                         }
                         me.execCommand( 'removeFormat', 'span,a', style);
                         if(text){
                             range.setStartBefore(text).setCursor();
-                            domUtils.remove(text)
+                            domUtils.remove(text);
                         }
 
 
@@ -86,16 +87,14 @@ UE.plugins['font'] = function() {
                                          me.execCommand( 'removeFormat','span,a', style, null );
 
                                          span = domUtils.findParentByTagName(text,'span',true);
-                                         range.setStartBefore(text)
+                                         range.setStartBefore(text);
 
                                     }
-                                    span.style.cssText = span.style.cssText +  ';' + style + ':' + value;
+                                    span.style.cssText += ';' + style + ':' + value;
                                     range.collapse(true).select();
 
 
                                 }else{
-
-
                                     range.insertNode(text);
                                     range.selectNode(text).select();
                                     span = range.document.createElement( 'span' );
@@ -119,21 +118,28 @@ UE.plugins['font'] = function() {
                                         var spanParent = span.parentNode;
                                         while(!domUtils.isBlockElm(spanParent)){
                                             if(spanParent.tagName == 'SPAN'){
-                                                span.style.cssText = spanParent.style.cssText + span.style.cssText;
+                                                //opera合并style不会加入";"
+                                                span.style.cssText = spanParent.style.cssText + ";" + span.style.cssText;
                                             }
                                             spanParent = spanParent.parentNode;
                                         }
                                     }
 
 
+                                    if(opera){
+                                        setTimeout(function(){
+                                            range.setStart(span,0).setCursor();
+                                        });
+                                    }else{
+                                        range.setStart(span,0).setCursor();
+                                    }
 
-                                    range.setStart(span,0).setCursor();
                                     //trace:981
-                                    //domUtils.mergToParent(span)
+                                    //domUtils.mergeToParent(span)
 
 
                                 }
-                                domUtils.remove(text)
+                                domUtils.remove(text);
                             }
                         }
 
@@ -157,7 +163,7 @@ UE.plugins['font'] = function() {
 
                             tmpNode = tmpNode.parentNode;
                         }
-                        return 'none'
+                        return 'none';
                     }
                     return  domUtils.getComputedStyle( startNode, style );
                 },
@@ -165,11 +171,12 @@ UE.plugins['font'] = function() {
                     if(this.highlight){
                        return -1;
                    }
-                    if(!(cmdName == 'underline'||cmdName=='strikethrough'))
+                    if(!(cmdName == 'underline'||cmdName=='strikethrough')){
                         return 0;
-                    return this.queryCommandValue(cmdName) == (cmdName == 'underline' ? 'underline' : 'line-through')
+                    }
+                    return this.queryCommandValue(cmdName) == (cmdName == 'underline' ? 'underline' : 'line-through');
                 }
-            }
+            };
         })( p, fonts[p] );
     }
 

@@ -14,7 +14,9 @@ UE.plugins['elementpath'] = function(){
         tagNames,
         me = this;
     me.setOpt('elementPathEnabled',true);
-    if(!me.options.elementPathEnabled)return;
+    if(!me.options.elementPathEnabled){
+        return;
+    }
     me.commands['elementpath'] = {
         execCommand : function( cmdName, level ) {
             var start = tagNames[level],
@@ -48,12 +50,12 @@ UE.plugins['elementpath'] = function(){
                 }
                 start = me.currentSelectedArr[0];
                 if(domUtils.isEmptyNode(start)){
-                    range.setStart(start,0).setCursor()
+                    range.setStart(start,0).setCursor();
                 }else{
-                   range.selectNodeContents(start).select()
+                   range.selectNodeContents(start).select();
                 }
             }else{
-                range.selectNode(start).select()
+                range.selectNode(start).select();
 
             }
         },
@@ -63,10 +65,12 @@ UE.plugins['elementpath'] = function(){
                 names = [];
             tagNames = parents;
             for(var i=0,ci;ci=parents[i];i++){
-                if(ci.nodeType == 3) continue;
+                if(ci.nodeType == 3) {
+                    continue;
+                }
                 var name = ci.tagName.toLowerCase();
                 if(name == 'img' && ci.getAttribute('anchorname')){
-                    name = 'anchor'
+                    name = 'anchor';
                 }
                 names[i] = name;
                 if(currentLevel == i){
@@ -76,8 +80,6 @@ UE.plugins['elementpath'] = function(){
             }
             return names;
         }
-    }
-
-
+    };
 };
 

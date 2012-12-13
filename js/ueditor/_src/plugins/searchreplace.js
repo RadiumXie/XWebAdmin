@@ -42,7 +42,7 @@ UE.plugins['searchreplace'] = function(){
                             opt.dir = 1;
                             
                             if(currentRange){
-                                tmpRange.setEndPoint(opt.dir == -1 ? 'EndToStart' : 'StartToEnd',currentRange)
+                                tmpRange.setEndPoint(opt.dir == -1 ? 'EndToStart' : 'StartToEnd',currentRange);
                             }
                         }else{
                             tmpRange.setEndPoint(opt.dir == -1 ? 'EndToStart' : 'StartToEnd',nativeRange);
@@ -69,7 +69,9 @@ UE.plugins['searchreplace'] = function(){
 
                         }
                         num++;
-                        if(!opt.all)break;
+                        if(!opt.all){
+                            break;
+                        }
                     }
                 }else{
                     var w = me.window,nativeSel = sel.getNative(),tmpRange;
@@ -89,7 +91,14 @@ UE.plugins['searchreplace'] = function(){
                             first = 0;
                             opt.dir = 1;
                         }else{
+                            //safari弹出层，原生已经找不到range了，所以需要先选回来，再取原生
+                            if(browser.safari){
+                                me.selection.getRange().select();
+
+                            }
                             nativeRange = w.getSelection().getRangeAt(0);
+
+
                            
                             if(opt.hasOwnProperty("replaceStr")){
                                 nativeRange.collapse(opt.dir == 1 ? true : false);
@@ -126,12 +135,14 @@ UE.plugins['searchreplace'] = function(){
                             }
                         }
                         num++;
-                        if(!opt.all)break;
+                        if(!opt.all){
+                            break;
+                        }
                     }
 
                 }
                 return true;
             }
-    }
+    };
 
 };

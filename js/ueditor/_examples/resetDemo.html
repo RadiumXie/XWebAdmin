@@ -6,8 +6,11 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <title>重置编辑器</title>
     <script type="text/javascript" charset="utf-8" src="../editor_config.js"></script>
+    <!--使用版-->
+    <!--<script type="text/javascript" charset="utf-8" src="../editor_all.js"></script>-->
+
+    <!--开发版-->
     <script type="text/javascript" charset="utf-8" src="editor_api.js"></script>
-    <link rel="stylesheet" type="text/css" href="../themes/default/ueditor.css"/>
     <style type="text/css">
         #simple {
             width: 1000px;
@@ -25,12 +28,17 @@
         var editor = new baidu.editor.ui.Editor();
         editor.render( "simple" );
         function simple() {
-            editor.setContent("编辑器内部变量已经被重置!");
-            editor.reset();
+            if(editor){
+                editor.setContent("编辑器内部变量已经被重置!");
+                editor.reset();
+            }
         }
         function destroy(){
             editor.destroy();
+            editor = null;
+            clearInterval(timer);
             var button = document.getElementById("destroy");
+
             button.value = "重新渲染";
             button.onclick = function(){
                 editor = new baidu.editor.ui.Editor();
@@ -40,9 +48,11 @@
             }
         }
         function setMsg() {
-            document.getElementById( "txt" ).innerHTML = "编辑器当前保存了 <span style='color: red'> " + editor.undoManger.list.length + " </span>次操作";
+            if(editor && editor.undoManger){
+                document.getElementById( "txt" ).innerHTML = "编辑器当前保存了 <span style='color: red'> " + editor.undoManger.list.length + " </span>次操作";
+            }
         }
-        setInterval( setMsg, 100 );
+        var timer = setInterval( setMsg, 100 );
     </script>
 </body>
 </html>

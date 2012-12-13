@@ -9,13 +9,14 @@
  * @name baidu.editor.execCommand
  * @param   {String}   cmdName     blockquote引用
  */
-(function() {
-    var getObj = function(editor){
-//        var startNode = editor.selection.getStart();
-//        return domUtils.findParentByTagName( startNode, 'blockquote', true )
-        return utils.findNode(editor.selection.getStartElementPath(),['blockquote'])
+
+
+UE.plugins['blockquote'] = function(){
+    var me = this;
+    function getObj(editor){
+        return domUtils.filterNodeList(editor.selection.getStartElementPath(),'blockquote');
     };
-    UE.commands['blockquote'] = {
+    me.commands['blockquote'] = {
         execCommand : function( cmdName, attrs ) {
             var range = this.selection.getRange(),
                 obj = getObj(this),
@@ -24,7 +25,7 @@
                 tds = this.currentSelectedArr;
             if ( obj ) {
                 if(tds && tds.length){
-                    domUtils.remove(obj,true)
+                    domUtils.remove(obj,true);
                 }else{
                     var start = range.startContainer,
                         startBlock = domUtils.isBlockElm(start) ? start : domUtils.findParent(start,function(node){return domUtils.isBlockElm(node)}),
@@ -38,7 +39,7 @@
 
 
                     if(startBlock.tagName == 'LI' || startBlock.tagName == 'TD' || startBlock === obj){
-                        domUtils.remove(obj,true)
+                        domUtils.remove(obj,true);
                     }else{
                         domUtils.breakParent(startBlock,obj);
                     }
@@ -47,20 +48,20 @@
                         obj = domUtils.findParentByTagName(endBlock,'blockquote');
                         if(obj){
                             if(endBlock.tagName == 'LI' || endBlock.tagName == 'TD'){
-                                domUtils.remove(obj,true)
+                                domUtils.remove(obj,true);
                             }else{
-                                 domUtils.breakParent(endBlock,obj);
+                                domUtils.breakParent(endBlock,obj);
                             }
-    
+
                         }
                     }
 
                     var blockquotes = domUtils.getElementsByTagName(this.document,'blockquote');
                     for(var i=0,bi;bi=blockquotes[i++];){
                         if(!bi.childNodes.length){
-                            domUtils.remove(bi)
+                            domUtils.remove(bi);
                         }else if(domUtils.getPosition(bi,startBlock)&domUtils.POSITION_FOLLOWING && domUtils.getPosition(bi,endBlock)&domUtils.POSITION_PRECEDING){
-                            domUtils.remove(bi,true)
+                            domUtils.remove(bi,true);
                         }
                     }
                 }
@@ -85,35 +86,36 @@
                                 tmpRange.setStartBefore( preNode );
                             }
                         }else{
-                            tmpRange.setStart(node,0)
+                            tmpRange.setStart(node,0);
                         }
 
                         break;
                     }
                     if ( !blockquote[node.tagName] ) {
                         if ( range.collapsed ) {
-                            tmpRange.selectNode( preNode )
-                        } else
+                            tmpRange.selectNode( preNode );
+                        } else{
                             tmpRange.setStartBefore( preNode);
+                        }
                         break;
                     }
 
                     preNode = node;
                     node = node.parentNode;
                 }
-                
+
                 //调整结束
-               if ( doEnd ) {
+                if ( doEnd ) {
                     preNode = node =  node = tmpRange.endContainer.nodeType == 1 ? tmpRange.endContainer : tmpRange.endContainer.parentNode;
                     while ( 1 ) {
 
                         if ( domUtils.isBody( node ) ) {
                             if ( preNode !== node ) {
 
-                                    tmpRange.setEndAfter( preNode );
-                                
+                                tmpRange.setEndAfter( preNode );
+
                             } else {
-                                tmpRange.setEnd( node, node.childNodes.length )
+                                tmpRange.setEnd( node, node.childNodes.length );
                             }
 
                             break;
@@ -138,19 +140,19 @@
                 var childs = domUtils.getElementsByTagName(node,'blockquote');
                 for(var i=0,ci;ci=childs[i++];){
                     if(ci.parentNode){
-                        domUtils.remove(ci,true)
+                        domUtils.remove(ci,true);
                     }
                 }
 
             }
-            range.moveToBookmark( bookmark ).select()
+            range.moveToBookmark( bookmark ).select();
         },
         queryCommandState : function() {
-           if(this.highlight){
-               return -1;
-           }
+            if(this.highlight){
+                return -1;
+            }
             return getObj(this) ? 1 : 0;
         }
     };
-})();
+};
 

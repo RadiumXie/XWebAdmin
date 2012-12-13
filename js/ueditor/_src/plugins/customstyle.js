@@ -5,21 +5,22 @@
 UE.plugins['customstyle'] = function() {
     var me = this;
     me.setOpt({ 'customstyle':[
-        {tag:'h1', label:'居中标题', style:'font-size:32px;font-weight:bold;line-height:38px;border-bottom:#ccc 2px solid;padding:0 4px 0 0;text-align:center;margin:0 0 20px 0;'},
-        {tag:'h1', label:'居左标题', style:'font-size:32px;font-weight:bold;line-height:38px;border-bottom:#ccc 2px solid;padding:0 4px 0 0;text-align:left;margin:0 0 10px 0;'},
-        {tag:'span', label:'强调', style:'font-size:16px;font-style:italic;font-weight:bold;color:#000;line-height:18px;'},
-        {tag:'span', label:'明显强调', style:'font-size:16px;font-style:italic;font-weight:bold;color:rgb(51, 153, 204);line-height:18px;'}
+        {tag:'h1',name:'tc', style:'font-size:32px;font-weight:bold;border-bottom:#ccc 2px solid;padding:0 4px 0 0;text-align:center;margin:0 0 20px 0;'},
+        {tag:'h1',name:'tl', style:'font-size:32px;font-weight:bold;border-bottom:#ccc 2px solid;padding:0 4px 0 0;text-align:left;margin:0 0 10px 0;'},
+        {tag:'span',name:'im', style:'font-size:16px;font-style:italic;font-weight:bold;line-height:18px;'},
+        {tag:'span',name:'hi', style:'font-size:16px;font-style:italic;font-weight:bold;color:rgb(51, 153, 204);line-height:18px;'}
     ]});
     me.commands['customstyle'] = {
         execCommand : function(cmdName, obj) {
             var me = this,
                     tagName = obj.tag,
                     node = domUtils.findParent(me.selection.getStart(), function(node) {
-                        return node.getAttribute('label')
+                        return node.getAttribute('label');
                     }, true),
                     range,bk,tmpObj = {};
             for (var p in obj) {
-                tmpObj[p] = obj[p]
+               if(obj[p]!==undefined)
+                    tmpObj[p] = obj[p];
             }
             delete tmpObj.tag;
             if (node && node.getAttribute('label') == obj.label) {
@@ -31,9 +32,9 @@ UE.plugins['customstyle'] = function() {
                         var fillNode = me.document.createElement('p');
                         domUtils.moveChild(node, fillNode);
                         node.parentNode.insertBefore(fillNode, node);
-                        domUtils.remove(node)
+                        domUtils.remove(node);
                     }else{
-                        domUtils.remove(node,true)
+                        domUtils.remove(node,true);
                     }
 
                 } else {
@@ -55,15 +56,15 @@ UE.plugins['customstyle'] = function() {
                                     domUtils.moveChild(ni, fillNode);
                                     ni.parentNode.insertBefore(fillNode, ni);
                                 }
-                            domUtils.remove(ni, true)
+                            domUtils.remove(ni, true);
                         }
                     }
                     node = domUtils.findParent(common, function(node) {
-                        return node.getAttribute('label') == obj.label
+                        return node.getAttribute('label') == obj.label;
                     }, true);
                     if (node) {
 
-                        domUtils.remove(node, true)
+                        domUtils.remove(node, true);
 
                     }
 
@@ -76,12 +77,12 @@ UE.plugins['customstyle'] = function() {
                     if (!range.collapsed) {
                         range.collapse();
                         node = domUtils.findParent(me.selection.getStart(), function(node) {
-                            return node.getAttribute('label') == obj.label
+                            return node.getAttribute('label') == obj.label;
                         }, true);
                         var pNode = me.document.createElement('p');
                         domUtils.insertAfter(node, pNode);
                         domUtils.fillNode(me.document, pNode);
-                        range.setStart(pNode, 0).setCursor()
+                        range.setStart(pNode, 0).setCursor();
                     }
                 } else {
 
@@ -95,13 +96,16 @@ UE.plugins['customstyle'] = function() {
                     }
 
                     bk = range.createBookmark();
-                    range.applyInlineStyle(tagName, tmpObj).moveToBookmark(bk).select()
+                    range.applyInlineStyle(tagName, tmpObj).moveToBookmark(bk).select();
                 }
             }
 
         },
         queryCommandValue : function() {
-            var parent = utils.findNode(this.selection.getStartElementPath(),null,function(node){return node.getAttribute('label')});
+            var parent = domUtils.filterNodeList(
+                this.selection.getStartElementPath(),
+                function(node){return node.getAttribute('label')}
+            );
             return  parent ? parent.getAttribute('label') : '';
         },
         queryCommandState : function() {
@@ -116,7 +120,7 @@ UE.plugins['customstyle'] = function() {
             var range = me.selection.getRange();
             if (range.collapsed) {
                 var node = domUtils.findParent(me.selection.getStart(), function(node) {
-                    return node.getAttribute('label')
+                    return node.getAttribute('label');
                 }, true);
                 if (node && dtd.$block[node.tagName] && domUtils.isEmptyNode(node)) {
                         var p = me.document.createElement('p');
@@ -129,5 +133,5 @@ UE.plugins['customstyle'] = function() {
                 }
             }
         }
-    })
+    });
 };

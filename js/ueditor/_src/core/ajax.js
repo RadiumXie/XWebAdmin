@@ -1,18 +1,73 @@
 /**
- * Created by .
- * User: taoqili
- * Date: 11-8-18
- * Time: 下午3:18
- * To change this template use File | Settings | File Templates.
- */
-/**
- * ajax工具类
+ * @file
+ * @name UE.ajax
+ * @short Ajax
+ * @desc UEditor内置的ajax请求模块
+ * @import core/utils.js
+ * @user: taoqili
+ * @date: 11-8-18
+ * @time: 下午3:18
  */
 UE.ajax = function() {
-	return {
+    /**
+     * 创建一个ajaxRequest对象
+     */
+    var fnStr = 'XMLHttpRequest()';
+    try {
+        new ActiveXObject("Msxml2.XMLHTTP");
+        fnStr = 'ActiveXObject(\'Msxml2.XMLHTTP\')';
+    } catch (e) {
+        try {
+            new ActiveXObject("Microsoft.XMLHTTP");
+            fnStr = 'ActiveXObject(\'Microsoft.XMLHTTP\')'
+        } catch (e) {
+        }
+    }
+    var creatAjaxRequest = new Function('return new ' + fnStr);
+
+
+    /**
+     * 将json参数转化成适合ajax提交的参数列表
+     * @param json
+     */
+    function json2str(json) {
+        var strArr = [];
+        for (var i in json) {
+            //忽略默认的几个参数
+            if(i=="method" || i=="timeout" || i=="async") continue;
+            //传递过来的对象和函数不在提交之列
+            if (!((typeof json[i]).toLowerCase() == "function" || (typeof json[i]).toLowerCase() == "object")) {
+                strArr.push( encodeURIComponent(i) + "="+encodeURIComponent(json[i]) );
+            }
+        }
+        return strArr.join("&");
+
+    }
+
+
+    return {
 		/**
-		 * 向url发送ajax请求
-		 * @param url
+         * @name request
+         * @desc 发出ajax请求，ajaxOpt中默认包含method，timeout，async，data，onsuccess以及onerror等六个，支持自定义添加参数
+         * @grammar UE.ajax.request(url,ajaxOpt);
+         * @example
+         * UE.ajax.request('http://www.xxxx.com/test.php',{
+         *     //可省略，默认POST
+         *     method:'POST',
+         *     //可以自定义参数
+         *     content:'这里是提交的内容',
+         *     //也可以直接传json，但是只能命名为data，否则当做一般字符串处理
+         *     data:{
+         *         name:'UEditor',
+         *         age:'1'
+         *     }
+         *     onsuccess:function(xhr){
+         *         console.log(xhr.responseText);
+         *     },
+         *     onerror:function(xhr){
+         *         console.log(xhr.responseText);
+         *     }
+         * })
 		 * @param ajaxOptions
 		 */
 		request:function(url, ajaxOptions) {
@@ -73,41 +128,5 @@ UE.ajax = function() {
 		}
 	};
 
-	/**
-	 * 将json参数转化成适合ajax提交的参数列表
-	 * @param json
-	 */
-	function json2str(json) {
-		var strArr = [];
-		for (var i in json) {
-			//忽略默认的几个参数
-			if(i=="method" || i=="timeout" || i=="async") continue;
-			//传递过来的对象和函数不在提交之列
-			if (!((typeof json[i]).toLowerCase() == "function" || (typeof json[i]).toLowerCase() == "object")) {
-				strArr.push( encodeURIComponent(i) + "="+encodeURIComponent(json[i]) );
-			}
-		}
-		return strArr.join("&");
 
-	}
-
-	/**
-	 * 创建一个ajaxRequest对象
-	 */
-	function creatAjaxRequest() {
-		var xmlHttp = null;
-		if (window.XMLHttpRequest) {
-			xmlHttp = new XMLHttpRequest();
-		} else {
-			try {
-				xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
-			} catch (e) {
-				try {
-					xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-				} catch (e) {
-				}
-			}
-		}
-		return xmlHttp;
-	}
 }();

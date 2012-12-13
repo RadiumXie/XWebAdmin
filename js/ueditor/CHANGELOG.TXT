@@ -1,4 +1,49 @@
-﻿Ueditor Change List
+Ueditor Change List
+
+Version 1.2.4
+新增功能
+   . 官网新增API文档
+   . CSS按照UI结构进行了模块化拆分
+   . 新增皮肤切换功能，并提供一套新皮肤（可通过配置项theme来设置）
+   . 新增编辑器容器拖动缩放功能,配置项为:scaleEnabled、minFrameWidth、minFrameHeight
+   . 新增音乐插件
+   . 增加了源码模式下,全屏按钮可以使用
+   . 添加了UE.getEditor工厂方法
+   . 添加了针对jquery配合使用的demo
+   . 添加了针对jqueryValidation配合使用的demo
+   . 添加了初始化编辑器宽高配置，配置为项:initialFrameWidth、initialFrameHeight
+
+优化修复
+   . 修复涂鸦路径在配置时，添加参数时请求报错
+   . 修复涂鸦opera下缩放不能使用
+   . 修复编辑器全屏功能失效问题
+   . codemirror版本升级到最新版
+   . 对opera/safari的支持进行了进一步的优化
+   . 优化了部分demo页的代码
+   . 修改原来的minFrameHeight为拖动时的最小高度
+
+Version 1.2.3
+新增功能
+   . 新增国际化支持
+   . 新增涂鸦功能
+   . 新增大小写功能
+   . 新增getAllHtml方法，可以将整个页面的内容打出来,可以在editor_config.js里通过配置allHtmlEnabled,来配置在提交时是否使用getAllHtml来得到内容
+   . 新增插入模板的功能
+   . 新增背景功能
+   . 新增UE.instants全局对象，下边挂接了所有实例化的编辑器对象
+   . Editor下新增ready方法，当编辑器ready后执行传入的fn,如果编辑器已经ready好了，就马上执行fn
+   . 新增topOffset配置参数，用于设置AutoFloat时工具栏距离顶部的高度
+   . 新增sourceEditorFirst配置参数，用于控制编辑器初始化时是否显示成源码模式，默认为否
+   . 新增在表格内实例化编辑器的demo
+   . 新增getDialog(dialogName)接口，可以获取dialog对象。
+
+优化修复
+   . chrome下会出现alt+tab切换时，导致选区位置不对
+   . focus方法添加参数可以指向到内容末尾
+   . 完全支持opera浏览器
+   . 修复了表格中实例化编辑器时工具栏浮动错位问题
+   . 优化了后台处理文件代码,文件夹按照日期自动生成
+
 
 Version 1.2.2
 1.编辑器不可编辑时，可以配置哪些功能可以使用，例如全屏

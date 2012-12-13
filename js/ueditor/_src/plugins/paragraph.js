@@ -19,7 +19,7 @@ UE.plugins['paragraph'] = function() {
         doParagraph = function(range,style,attrs,sourceCmdName){
             var bookmark = range.createBookmark(),
                 filterFn = function( node ) {
-                    return   node.nodeType == 1 ? node.tagName.toLowerCase() != 'br' &&  !domUtils.isBookmarkNode(node) : !domUtils.isWhitespace( node )
+                    return   node.nodeType == 1 ? node.tagName.toLowerCase() != 'br' &&  !domUtils.isBookmarkNode(node) : !domUtils.isWhitespace( node );
                 },
                 para;
 
@@ -34,7 +34,7 @@ UE.plugins['paragraph'] = function() {
                     while ( current && current !== bookmark2.end && !block( current ) ) {
                         tmpNode = current;
                         current = domUtils.getNextDomNode( current, false, null, function( node ) {
-                            return !block( node )
+                            return !block( node );
                         } );
                     }
                     tmpRange.setEndAfter( tmpNode );
@@ -42,8 +42,9 @@ UE.plugins['paragraph'] = function() {
                     para = range.document.createElement( style );
                     if(attrs){
                         domUtils.setAttributes(para,attrs);
-                        if(sourceCmdName && sourceCmdName == 'customstyle' && attrs.style)
+                        if(sourceCmdName && sourceCmdName == 'customstyle' && attrs.style){
                             para.style.cssText = attrs.style;
+                        }
                     }
                     para.appendChild( tmpRange.extractContents() );
                     //需要内容占位
@@ -71,12 +72,14 @@ UE.plugins['paragraph'] = function() {
                         //trace:1706 选择的就是h1-6要删除
                         if(attrs && /h\d/i.test(parent.tagName) && !/h\d/i.test(para.tagName) ){
                             domUtils.setAttributes(parent,attrs);
-                            if(sourceCmdName && sourceCmdName == 'customstyle' && attrs.style)
+                            if(sourceCmdName && sourceCmdName == 'customstyle' && attrs.style){
                                 parent.style.cssText = attrs.style;
+                            }
                             domUtils.remove(para,true);
                             para = parent;
-                        }else
+                        }else{
                             domUtils.remove( para.parentNode, true );
+                        }
 
                     }
                     if(  utils.indexOf(notExchange,parent.tagName)!=-1){
@@ -93,14 +96,16 @@ UE.plugins['paragraph'] = function() {
             }
             return range.moveToBookmark( bookmark2 ).moveToBookmark( bookmark );
         };
-    me.setOpt('paragraph',['p:段落', 'h1:标题 1', 'h2:标题 2', 'h3:标题 3', 'h4:标题 4', 'h5:标题 5', 'h6:标题 6']);
+    me.setOpt('paragraph',{'p':'', 'h1':'', 'h2':'', 'h3':'', 'h4':'', 'h5':'', 'h6':''});
     me.commands['paragraph'] = {
         execCommand : function( cmdName, style,attrs,sourceCmdName ) {
             var range = new dom.Range(this.document);
             if(this.currentSelectedArr && this.currentSelectedArr.length > 0){
                 for(var i=0,ti;ti=this.currentSelectedArr[i++];){
                     //trace:1079 不显示的不处理，插入文本，空的td也能加上相应的标签
-                    if(ti.style.display == 'none') continue;
+                    if(ti.style.display == 'none'){
+                        continue;
+                    }
                     if(domUtils.isEmptyNode(ti)){
                       
                         var tmpTxt = this.document.createTextNode('paragraph');
@@ -112,7 +117,7 @@ UE.plugins['paragraph'] = function() {
                         var pN = tmpTxt.parentNode;
                         domUtils.remove(tmpTxt);
                         if(domUtils.isEmptyNode(pN)){
-                            domUtils.fillNode(this.document,pN)
+                            domUtils.fillNode(this.document,pN);
                         }
                          
                     }
@@ -124,7 +129,7 @@ UE.plugins['paragraph'] = function() {
                 if(domUtils.isEmptyBlock(td)){
                     range.setStart(td,0).setCursor(false,true);
                 }else{
-                    range.selectNode(td).select()
+                    range.selectNode(td).select();
                 }
 
             }else{
@@ -137,11 +142,11 @@ UE.plugins['paragraph'] = function() {
                     if(browser.ie){
                         var node = txt.previousSibling;
                         if(node && domUtils.isWhitespace(node)){
-                            domUtils.remove(node)
+                            domUtils.remove(node);
                         }
                         node = txt.nextSibling;
                         if(node && domUtils.isWhitespace(node)){
-                            domUtils.remove(node)
+                            domUtils.remove(node);
                         } 
                     }
 
@@ -154,7 +159,7 @@ UE.plugins['paragraph'] = function() {
                     domUtils.remove(txt);
                     
                     if(domUtils.isBlockElm(pN)&&domUtils.isEmptyNode(pN)){
-                        domUtils.fillNode(this.document,pN)
+                        domUtils.fillNode(this.document,pN);
                     }
 
                 }
@@ -162,21 +167,21 @@ UE.plugins['paragraph'] = function() {
                 if(browser.gecko && range.collapsed && range.startContainer.nodeType == 1){
                     var child = range.startContainer.childNodes[range.startOffset];
                     if(child && child.nodeType == 1 && child.tagName.toLowerCase() == style){
-                        range.setStart(child,0).collapse(true)
+                        range.setStart(child,0).collapse(true);
                     }
                 }
                 //trace:1097 原来有true，原因忘了，但去了就不能清除多余的占位符了
-                range.select()
+                range.select();
 
             }
             return true;
         },
         queryCommandValue : function() {
-            var node = utils.findNode(this.selection.getStartElementPath(),['p','h1','h2','h3','h4','h5','h6']);
+            var node = domUtils.filterNodeList(this.selection.getStartElementPath(),'p h1 h2 h3 h4 h5 h6');
             return node ? node.tagName.toLowerCase() : '';
         },
         queryCommandState : function(){
             return this.highlight ? -1 :0;
         }
-    }
+    };
 };

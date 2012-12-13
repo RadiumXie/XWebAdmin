@@ -81,7 +81,7 @@ UE.plugins['formatmatch'] = function(){
                     }else{
 
 
-                        addFormat(range)
+                        addFormat(range);
 
                     }
                 }
@@ -91,7 +91,7 @@ UE.plugins['formatmatch'] = function(){
 
                     }
 
-                    range.select()
+                    range.select();
                 }
                 text && domUtils.remove(text);
             }
@@ -124,7 +124,7 @@ UE.plugins['formatmatch'] = function(){
                range.collapse(true).shrinkBoundary();
                var start = range.startContainer;
                list = domUtils.findParents(start,true,function(node){
-                   return !domUtils.isBlockElm(node) && node.nodeType == 1
+                   return !domUtils.isBlockElm(node) && node.nodeType == 1;
                });
                //a不能加入格式刷, 并且克隆节点
                for(var i=0,ci;ci=list[i];i++){
@@ -148,6 +148,6 @@ UE.plugins['formatmatch'] = function(){
             return flag;
         },
         notNeedUndo : 1
-    }
+    };
 };
 

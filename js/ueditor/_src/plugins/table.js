@@ -22,6 +22,15 @@ UE.plugins['table'] = function () {
             tableOpt,
             _isEmpty = domUtils.isEmptyNode;
 
+    me.ready(function(){
+        utils.cssRule('table',
+            //选中的td上的样式
+            '.selectTdClass{background-color:#3399FF !important;}' +
+                'table.noBorderTable td{border:1px dashed #ddd !important}' +
+                //插入的表格的默认样式
+                'table{clear:both;margin-bottom:10px;border-collapse:collapse;word-break:break-all;}',me.document);
+    });
+
     function getIndex( cell ) {
         var cells = cell.parentNode.cells;
         for ( var i = 0, ci; ci = cells[i]; i++ ) {
@@ -56,7 +65,7 @@ UE.plugins['table'] = function () {
         var count = 0;
         for ( var i = 0, ti; ti = arr[i++]; ) {
             if ( !_isHide( ti ) ) {
-                count++
+                count++;
             }
 
         }
@@ -68,7 +77,7 @@ UE.plugins['table'] = function () {
     me.addListener( 'keydown', function ( type, evt ) {
         var keyCode = evt.keyCode || evt.which;
         if ( !keys[keyCode] && !evt.ctrlKey && !evt.metaKey && !evt.shiftKey && !evt.altKey ) {
-            clearSelectedTd( me.currentSelectedArr )
+            clearSelectedTd( me.currentSelectedArr );
         }
     } );
 
@@ -97,7 +106,7 @@ UE.plugins['table'] = function () {
                         end = domUtils.findParentByTagName( range.endContainer, 'td', true );
                 //在table里边的不能清除
                 if ( start && !end || !start && end || start && end && start !== end ) {
-                    range.collapse( true ).select( true )
+                    range.collapse( true ).select( true );
                 }
             }
 
@@ -140,7 +149,7 @@ UE.plugins['table'] = function () {
             opt = opt || {numRows:5, numCols:5,border:1};
             var html = ['<table ' + (opt.border == "0"  ? ' class="noBorderTable"' : '') + ' _innerCreateTable = "true" '];
             if ( opt.cellSpacing && opt.cellSpacing != '0' || opt.cellPadding && opt.cellPadding != '0' ) {
-                html.push( ' style="border-collapse:separate;" ' )
+                html.push( ' style="border-collapse:separate;" ' );
             }
             opt.cellSpacing && opt.cellSpacing != '0' && html.push( ' cellSpacing="' + opt.cellSpacing + '" ' );
             opt.cellPadding && opt.cellPadding != '0' && html.push( ' cellPadding="' + opt.cellPadding + '" ' );
@@ -153,14 +162,14 @@ UE.plugins['table'] = function () {
             html.push( ' ><tbody>' );
             opt.width = Math.floor( (opt.width || '100') / opt.numCols );
             for ( var i = 0; i < opt.numRows; i++ ) {
-                html.push( '<tr>' )
+                html.push( '<tr>' );
                 for ( var j = 0; j < opt.numCols; j++ ) {
                     html.push( '<td style="width:' + opt.width + (typeof opt.widthUnit == "undefined" ? '%' : opt.widthUnit) + ';'
                             + (opt.borderType == '1' ? 'border:' + opt.border + 'px solid ' + (opt.borderColor || '#000000') : '')
                             + '">'
-                            + (browser.ie ? domUtils.fillChar : '<br/>') + '</td>' )
+                            + (browser.ie ? domUtils.fillChar : '<br/>') + '</td>' );
                 }
-                html.push( '</tr>' )
+                html.push( '</tr>' );
             }
             me.execCommand( 'insertHtml', html.join( '' ) + '</tbody></table>' );
             reset();
@@ -201,17 +210,24 @@ UE.plugins['table'] = function () {
                 opt.height && table.setAttribute( 'height', opt.height + opt.heightUnit );
                 opt.align && table.setAttribute( 'align', opt.align );
                 opt.width && table.setAttribute( 'width', opt.width + opt.widthUnit );
-                opt.bgColor && table.setAttribute( 'bgColor', opt.bgColor );
+                if(opt.bgColor){
+                    table.setAttribute( 'bgColor', opt.bgColor );
+                }else{
+                    domUtils.removeAttributes(table,["bgColor"]);
+                }
                 opt.borderColor && table.setAttribute( 'borderColor', opt.borderColor );
                 table.setAttribute( 'border', opt.border );
-                table.className = opt.border == "0" ? "noBorderTable" : "";
+                if(domUtils.hasClass(table,"noBorderTable")){
+                    domUtils.removeClasses(table,["noBorderTable"]);
+                }
+                domUtils.addClass(table,opt.border == "0" ? " noBorderTable" : "");
 
                 if ( opt.borderType == "1" ) {
                     for ( var i = 0, ti, tds = table.getElementsByTagName( 'td' ); ti = tds[i++]; ) {
-                        ti.style.border = opt.border + 'px solid ' + (opt.borderColor || '#000000')
+                        ti.style.border = opt.border + 'px solid ' + (opt.borderColor || '#000000');
 
                     }
-                    table.setAttribute( 'borderType', '1' )
+                    table.setAttribute( 'borderType', '1' );
                 } else {
                     for ( var i = 0, ti, tds = table.getElementsByTagName( 'td' ); ti = tds[i++]; ) {
                         if ( browser.ie ) {
@@ -219,11 +235,11 @@ UE.plugins['table'] = function () {
 
                         } else {
                             domUtils.removeStyle( ti, 'border' );
-                            domUtils.removeStyle( ti, 'border-image' )
+                            domUtils.removeStyle( ti, 'border-image' );
                         }
 
                     }
-                    table.removeAttribute( 'borderType' )
+                    table.removeAttribute( 'borderType' );
                 }
 
             }
@@ -279,33 +295,6 @@ UE.plugins['table'] = function () {
     };
 
     /**
-     * 添加表格标题
-     */
-    me.commands['addcaption'] = {
-        queryCommandState:function () {
-            if ( this.highlight ) {
-                return -1;
-            }
-            var range = this.selection.getRange();
-            return (domUtils.findParentByTagName( range.startContainer, 'table', true )
-                    && domUtils.findParentByTagName( range.endContainer, 'table', true )) || me.currentSelectedArr.length > 0 ? 0 : -1;
-        },
-        execCommand:function ( cmdName, opt ) {
-
-            var range = this.selection.getRange(),
-                    table = domUtils.findParentByTagName( me.currentSelectedArr.length > 0 ? me.currentSelectedArr[0] : range.startContainer, 'table', true );
-
-            if ( opt == "on" ) {
-                var c = table.createCaption();
-                c.innerHTML = "请在此输入表格标题";
-            } else {
-                table.removeChild( table.caption );
-            }
-        }
-    };
-
-
-    /**
      * 向右合并单元格
      */
     me.commands['mergeright'] = {
@@ -318,7 +307,9 @@ UE.plugins['table'] = function () {
                     td = domUtils.findParentByTagName( start, ['td', 'th'], true );
 
 
-            if ( !td || this.currentSelectedArr.length > 1 )return -1;
+            if ( !td || this.currentSelectedArr.length > 1 ){
+                return -1;
+            }
 
             var tr = td.parentNode;
 
@@ -387,7 +378,9 @@ UE.plugins['table'] = function () {
                     start = range.startContainer,
                     td = domUtils.findParentByTagName( start, 'td', true );
 
-            if ( !td || getCount( me.currentSelectedArr ) > 1 )return -1;
+            if ( !td || getCount( me.currentSelectedArr ) > 1 ){
+                return -1;
+            }
 
 
             var tr = td.parentNode,
@@ -461,7 +454,10 @@ UE.plugins['table'] = function () {
             var range = this.selection.getRange(),
                     start = range.startContainer,
                     td = domUtils.findParentByTagName( start, ['td', 'th'], true );
-            if ( !td && me.currentSelectedArr.length == 0 )return -1;
+            if ( !td && me.currentSelectedArr.length == 0 ){
+                return -1;
+            }
+            return 0;
 
         },
         execCommand:function () {
@@ -479,7 +475,7 @@ UE.plugins['table'] = function () {
                 var count = (td.rowSpan || 1) - 1;
 
                 me.currentSelectedArr.push( td );
-                tr = td.parentNode,
+                tr = td.parentNode;
                         table = tr.parentNode.parentNode;
 
                 rows = table.rows,
@@ -490,7 +486,7 @@ UE.plugins['table'] = function () {
 
                     me.currentSelectedArr.push( rows[rowIndex].cells[cellIndex] );
                     count--;
-                    rowIndex++
+                    rowIndex++;
                 }
             }
 
@@ -561,7 +557,7 @@ UE.plugins['table'] = function () {
 
 
             range.setStart( focusTd, 0 ).setCursor();
-            update( table )
+            update( table );
         }
     };
 
@@ -577,6 +573,7 @@ UE.plugins['table'] = function () {
                     start = range.startContainer,
                     td = domUtils.findParentByTagName( start, ['td', 'th'], true );
             if ( !td && me.currentSelectedArr.length == 0 )return -1;
+            return 0;
         },
         execCommand:function () {
 
@@ -1244,16 +1241,13 @@ UE.plugins['table'] = function () {
      * @param tmpTd
      */
     function _mouseOverEvent( tmpTd ) {
-
-        if ( anchorTd && tmpTd.tagName == "TD" ) {
-
+        //需要判断两个TD是否位于同一个表格内
+        if ( anchorTd && tmpTd.tagName == "TD" && domUtils.findParentByTagName( anchorTd, 'table' ) == domUtils.findParentByTagName( tmpTd, 'table' ) ) {
             me.document.body.style.webkitUserSelect = 'none';
             var table = tmpTd.parentNode.parentNode.parentNode;
             me.selection.getNative()[browser.ie ? 'empty' : 'removeAllRanges']();
             var range = _getCellsRange( anchorTd, tmpTd );
             _toggleSelect( table, range );
-
-
         }
     }
 
@@ -1326,7 +1320,9 @@ UE.plugins['table'] = function () {
                     next.style.clear = 'both';
                 }
             }
-
+            if(!ti.getAttribute('border') && !domUtils.getComputedStyle(ti,'border')){
+                domUtils.addClass(ti,'noBorderTable')
+            }
             ti.removeAttribute( '_innerCreateTable' );
             var tds = domUtils.getElementsByTagName( ti, 'td' ),
                     td, tmpTd;
@@ -1364,7 +1360,14 @@ UE.plugins['table'] = function () {
                                 tj.parentNode.appendChild( td )
                             }
                         } else {
-                            tmpTd = rows[rowIndex + r].children[index];
+                            var row;
+                            if(!rows[rowIndex + r]){
+                               row  = ti.insertRow(rowIndex+r)
+                            }else{
+                               row = rows[rowIndex + r]
+                            }
+
+                            tmpTd = row.children[index];
                             if ( tmpTd ) {
                                 tmpTd.parentNode.insertBefore( td, tmpTd )
                             } else {
@@ -1380,137 +1383,135 @@ UE.plugins['table'] = function () {
 
             }
             var bw = domUtils.getComputedStyle( ti, "border-width" );
-            if ( bw == '0px' || (bw == "" && ti.getAttribute( "border" ) === "0") ) {
-                ti.className = "noBorderTable";
+            if ( bw == '0px' && ti.style.border!="none" || ((bw == ""||bw =="medium") && ti.getAttribute( "border" ) === "0")) { //trace 2377 ie7下获取宽度值为medium
+                domUtils.addClass(ti,"noBorderTable");
             }
-
         }
         me.fireEvent( "afteradjusttable", cont );
     };
+    me.addListener("aftersetcontent",function(){
+        me.adjustTable( me.body );
+    });
 
-//    me.addListener('beforegetcontent',function(){
-//        for(var i=0,ti,ts=me.document.getElementsByTagName('table');ti=ts[i++];){
+//    me.addListener( 'beforegetcontent', function () {
+//        for ( var i = 0, ti, ts = me.document.getElementsByTagName( 'table' ); ti = ts[i++]; ) {
 //            var pN = ti.parentNode;
-//            if(pN && pN.getAttribute('dropdrag')){
-//                domUtils.remove(pN,true)
+//            if ( pN && pN.getAttribute( 'dropdrag' ) ) {
+//                domUtils.remove( pN, true )
 //            }
 //        }
-//    });
+//    } );
 //
-//    me.addListener('aftergetcontent',function(){
-//        if(!me.queryCommandState('source'))
-//            me.fireEvent('afteradjusttable',me.document)
-//    });
+//    me.addListener( 'aftergetcontent', function () {
+//        if ( !me.queryCommandState( 'source' ) )
+//            me.fireEvent( 'afteradjusttable', me.document )
+//    } );
 //    //table拖拽
-//    me.addListener("afteradjusttable",function(type,cont){
-//        var table = cont.getElementsByTagName("table"),
-//            dragCont = me.document.createElement("div");
-//        domUtils.setAttributes(dragCont,{
-//            style:'margin:0;padding:5px;border:0;',
-//            dropdrag:true
-//        });
-//        for (var i = 0,ti; ti = table[i++];) {
-//            if(ti.parentNode && ti.parentNode.nodeType == 1){
+//    me.addListener( "afteradjusttable", function ( type, cont ) {
+//        var table = cont.getElementsByTagName( "table" ),
+//                dragCont = domUtils.createElement( me.document, 'div', {
+//                    style:'margin:0;padding:5px;border:0;',
+//                    dropdrag:true
+//                } );
 //
-//
-//                (function(ti){
-//                    var div = dragCont.cloneNode(false);
-//                    ti.parentNode.insertBefore(div,ti);
-//                    div.appendChild(ti);
+//        for ( var i = 0, ti; ti = table[i++]; ) {
+//            var parentNode = ti.parentNode;
+//            if ( parentNode && parentNode.nodeType == 1 ) {
+//                //插入代码
+//                if ( /syntaxhighlighter/.test( parentNode.className ) ) continue;
+//                (function ( ti ) {
+//                    var div = dragCont.cloneNode( false );
+//                    ti.parentNode.insertBefore( div, ti );
+//                    div.appendChild( ti );
 //                    var borderStyle;
-//                    domUtils.on(div,'mousemove',function(evt){
+//                    domUtils.on( div, 'mousemove', function ( evt ) {
 //                        var tag = evt.srcElement || evt.target;
-//                        if(tag.tagName.toLowerCase()=="div"){
-//                            if(ie && me.body.getAttribute("contentEditable") == 'true')
-//                                me.body.setAttribute("contentEditable","false");
-//                            borderStyle = clickPosition(ti,this,evt)
+//                        if ( tag.tagName.toLowerCase() == "div" ) {
+//                            if ( ie && me.body.getAttribute( "contentEditable" ) == 'true' )
+//                                me.body.setAttribute( "contentEditable", "false" );
+//                            borderStyle = clickPosition( ti, this, evt )
 //
 //                        }
-//                    });
-//                    if(ie){
-//                        domUtils.on(div,'mouseleave',function(evt){
+//                    } );
+//                    if ( ie ) {
+//                        domUtils.on( div, 'mouseleave', function ( evt ) {
 //
-//                            if(evt.srcElement.tagName.toLowerCase()=="div" && ie && me.body.getAttribute("contentEditable") == 'false'){
+//                            if ( domUtils.isTagNode( evt.srcElement, "div" ) && me.body.getAttribute( "contentEditable" ) == 'false' ) {
 //
-//                                me.body.setAttribute("contentEditable","true");
+//                                me.body.setAttribute( "contentEditable", "true" );
 //                            }
 //
 //
-//                        });
+//                        } );
 //                    }
 //
-//                    domUtils.on(div,"mousedown",function(evt){
-//                        var tag = evt.srcElement || evt.target;
+//                    domUtils.on( div, "mousedown", function ( evt ) {
 //
-//                        if(tag.tagName.toLowerCase()=="div"){
-//                            if(ie && me.body.getAttribute("contentEditable") == 'true')
-//                                        me.body.setAttribute("contentEditable","false");
+//                        if ( domUtils.isTagNode( evt.srcElement || evt.target, 'div' ) ) {
+//                            if ( ie && me.body.getAttribute( "contentEditable" ) == 'true' )
+//                                me.body.setAttribute( "contentEditable", "false" );
 //                            var tWidth = ti.offsetWidth,
-//                                tHeight = ti.offsetHeight,
-//                                align = ti.getAttribute('align');
+//                                    tHeight = ti.offsetHeight,
+//                                    align = ti.getAttribute( 'align' );
+//                            try {
+//                                baidu.editor.ui.uiUtils.startDrag( evt, {
+//                                    ondragstart:function () {
+//                                    },
+//                                    ondragmove:function ( x, y ) {
 //
-//
-//                              try{
-//                                  baidu.editor.ui.uiUtils.startDrag(evt, {
-//                                      ondragstart:function(){},
-//                                      ondragmove: function (x, y){
-//
-//                                          if(align && align!="left" && /\w?w-/.test(borderStyle)){
-//                                              x = -x;
-//                                          }
-//                                          if(/^s?[we]/.test(borderStyle)){
-//                                              ti.setAttribute("width",(tWidth+x)>0?tWidth+x: 0);
-//                                          }
-//                                          if(/^s/.test(borderStyle)){
-//                                              ti.setAttribute("height",(tHeight+y)>0?tHeight+y:0);
-//                                          }
-//                                      },
-//                                      ondragstop: function (){}
-//                                  },me.document);
-//                              }catch(e){
-//                                  alert("您没有引入uiUtils，无法拖动table");
-//                              }
+//                                        if ( align && align != "left" && /\w?w-/.test( borderStyle ) ) {
+//                                            x = -x;
+//                                        }
+//                                        if ( /^s?[we]/.test( borderStyle ) ) {
+//                                            ti.setAttribute( "width", (tWidth + x) > 0 ? tWidth + x : 0 );
+//                                        }
+//                                        if ( /^s/.test( borderStyle ) ) {
+//                                            ti.setAttribute( "height", (tHeight + y) > 0 ? tHeight + y : 0 );
+//                                        }
+//                                    },
+//                                    ondragstop:function () {
+//                                    }
+//                                }, me.document );
+//                            } catch ( e ) {
+//                                alert( me.getLang("tableDrag"));
+//                            }
 //
 //                        }
-//                    });
+//                    } );
 //
-//                    domUtils.on(ti,"mouseover",function(){
+//                    domUtils.on( ti, "mouseover", function () {
 //                        var div = ti.parentNode;
-//                        if(div && div.parentNode && div.getAttribute('dropdrag')){
-//                            domUtils.setStyle(div,"cursor","text");
-//                            if(ie && me.body.getAttribute("contentEditable") == 'false')
-//                               me.body.setAttribute("contentEditable","true");
+//                        if ( div && div.parentNode && div.getAttribute( 'dropdrag' ) ) {
+//                            domUtils.setStyle( div, "cursor", "text" );
+//                            if ( ie && me.body.getAttribute( "contentEditable" ) == 'false' )
+//                                me.body.setAttribute( "contentEditable", "true" );
 //                        }
 //
 //
-//                    });
-//                })(ti);
+//                    } );
+//                })( ti );
 //
 //            }
 //        }
-//    });
-//    function clickPosition(table,div,evt){
-//        var pos = domUtils.getXY(table),
-//            tWidth = table.offsetWidth,
-//            tHeight = table.offsetHeight,
-//            evtPos = {
-//                top : evt.clientY,
-//                left : evt.clientX
-//            },
-//            borderStyle = "";
+//    } );
+//    function clickPosition( table, div, evt ) {
+//        var pos = domUtils.getXY( table ),
+//                tWidth = table.offsetWidth,
+//                tHeight = table.offsetHeight,
+//                evtPos = {
+//                    top:evt.clientY,
+//                    left:evt.clientX
+//                },
+//                borderStyle = "";
 //
-//        if(Math.abs(pos.x-evtPos.left)<15){
-//
-//            //左，左下
-//            borderStyle = Math.abs(evtPos.top-pos.y-tHeight)<15 ? "sw-resize" : "w-resize";
-//        }else if(Math.abs(evtPos.left-pos.x-tWidth)<15){
+//        if ( Math.abs( evtPos.left - pos.x - tWidth ) < 15 ) {
 //            //右，右下
-//            borderStyle = Math.abs(evtPos.top-pos.y-tHeight)<15 ? "se-resize" : "e-resize";
-//        }else if(Math.abs(evtPos.top-pos.y-tHeight)<15 && Math.abs(evtPos.left-pos.x)<tWidth){
+//            borderStyle = Math.abs( evtPos.top - pos.y - tHeight ) < 15 ? "se-resize" : "e-resize";
+//        } else if ( Math.abs( evtPos.top - pos.y - tHeight ) < 15 && Math.abs( evtPos.left - pos.x ) < tWidth ) {
 //            //下
 //            borderStyle = "s-resize";
 //        }
-//        domUtils.setStyle(div,"cursor",borderStyle||'text');
+//        domUtils.setStyle( div, "cursor", borderStyle || 'text' );
 //        return borderStyle;
 //    }
 };

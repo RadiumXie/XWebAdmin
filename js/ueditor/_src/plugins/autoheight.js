@@ -9,14 +9,18 @@
 UE.plugins['autoheight'] = function () {
     var me = this;
     //提供开关，就算加载也可以关闭
-    me.autoHeightEnabled = me.options.autoHeightEnabled !== false ;
-    if (!me.autoHeightEnabled)return;
+    me.autoHeightEnabled = me.options.autoHeightEnabled !== false;
+    if (!me.autoHeightEnabled) {
+        return;
+    }
 
     var bakOverflow,
         span, tmpNode,
         lastHeight = 0,
+        options = me.options,
         currentHeight,
         timer;
+
     function adjustHeight() {
         clearTimeout(timer);
         timer = setTimeout(function () {
@@ -30,7 +34,7 @@ UE.plugins['autoheight'] = function () {
                 tmpNode = span.cloneNode(true);
                 me.body.appendChild(tmpNode);
 
-                currentHeight = Math.max(domUtils.getXY(tmpNode).y + tmpNode.offsetHeight, me.options.minFrameHeight);
+                currentHeight = Math.max(domUtils.getXY(tmpNode).y + tmpNode.offsetHeight,Math.max(options.minFrameHeight, options.initialFrameHeight));
 
                 if (currentHeight != lastHeight) {
 
@@ -42,15 +46,18 @@ UE.plugins['autoheight'] = function () {
                 domUtils.remove(tmpNode);
 
             }
-        }, 50)
+        }, 50);
     }
+
     me.addListener('destroy', function () {
         me.removeListener('contentchange', adjustHeight);
         me.removeListener('keyup', adjustHeight);
         me.removeListener('mouseup', adjustHeight);
     });
     me.enableAutoHeight = function () {
-        if(!me.autoHeightEnabled)return;
+        if (!me.autoHeightEnabled) {
+            return;
+        }
         var doc = me.document;
         me.autoHeightEnabled = true;
         bakOverflow = doc.body.style.overflowY;
@@ -78,18 +85,14 @@ UE.plugins['autoheight'] = function () {
         me.enableAutoHeight();
         //trace:1764
         var timer;
-        domUtils.on(browser.ie ? me.body : me.document,browser.webkit ? 'dragover' : 'drop',function(){
+        domUtils.on(browser.ie ? me.body : me.document, browser.webkit ? 'dragover' : 'drop', function () {
             clearTimeout(timer);
-            timer = setTimeout(function(){
-                adjustHeight()
-            },100)
+            timer = setTimeout(function () {
+                adjustHeight();
+            }, 100);
 
         });
     });
-
-
-
-
 
 
 };

@@ -10,29 +10,10 @@ UE.plugins = {};
 
 UE.commands = {};
 
-//UE.defaultplugins = {};
-//
-//UE.commands = function(){
-//    var commandList = {},tmpList= {};
-//    return {
-//
-//        register : function(commandsName,pluginName){
-//            commandsName = commandsName.split(',');
-//            for(var i= 0,ci;ci=commandsName[i++];){
-//                commandList[ci] = pluginName;
-//            }
-//
-//        },
-//        get : function(commandName){
-//            return commandList[commandName];
-//        },
-//        getList : function(){
-//            return commandList;
-//        }
-//    }
-//}();
+UE.instants = {};
 
+UE.I18N = {};
 
-UE.version = "1.2.2.0";
+UE.version = "1.2.4.0";
 
 var dom = UE.dom = {};

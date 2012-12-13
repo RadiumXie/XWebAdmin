@@ -135,7 +135,7 @@
                 }
             }
             if (src.className) {
-                tgt.className += ' ' + src.className;
+                domUtils.addClass(tgt,src.className);
             }
             if (src.style.cssText) {
                 tgt.style.cssText += ';' + src.style.cssText;
@@ -178,6 +178,7 @@
                 doc.addEventListener('mousemove', handleMouseMove, true);
                 doc.addEventListener('mouseup', handleMouseUp, true);
                 window.addEventListener('mouseup', handleMouseUp, true);
+
                 evt.preventDefault();
             } else {
                 var elm = evt.srcElement;

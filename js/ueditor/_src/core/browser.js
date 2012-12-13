@@ -1,116 +1,99 @@
-///import editor.js
 /**
- * @class baidu.editor.browser     判断浏览器
+ * @file
+ * @name UE.browser
+ * @short Browser
+ * @desc UEditor中采用的浏览器判断模块
  */
-
 var browser = UE.browser = function(){
     var agent = navigator.userAgent.toLowerCase(),
         opera = window.opera,
         browser = {
         /**
          * 检测浏览器是否为IE
-         * @name baidu.editor.browser.ie
-         * @property    检测浏览器是否为IE
-         * @grammar     baidu.editor.browser.ie
-         * @return     {Boolean}    返回是否为ie浏览器
+         * @name ie
+         * @grammar UE.browser.ie  => true|false
          */
         ie		: !!window.ActiveXObject,
 
         /**
          * 检测浏览器是否为Opera
-         * @name baidu.editor.browser.opera
-         * @property    检测浏览器是否为Opera
-         * @grammar     baidu.editor.browser.opera
-         * @return     {Boolean}    返回是否为opera浏览器
+         * @name opera
+         * @grammar UE.browser.opera  => true|false
          */
         opera	: ( !!opera && opera.version ),
 
         /**
-         * 检测浏览器是否为WebKit内核
-         * @name baidu.editor.browser.webkit
-         * @property    检测浏览器是否为WebKit内核
-         * @grammar     baidu.editor.browser.webkit
-         * @return     {Boolean}    返回是否为WebKit内核
+         * 检测浏览器是否为webkit内核
+         * @name webkit
+         * @grammar UE.browser.webkit  => true|false
          */
         webkit	: ( agent.indexOf( ' applewebkit/' ) > -1 ),
 
         /**
-         * 检查是否为Macintosh系统
-         * @name baidu.editor.browser.mac
-         * @property    检查是否为Macintosh系统
-         * @grammar     baidu.editor.browser.mac
-         * @return     {Boolean}    返回是否为Macintosh系统
+         * 检测浏览器是否为mac系统下的浏览器
+         * @name mac
+         * @grammar UE.browser.mac  => true|false
          */
         mac	: ( agent.indexOf( 'macintosh' ) > -1 ),
 
         /**
-         * 检查浏览器是否为quirks模式
-         * @name baidu.editor.browser.quirks
-         * @property    检查浏览器是否为quirks模式
-         * @grammar     baidu.editor.browser.quirks
-         * @return     {Boolean}    返回是否为quirks模式
+         * 检测浏览器是否处于怪异模式
+         * @name quirks
+         * @grammar UE.browser.quirks  => true|false
          */
         quirks : ( document.compatMode == 'BackCompat' )
     };
-
     /**
-     * 检测浏览器是否为Gecko内核，如Firefox
-     * @name baidu.editor.browser.gecko
-     * @property    检测浏览器是否为Gecko内核
-     * @grammar     baidu.editor.browser.gecko
-     * @return     {Boolean}    返回是否为Gecko内核
+     * 检测浏览器是否处为gecko内核
+     * @name gecko
+     * @grammar UE.browser.gecko  => true|false
      */
-    browser.gecko = ( navigator.product == 'Gecko' && !browser.webkit && !browser.opera );
+    browser.gecko =( navigator.product == 'Gecko' && !browser.webkit && !browser.opera );
 
     var version = 0;
 
     // Internet Explorer 6.0+
-    if ( browser.ie )
-    {
+    if ( browser.ie ){
         version = parseFloat( agent.match( /msie (\d+)/ )[1] );
-
+        /**
+         * 检测浏览器是否为 IE9 模式
+         * @name ie9Compat
+         * @grammar UE.browser.ie9Compat  => true|false
+         */
+        browser.ie9Compat = document.documentMode == 9;
         /**
          * 检测浏览器是否为 IE8 浏览器
-         * @name baidu.editor.browser.IE8
-         * @property    检测浏览器是否为 IE8 浏览器
-         * @grammar     baidu.editor.browser.IE8
-         * @return     {Boolean}    返回是否为 IE8 浏览器
+         * @name ie8
+         * @grammar     UE.browser.ie8  => true|false
          */
         browser.ie8 = !!document.documentMode;
 
         /**
          * 检测浏览器是否为 IE8 模式
-         * @name baidu.editor.browser.ie8Compat
-         * @property    检测浏览器是否为 IE8 模式
-         * @grammar     baidu.editor.browser.ie8Compat
-         * @return     {Boolean}    返回是否为 IE8 模式
+         * @name ie8Compat
+         * @grammar     UE.browser.ie8Compat  => true|false
          */
         browser.ie8Compat = document.documentMode == 8;
 
         /**
          * 检测浏览器是否运行在 兼容IE7模式
-         * @name baidu.editor.browser.ie7Compat
-         * @property    检测浏览器是否为兼容IE7模式
-         * @grammar     baidu.editor.browser.ie7Compat
-         * @return     {Boolean}    返回是否为兼容IE7模式
+         * @name ie7Compat
+         * @grammar     UE.browser.ie7Compat  => true|false
          */
         browser.ie7Compat = ( ( version == 7 && !document.documentMode )
                 || document.documentMode == 7 );
 
         /**
          * 检测浏览器是否IE6模式或怪异模式
-         * @name baidu.editor.browser.ie6Compat
-         * @property    检测浏览器是否IE6 模式或怪异模式
-         * @grammar     baidu.editor.browser.ie6Compat
-         * @return     {Boolean}    返回是否为IE6 模式或怪异模式
+         * @name ie6Compat
+         * @grammar     UE.browser.ie6Compat  => true|false
          */
         browser.ie6Compat = ( version < 7 || browser.quirks );
 
     }
 
     // Gecko.
-    if ( browser.gecko )
-    {
+    if ( browser.gecko ){
         var geckoRelease = agent.match( /rv:([\d\.]+)/ );
         if ( geckoRelease )
         {
@@ -120,20 +103,16 @@ var browser = UE.browser = function(){
     }
     /**
      * 检测浏览器是否为chrome
-     * @name baidu.editor.browser.chrome
-     * @property    检测浏览器是否为chrome
-     * @grammar     baidu.editor.browser.chrome
-     * @return     {Boolean}    返回是否为chrome浏览器
+     * @name chrome
+     * @grammar     UE.browser.chrome  => true|false
      */
     if (/chrome\/(\d+\.\d)/i.test(agent)) {
         browser.chrome = + RegExp['\x241'];
     }
     /**
      * 检测浏览器是否为safari
-     * @name baidu.editor.browser.safari
-     * @property    检测浏览器是否为safari
-     * @grammar     baidu.editor.browser.safari
-     * @return     {Boolean}    返回是否为safari浏览器
+     * @name safari
+     * @grammar     UE.browser.safari  => true|false
      */
     if(/(\d+\.\d)?(?:\.\d)?\s+safari\/?(\d+\.\d+)?/i.test(agent) && !/chrome/i.test(agent)){
     	browser.safari = + (RegExp['\x241'] || RegExp['\x242']);
@@ -149,28 +128,27 @@ var browser = UE.browser = function(){
         version = parseFloat( agent.match( / applewebkit\/(\d+)/ )[1] );
 
     /**
-     * 浏览器版本
-     *
-     * gecko内核浏览器的版本会转换成这样(如 1.9.0.2 -> 10900).
-     *
-     * webkit内核浏览器版本号使用其build号 (如 522).
-     * @name baidu.editor.browser.version
-     * @grammar     baidu.editor.browser.version
-     * @return     {Boolean}    返回浏览器版本号
+     * 浏览器版本判断
+     * IE系列返回值为5,6,7,8,9,10等
+     * gecko系列会返回10900，158900等.
+     * webkit系列会返回其build号 (如 522等).
+     * @name version
+     * @grammar     UE.browser.version  => number
      * @example
-     * if ( baidu.editor.browser.ie && <b>baidu.editor.browser.version</b> <= 6 )
-     *     alert( "Ouch!" );
+     * if ( UE.browser.ie && UE.browser.version == 6 ){
+     *     alert( "Ouch!居然是万恶的IE6!" );
+     * }
      */
     browser.version = version;
 
     /**
      * 是否是兼容模式的浏览器
-     * @name baidu.editor.browser.isCompatible
-     * @grammar     baidu.editor.browser.isCompatible
-     * @return     {Boolean}    返回是否是兼容模式的浏览器
+     * @name isCompatible
+     * @grammar  UE.browser.isCompatible  => true|false
      * @example
-     * if ( baidu.editor.browser.isCompatible )
-     *     alert( "Your browser is pretty cool!" );
+     * if ( UE.browser.isCompatible ){
+     *     alert( "你的浏览器相当不错哦！" );
+     * }
      */
     browser.isCompatible =
         !browser.mobile && (
@@ -185,4 +163,5 @@ var browser = UE.browser = function(){
 //快捷方式
 var ie = browser.ie,
     webkit = browser.webkit,
-    gecko = browser.gecko;
+    gecko = browser.gecko,
+    opera = browser.opera;

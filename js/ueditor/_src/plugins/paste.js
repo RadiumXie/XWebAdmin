@@ -44,7 +44,7 @@
                 
                 for(var i=0,pastebins = doc.querySelectorAll('#baidu_pastebin'),pi;pi=pastebins[i++];){
                     if(domUtils.isEmptyNode(pi)){
-                        domUtils.remove(pi)
+                        domUtils.remove(pi);
                     }else{
                         pastebin = pi;
                         break;
@@ -89,7 +89,7 @@
                     var nodes = domUtils.getElementsByTagName(div,'span');
                     for(var i=0,ni;ni=nodes[i++];){
                         if(ni.id == '_baidu_cut_start' || ni.id == '_baidu_cut_end'){
-                            domUtils.remove(ni)
+                            domUtils.remove(ni);
                         }
                     }
 
@@ -101,7 +101,7 @@
                             if(pN.tagName == 'DIV' && pN.childNodes.length ==1){
                                 pN.innerHTML = '<p><br/></p>';
                                 
-                                domUtils.remove(pN)
+                                domUtils.remove(pN);
                             }
                         }
                         var divs = div.querySelectorAll('#baidu_pastebin');
@@ -109,9 +109,9 @@
                             var tmpP = me.document.createElement('p');
                             di.parentNode.insertBefore(tmpP,di);
                             while(di.firstChild){
-                                tmpP.appendChild(di.firstChild)
+                                tmpP.appendChild(di.firstChild);
                             }
-                            domUtils.remove(di)
+                            domUtils.remove(di);
                         }
 
 
@@ -124,19 +124,19 @@
                         var brs = div.querySelectorAll('br');
                         for(i=0;ci=brs[i++];){
                             if(/^apple-/.test(ci)){
-                                domUtils.remove(ci)
+                                domUtils.remove(ci);
                             }
                         }
 
                     }
                     if(browser.gecko){
-                        var dirtyNodes = div.querySelectorAll('[_moz_dirty]')
+                        var dirtyNodes = div.querySelectorAll('[_moz_dirty]');
                         for(i=0;ci=dirtyNodes[i++];){
-                            ci.removeAttribute( '_moz_dirty' )
+                            ci.removeAttribute( '_moz_dirty' );
                         }
                     }
                     if(!browser.ie ){
-                        var spans = div.querySelectorAll('span.apple-style-span');
+                        var spans = div.querySelectorAll('span.Apple-style-span');
                         for(var i=0,ci;ci=spans[i++];){
                             domUtils.remove(ci,true);
                         }
@@ -159,7 +159,7 @@
                             //纯文本模式也要保留段落
                             node = f.filter(node,pasteplain ? {
                                 whiteList: {
-                                    'p': {'br':1,'BR':1},
+                                    'p': {'br':1,'BR':1,$:{}},
                                     'br':{'$':{}},
                                     'div':{'br':1,'BR':1,'$':{}},
                                     'li':{'$':{}},
@@ -182,7 +182,7 @@
                                     length = node.children.length;
                                 }
                             }
-                            html = f.toHTML(node,pasteplain)
+                            html = f.toHTML(node,pasteplain);
 
                         }catch(e){}
 
@@ -206,24 +206,27 @@
 
                 var range = me.selection.getRange();
                 if(!range.collapsed && me.undoManger){
-                    me.undoManger.save()
+                    me.undoManger.save();
                 }
        
             });
             //ie下beforepaste在点击右键时也会触发，所以用监控键盘才处理
-                domUtils.on(me.body, browser.ie ? 'keydown' : 'paste',function(e){
-                    if(browser.ie && (!e.ctrlKey || e.keyCode != '86'))
+                domUtils.on(me.body, browser.ie || browser.opera ? 'keydown' : 'paste',function(e){
+
+                    if((browser.ie || browser.opera) && (!e.ctrlKey || e.keyCode != '86')){
                         return;
+                    }
+
                     getClipboardData.call( me, function( div ) {
                         filter(div);
                     } );
 
 
-                })
+                });
 
         });
 
-    }
+    };
 
 })();
 

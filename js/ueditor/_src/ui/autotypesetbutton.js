@@ -72,7 +72,8 @@
                     btn = cont.getElementsByTagName('button')[0];
                 btn.onclick = function(){
                     getPara(popupUI);
-                    me.editor.execCommand('autotypeset')
+                    me.editor.execCommand('autotypeset');
+                    popupUI.hide()
                 };
                 flag = 1;
             });

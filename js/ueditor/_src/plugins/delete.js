@@ -7,6 +7,7 @@
  * @function
  * @name baidu.editor.execCommand
  * @param  {String}    cmdName    delete删除
+ * @author zhanyi
  */
 UE.commands['delete'] = {
     execCommand : function (){
@@ -27,15 +28,16 @@ UE.commands['delete'] = {
         if(me.currentSelectedArr && me.currentSelectedArr.length > 0){
             for(var i=0,ci;ci=me.currentSelectedArr[i++];){
                 if(ci.style.display != 'none'){
-                    ci.innerHTML = browser.ie ? domUtils.fillChar : '<br/>'
+                    ci.innerHTML = browser.ie ? domUtils.fillChar : '<br/>';
                 }
 
             }
             range.setStart(me.currentSelectedArr[0],0).setCursor();
             return;
         }
-        if(range.collapsed)
+        if(range.collapsed){
             return;
+        }
         range.txtToElmBoundary();
         //&& !domUtils.isBlockElm(range.startContainer)
         while(!range.startOffset &&  !domUtils.isBody(range.startContainer) &&  !dtd.$tableContent[range.startContainer.tagName] ){
@@ -43,12 +45,15 @@ UE.commands['delete'] = {
             range.setStartBefore(range.startContainer);
         }
         //&& !domUtils.isBlockElm(range.endContainer)
-        while(!domUtils.isBody(range.endContainer)&&  !dtd.$tableContent[range.endContainer.tagName]  ){
+        //不对文本节点进行操作
+        //trace:2428
+        while(range.endContainer.nodeType != 3 && !domUtils.isBody(range.endContainer)&&  !dtd.$tableContent[range.endContainer.tagName]  ){
             var child,endContainer = range.endContainer,endOffset = range.endOffset;
 //                if(endContainer.nodeType == 3 &&  endOffset == endContainer.nodeValue.length){
 //                    range.setEndAfter(endContainer);
 //                    continue;
 //                }
+
             child = endContainer.childNodes[endOffset];
             if(!child || domUtils.isBr(child) && endContainer.lastChild === child){
                 range.setEndAfter(endContainer);
@@ -61,14 +66,14 @@ UE.commands['delete'] = {
             var start = me.document.createElement('span');
             start.innerHTML = 'start';
             start.id = '_baidu_cut_start';
-            range.insertNode(start).setStartBefore(start)
+            range.insertNode(start).setStartBefore(start);
         }
         if(mEnd){
             var end = me.document.createElement('span');
             end.innerHTML = 'end';
             end.id = '_baidu_cut_end';
             range.cloneRange().collapse(false).insertNode(end);
-            range.setEndAfter(end)
+            range.setEndAfter(end);
 
         }
 
@@ -81,10 +86,10 @@ UE.commands['delete'] = {
             me.body.innerHTML = '<p>'+(browser.ie?'':'<br/>')+'</p>';
             range.setStart(me.body.firstChild,0).collapse(true);
         }else if ( !browser.ie && domUtils.isEmptyBlock(range.startContainer)){
-            range.startContainer.innerHTML = '<br/>'
+            range.startContainer.innerHTML = '<br/>';
         }
 
-        range.select(true)
+        range.select(true);
     },
     queryCommandState : function(){
 
