@@ -41,41 +41,43 @@ jQuery(function(){
 	$('#sidebar').toggleMenu();
 
 	setInterval(function(){
-		$('header#header').css('backgroundPositionX','+=1px');
+		$('header#header').css('backgroundPositionX','-=1px');
 	},50);
 
     //显示隐藏左侧菜单。隐藏左侧菜单时，自动放大右侧内容区域。
     $('#toggleMenu').toggle(function(){
+        var time = 500;
         $('section#secondary_bar .user').animate({
             left:'-18%'
-        },1000);
+        },time);
         $('aside#sidebar').animate({
             left:'-18%'
-        },1000);
+        },time);
         $('section#main').animate({
             left:'0%',
             width:'100%'
-        },1000);
+        },time);
         $('section#secondary_bar .breadcrumbs_container').animate({
             left:'0%',
             width:'100%'
-        },1000);
+        },time);
         $(this).attr('class','icon-chevron-right');
     },function(){
+        var time = 500;
         $('section#secondary_bar .user').animate({
             left:'0%'
-        },1000);
+        },time);
         $('aside#sidebar').animate({
             left:'0%'
-        },1000);
+        },time);
         $('section#main').animate({
             left:'18%',
             width:'82%'
-        },1000);
+        },time);
         $('section#secondary_bar .breadcrumbs_container').animate({
             left:'18%',
             width:'82%'
-        },1000);
+        },time);
         $(this).attr('class','icon-chevron-left');
     });
 });
