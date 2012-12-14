@@ -22,19 +22,7 @@ jQuery(function(){
 	
 	//日期控件
 	try{
-		$('input.DatePicker').DatePicker({
-			date: $(this).val(),
-			current: $(this).val(),
-			starts: 1,
-			position: 'r',
-			onBeforeShow: function(){
-				//$(this).DatePickerSetDate($(this).val(), true);
-			},
-			onChange: function(formated, dates,element){
-				$(element).val(formated);
-				//$(element).DatePickerHide();
-			}	
-		});
+		$('input.datePicker').datepicker();
 	}catch(error){}
 	
 	try{

@@ -10,7 +10,7 @@
   	<script src="js/jquery-1.7.2.min.js" ></script>
     
     <link rel="stylesheet" media="screen" type="text/css" href="js/datepicker/css/datepicker.css" />
-    <script src="js/datepicker/datepicker.min.js" ></script>
+    <script src="js/datepicker/js/bootstrap-datepicker.js" ></script>
     
     <link rel="stylesheet" type="text/css" media="screen" href="js/jqueryui/css/custom-theme/jquery-ui-1.8.21.custom.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="js/jqgrid/css/ui.jqgrid.css" />
@@ -36,7 +36,7 @@
 					{name:'total',index:'total', width:80,align:"right"},		
 					{name:'note',index:'note', width:150, sortable:false}		
 				]
-			});	
+			});
 		});
 	</script>
 </head>
@@ -109,7 +109,7 @@
                             <label for="name">姓名：</label><input id="name" class="input-small" />
                             <label for="name">姓名：</label><input id="name" class="input-small" />
                             <label for="sex">性别：</label><select id="sex"><option>不限制</option><option value="女">女</option><option value="男">男</option></select>
-                            <label for="birthday">生日：</label><input class="DatePicker" name="birthday" id="birthday"/>
+                            <label for="birthday">生日：</label><input class="datePicker input-small" name="birthday" id="birthday" data-date-viewmode="years" data-date-format="yyyy-mm-dd"/>
                             <input type="button" class="btn" value="查询" />
                         </form>
                     </div>
