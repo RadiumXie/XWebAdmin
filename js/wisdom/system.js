@@ -43,18 +43,39 @@ jQuery(function(){
 	setInterval(function(){
 		$('header#header').css('backgroundPositionX','+=1px');
 	},50);
-    //双击User标题栏，隐藏左侧窗口。
+
+    //显示隐藏左侧菜单。隐藏左侧菜单时，自动放大右侧内容区域。
     $('#toggleMenu').toggle(function(){
+        $('section#secondary_bar .user').animate({
+            left:'-18%'
+        },1000);
+        $('aside#sidebar').animate({
+            left:'-18%'
+        },1000);
+        $('section#main').animate({
+            left:'0%',
+            width:'100%'
+        },1000);
+        $('section#secondary_bar .breadcrumbs_container').animate({
+            left:'0%',
+            width:'100%'
+        },1000);
         $(this).attr('class','icon-chevron-right');
-        $('section#secondary_bar .user').hide();
-        $('aside#sidebar').hide();
-        $('section#main').width('100%');
-        $('section#secondary_bar .breadcrumbs_container').width('100%');
     },function(){
+        $('section#secondary_bar .user').animate({
+            left:'0%'
+        },1000);
+        $('aside#sidebar').animate({
+            left:'0%'
+        },1000);
+        $('section#main').animate({
+            left:'18%',
+            width:'82%'
+        },1000);
+        $('section#secondary_bar .breadcrumbs_container').animate({
+            left:'18%',
+            width:'82%'
+        },1000);
         $(this).attr('class','icon-chevron-left');
-        $('section#secondary_bar .user').show();
-        $('aside#sidebar').show();
-        $('section#main').width('82%');
-        $('section#secondary_bar .breadcrumbs_container').width('82%');
     });
 });
